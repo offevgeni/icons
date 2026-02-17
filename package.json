@@ -1,0 +1,32 @@
+{
+  "name": "@offevgeni/icons",
+  "version": "1.0.0",
+  "type": "module",
+  "svelte": "./src/index.js",
+  "main": "./src/index.js",
+  "exports": {
+    ".": {
+      "svelte": "./src/index.js",
+      "default": "./src/index.js"
+    }
+  },
+  "files": [
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/offevgeni/icons.git"
+  },
+  "scripts": {
+    "build": "node scripts/build.js",
+    "dev": "node scripts/dev.js",
+    "watch": "node scripts/watch.js",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "svelte": "^5.0.0"
+  },
+  "devDependencies": {
+    "chokidar": "^3.5.3"
+  }
+}
