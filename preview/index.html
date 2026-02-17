@@ -175,7 +175,7 @@
     <div class="toolbar-brand">
       <span>📦</span><span>Иконки</span>
       <span class="badge" id="countBadge">11</span>
-      <span class="badge-version" id="versionBadge" onclick="togglePublish()" title="Публикация">v1.2.13</span>
+      <span class="badge-version" id="versionBadge" onclick="togglePublish()" title="Публикация">v1.2.14</span>
     </div>
     <div class="search-wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -238,7 +238,7 @@
         <h3>📤 Опубликовать</h3>
         <div class="publish-row">
           <span class="publish-label">Текущая:</span>
-          <strong id="currentVersion">1.2.13</strong>
+          <strong id="currentVersion">1.2.14</strong>
         </div>
         <div class="publish-row">
           <span class="publish-label">Тип версии:</span>
@@ -526,11 +526,11 @@
         <button class="delete" onclick="del('user')" title="Удалить">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
-        <div class="preview"><svg viewBox="0 0 24 24"><path d="M21 20a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2 8 8 0 0 1 1.79-5 2 2 0 0 1 2.67-.39 8.07 8.07 0 0 0 9.07 0 2 2 0 0 1 2.68.39A8 8 0 0 1 21 20m-9-6a6 6 0 1 0-6-6 6 6 0 0 0 6 6"/></svg></div>
+        <div class="preview"><svg xml:space="preserve" viewBox="-4.55 -4.55 54.64 54.64"><path d="M22.766.001C10.194.001 0 10.193 0 22.766s10.193 22.765 22.766 22.765c12.574 0 22.766-10.192 22.766-22.765S35.34.001 22.766.001m0 6.807a7.53 7.53 0 1 1 .001 15.06 7.53 7.53 0 0 1-.001-15.06m-.005 32.771a16.7 16.7 0 0 1-10.88-4.012 3.2 3.2 0 0 1-1.126-2.439c0-4.217 3.413-7.592 7.631-7.592h8.762c4.219 0 7.619 3.375 7.619 7.592a3.2 3.2 0 0 1-1.125 2.438 16.7 16.7 0 0 1-10.881 4.013"/></svg></div>
         <div class="name-row">
           <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'user')">user</span>
         </div>
-        <div class="meta">◼ fill · 0 0 24 24</div>
+        <div class="meta">◼ fill · 0 0 45.532 45.532</div>
         <div class="actions">
           <button class="copy-btn" onclick="copyImport('User')" title="Скопировать import">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
@@ -566,7 +566,7 @@
 
 <script>
 const PKG = '@offevgeni/icons';
-const CURRENT_VERSION = '1.2.13';
+const CURRENT_VERSION = '1.2.14';
 let selectedBump = 'patch';
 let selectedCards = new Set();
 let modalCallback = null;
