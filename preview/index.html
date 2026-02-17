@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Библиотека иконок — 13 шт.</title>
+<title>Библиотека иконок — 14 шт.</title>
 <style>
   :root {
     --bg: #f8f9fa; --bg-card: #ffffff; --bg-input: #ffffff;
@@ -401,8 +401,8 @@
     <div class="toolbar-inner">
       <div class="toolbar-brand">
         <span>📦</span><span>Иконки</span>
-        <span class="badge" id="countBadge">13</span>
-        <span class="badge-version" id="versionBadge" onclick="togglePublish()" title="Нажмите для публикации">v1.2.4</span>
+        <span class="badge" id="countBadge">14</span>
+        <span class="badge-version" id="versionBadge" onclick="togglePublish()" title="Нажмите для публикации">v1.2.5</span>
       </div>
       <div class="search-wrap">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -496,7 +496,7 @@
           </div>
           <div class="publish-row">
             <div class="code-block" style="flex:1;" onclick="copyText(this.querySelector('code').textContent)">
-              <code>"@offevgeni/icons": "^1.2.4"</code>
+              <code>"@offevgeni/icons": "^1.2.5"</code>
               <span class="copy-hint">скопировать</span>
             </div>
           </div>
@@ -511,7 +511,7 @@
           </div>
           <div class="publish-row">
             <span class="publish-label">Текущая:</span>
-            <strong id="currentVersion">1.2.4</strong>
+            <strong id="currentVersion">1.2.5</strong>
           </div>
           <div class="publish-row">
             <span class="publish-label">Тип версии:</span>
@@ -578,7 +578,7 @@
 
     
     <div class="info-bar">
-      <div class="chip">📊 <strong>13</strong> иконок</div>
+      <div class="chip">📊 <strong>14</strong> иконок</div>
       <div class="chip"><kbd class="kbd">Shift</kbd> + клик — выделение нескольких</div>
       <div class="chip"><kbd class="kbd">⌘K</kbd> поиск</div>
       <div class="chip">🖱️ Двойной клик по имени — переименовать</div>
@@ -861,6 +861,29 @@
           </button>
         </div>
       </div>
+      <div class="card" data-name="time Time" data-component="Time" data-kebab="time">
+        <button class="delete" onclick="del('time')" title="Удалить">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="preview"><svg fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12m9.828-5.243a1 1 0 0 1 1 1v4.968l3.527 1.34a1 1 0 1 1-.71 1.87l-4.172-1.586a1 1 0 0 1-.645-.935V7.757a1 1 0 0 1 1-1" clip-rule="evenodd"/></svg></div>
+        <div class="name-row">
+          <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'time')">time</span>
+        </div>
+        <div class="meta">0 0 24 24</div>
+        <div class="actions">
+          <button class="copy-btn" onclick="copyImport('Time')" title="Скопировать import">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Import
+          </button>
+          <button class="copy-btn" onclick="copyComponent('Time')" title="Скопировать тег">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Тег
+          </button>
+          <button class="copy-btn" onclick="downloadSvg('time')" title="Скачать SVG">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </button>
+        </div>
+      </div>
       <div class="card" data-name="user User" data-component="User" data-kebab="user">
         <button class="delete" onclick="del('user')" title="Удалить">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -905,7 +928,7 @@
 
 <script>
 const PKG = '@offevgeni/icons';
-const CURRENT_VERSION = '1.2.4';
+const CURRENT_VERSION = '1.2.5';
 let selectedBump = 'patch';
 let selectedCards = new Set();
 let modalCallback = null;

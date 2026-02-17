@@ -11,6 +11,7 @@
   import Pet from './icons/Pet.svelte';
   import Plus from './icons/Plus.svelte';
   import Shield from './icons/Shield.svelte';
+  import Time from './icons/Time.svelte';
   import User from './icons/User.svelte';
 
   const iconMap = {
@@ -26,6 +27,7 @@
     'pet': Pet,
     'plus': Plus,
     'shield': Shield,
+    'time': Time,
     'user': User
   };
 

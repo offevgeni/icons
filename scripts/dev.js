@@ -82,6 +82,29 @@ function getGitBranch() {
     catch { return 'main'; }
 }
 
+async function gitPublish(commitMsg, newVersion) {
+    const branch = getGitBranch();
+
+    // Если идёт незавершённый rebase — прерываем
+    const rebaseDir = path.join(ROOT, '.git', 'rebase-merge');
+    const rebaseApply = path.join(ROOT, '.git', 'rebase-apply');
+    if (fs.existsSync(rebaseDir) || fs.existsSync(rebaseApply)) {
+        try { await runCmd('git rebase --abort'); } catch {}
+        console.log('  🔄 Прерван незавершённый rebase');
+    }
+
+    // Коммитим всё
+    await runCmd('git add -A');
+    await runCmd(`git commit -m "${commitMsg}" --allow-empty`);
+    await runCmd(`git tag v${newVersion}`);
+    console.log('  📌 Git-коммит и тег созданы');
+
+    // Force push — локальная версия всегда главная
+    await runCmd(`git push origin ${branch} --force`);
+    await runCmd('git push origin --tags --force');
+    console.log('  ⬆️  Отправлено в удалённый репозиторий');
+}
+
 // Watcher
 let watchTimeout;
 function setupWatcher() {
@@ -195,68 +218,21 @@ const server = http.createServer(async (req, res) => {
             fs.writeFileSync(PKG_PATH, JSON.stringify(p, null, 2) + '\n');
             console.log(`  📝 Версия обновлена: ${newVersion}`);
 
-            const hasGit = checkGit();
-            if (hasGit) {
+            if (checkGit()) {
                 try {
-                    // Прячем несохранённые изменения если есть
-                    let stashed = false;
-                    try {
-                        const status = await runCmd('git status --porcelain');
-                        if (status) {
-                            await runCmd('git stash');
-                            stashed = true;
-                        }
-                    } catch {}
-
-                    // Синхронизируемся с remote
-                    try {
-                        await runCmd('git push --follow-tags');
-                        console.log('  ⬆️  Отправлено в удалённый репозиторий');
-                    } catch (e) {
-                        try {
-                            const branch = getGitBranch();
-                            await runCmd(`git push --force-with-lease origin ${branch} --follow-tags`);
-                            console.log('  ⬆️  Отправлено (force-with-lease)');
-                        } catch (e2) {
-                            console.warn('  ⚠️  Не удалось отправить:', e2.message);
-                        }
-                    }
-
-                    // Возвращаем спрятанные изменения
-                    if (stashed) {
-                        try { await runCmd('git stash pop'); } catch {}
-                    }
-
-                    // Коммитим и тегируем
-                    await runCmd('git add -A');
-                    await runCmd(`git commit -m "${commitMsg}" --allow-empty`);
-                    await runCmd(`git tag v${newVersion}`);
-                    console.log('  📌 Git-коммит и тег созданы');
-
-                    // Пушим
-                    try {
-                        await runCmd('git push --follow-tags');
-                        console.log('  ⬆️  Отправлено в удалённый репозиторий');
-                    } catch (e) {
-                        // Если обычный push отклонён — форсируем
-                        try {
-                            await runCmd('git push --force-with-lease --follow-tags');
-                            console.log('  ⬆️  Отправлено (force-with-lease)');
-                        } catch (e2) {
-                            console.warn('  ⚠️  Не удалось отправить:', e2.message);
-                        }
-                    }
-                } catch (e) { console.warn('  ⚠️  Git-ошибка:', e.message); }
+                    await gitPublish(commitMsg, newVersion);
+                } catch (e) {
+                    console.warn('  ⚠️  Git-ошибка:', e.message);
+                }
             }
 
             console.log('  📤 Публикация в npm...');
-            let publishOutput;
             try {
-                publishOutput = await runCmd('npm publish --access public');
+                await runCmd('npm publish --access public');
                 console.log('  ✅ Опубликовано в npm!');
             } catch (npmErr) {
                 try {
-                    publishOutput = await runCmd('npm publish --registry=https://npm.pkg.github.com');
+                    await runCmd('npm publish --registry=https://npm.pkg.github.com');
                     console.log('  ✅ Опубликовано в GitHub Packages!');
                 } catch (ghErr) {
                     throw new Error(
