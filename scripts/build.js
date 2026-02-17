@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { optimize } from 'svgo';
+import { svgPathBbox } from 'svg-path-bbox';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -100,20 +101,136 @@ function getViewBox(svgString) {
 
 // ─── Нормализация viewBox к квадрату с паддингом ───
 
+function getContentBounds(svgString) {
+    const viewBoxMatch = svgString.match(/viewBox="([^"]*)"/);
+    if (!viewBoxMatch) return null;
+    const [vbX, vbY, vbW, vbH] = viewBoxMatch[1].split(/[\s,]+/).map(Number);
+    if ([vbX, vbY, vbW, vbH].some(isNaN)) return null;
+
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    let found = false;
+
+    // path
+    for (const [, d] of svgString.matchAll(/\bd="([^"]*)"/g)) {
+        try {
+            const [x1, y1, x2, y2] = svgPathBbox(d);
+            minX = Math.min(minX, x1); minY = Math.min(minY, y1);
+            maxX = Math.max(maxX, x2); maxY = Math.max(maxY, y2);
+            found = true;
+        } catch {}
+    }
+
+    // rect
+    for (const m of svgString.matchAll(/<rect([^/]*)/g)) {
+        const a = m[1];
+        const get = (n) => { const r = a.match(new RegExp(`\\b${n}="([^"]*)"`)); return r ? parseFloat(r[1]) : 0; };
+        const x = get('x'), y = get('y'), w = get('width'), h = get('height');
+        if (w && h) {
+            minX = Math.min(minX, x); minY = Math.min(minY, y);
+            maxX = Math.max(maxX, x + w); maxY = Math.max(maxY, y + h);
+            found = true;
+        }
+    }
+
+    // circle
+    for (const m of svgString.matchAll(/<circle([^/]*)/g)) {
+        const a = m[1];
+        const get = (n) => { const r = a.match(new RegExp(`\\b${n}="([^"]*)"`)); return r ? parseFloat(r[1]) : 0; };
+        const cx = get('cx'), cy = get('cy'), r = get('r');
+        if (r) {
+            minX = Math.min(minX, cx - r); minY = Math.min(minY, cy - r);
+            maxX = Math.max(maxX, cx + r); maxY = Math.max(maxY, cy + r);
+            found = true;
+        }
+    }
+
+    // ellipse
+    for (const m of svgString.matchAll(/<ellipse([^/]*)/g)) {
+        const a = m[1];
+        const get = (n) => { const r = a.match(new RegExp(`\\b${n}="([^"]*)"`)); return r ? parseFloat(r[1]) : 0; };
+        const cx = get('cx'), cy = get('cy'), rx = get('rx'), ry = get('ry');
+        if (rx && ry) {
+            minX = Math.min(minX, cx - rx); minY = Math.min(minY, cy - ry);
+            maxX = Math.max(maxX, cx + rx); maxY = Math.max(maxY, cy + ry);
+            found = true;
+        }
+    }
+
+    // line
+    for (const m of svgString.matchAll(/<line([^/]*)/g)) {
+        const a = m[1];
+        const get = (n) => { const r = a.match(new RegExp(`\\b${n}="([^"]*)"`)); return r ? parseFloat(r[1]) : 0; };
+        const x1 = get('x1'), y1 = get('y1'), x2 = get('x2'), y2 = get('y2');
+        minX = Math.min(minX, x1, x2); minY = Math.min(minY, y1, y2);
+        maxX = Math.max(maxX, x1, x2); maxY = Math.max(maxY, y1, y2);
+        found = true;
+    }
+
+    // polyline / polygon
+    for (const m of svgString.matchAll(/points="([^"]*)"/g)) {
+        const pts = m[1].trim().split(/[\s,]+/).map(Number);
+        for (let i = 0; i < pts.length - 1; i += 2) {
+            const px = pts[i], py = pts[i + 1];
+            if (!isNaN(px) && !isNaN(py)) {
+                minX = Math.min(minX, px); minY = Math.min(minY, py);
+                maxX = Math.max(maxX, px); maxY = Math.max(maxY, py);
+                found = true;
+            }
+        }
+    }
+
+    if (!found) return null;
+
+    return { minX, minY, maxX, maxY, vbX, vbY, vbW, vbH };
+}
+
+// ─── Оптическое выравнивание viewBox ───
+// Цель: контент занимает одинаковый % площади у всех иконок
+// Алгоритм:
+//   1. Находим реальный bbox контента
+//   2. Центрируем viewBox вокруг контента
+//   3. Добавляем одинаковый padding (% от размера контента)
+//      — одинаковый для всех иконок = одинаковый визуальный размер
+
+const OPTICAL_PADDING = 0.10; // 10% отступ от края — настрой под свой вкус
+
 function normalizeViewBox(svg) {
-    const m = svg.match(/viewBox="([^"]*)"/);
-    if (!m) return svg.replace(/<svg/, '<svg viewBox="0 0 24 24"');
-    const parts = m[1].split(/[\s,]+/).map(Number);
-    if (parts.length !== 4 || parts.some(isNaN)) return svg;
-    const [minX, minY, width, height] = parts;
-    if (width === 24 && height === 24 && minX === 0 && minY === 0) return svg;
-    const maxDim = Math.max(width, height);
-    const pad = maxDim * 0.04;
-    const nx = (minX - (maxDim - width) / 2) - pad;
-    const ny = (minY - (maxDim - height) / 2) - pad;
-    const ns = maxDim + pad * 2;
-    const vb = [nx, ny, ns, ns].map(v => Math.round(v * 100) / 100).join(' ');
-    return svg.replace(/viewBox="[^"]*"/, `viewBox="${vb}"`);
+    const bounds = getContentBounds(svg);
+
+    if (!bounds) {
+        // Нет контента для анализа — оставляем как есть, только делаем квадратным
+        const m = svg.match(/viewBox="([^"]*)"/);
+        if (!m) return svg;
+        const [x, y, w, h] = m[1].split(/[\s,]+/).map(Number);
+        if ([x, y, w, h].some(isNaN)) return svg;
+        const size = Math.max(w, h);
+        const nx = x - (size - w) / 2;
+        const ny = y - (size - h) / 2;
+        return svg.replace(/viewBox="[^"]*"/, `viewBox="${fmt(nx)} ${fmt(ny)} ${fmt(size)} ${fmt(size)}"`);
+    }
+
+    const { minX, minY, maxX, maxY } = bounds;
+    const contentW = maxX - minX;
+    const contentH = maxY - minY;
+    const contentSize = Math.max(contentW, contentH);
+
+    // Центр контента
+    const cx = minX + contentW / 2;
+    const cy = minY + contentH / 2;
+
+    // viewBox со стороной = контент + padding со всех сторон
+    const pad = contentSize * OPTICAL_PADDING;
+    const viewSize = contentSize + pad * 2;
+
+    const vx = fmt(cx - viewSize / 2);
+    const vy = fmt(cy - viewSize / 2);
+    const vs = fmt(viewSize);
+
+    return svg.replace(/viewBox="[^"]*"/, `viewBox="${vx} ${vy} ${vs} ${vs}"`);
+}
+
+function fmt(n) {
+    return Math.round(n * 100) / 100;
 }
 
 // ═══════════════════════════════════════════════

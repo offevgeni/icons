@@ -9,7 +9,7 @@
 </script>
 
 <svg
-  viewBox="-1.28 -1.28 34.56 34.56"
+  viewBox="0.4 0.4 31.2 31.2"
   width={size}
   height={size}
   fill={color}
