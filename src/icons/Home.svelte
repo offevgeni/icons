@@ -1,28 +1,26 @@
 <script>
-  let { 
-    size = 24, 
+  let {
+    size = 24,
     color = 'currentColor',
+    title = '',
     class: className = '',
-    ...props 
+    ...rest
   } = $props();
+
+  const sizeProps = $derived(typeof size === 'number'
+    ? { width: size, height: size }
+    : { width: size, height: size });
 </script>
 
 <svg
-  width={size}
-  height={size}
   viewBox="0 0 24 24"
-  fill="none"
-  class="icon icon-home {className}"
-  {...props}
+  {...sizeProps}
+  fill={color}
+  class="icon icon-home{className ? ' ' + className : ''}"
+  aria-hidden={!title}
+  {...rest}
+  role={title ? 'img' : 'presentation'}
 >
-  <g id="style=fill">
-<g id="home-line" clip-path="url(#clip0_1_110)">
-<path id="Subtract" fill-rule="evenodd" clip-rule="evenodd" d="M14.3594 2.12613C13.0087 0.944612 10.9923 0.94461 9.64162 2.12612L3.2802 7.69086C2.29508 8.55261 1.72998 9.79772 1.72998 11.1066L1.72998 19.1672C1.72998 21.1459 3.33403 22.75 5.31273 22.75L18.6883 22.75C20.667 22.75 22.271 21.1459 22.271 19.1672L22.271 11.1066C22.271 9.79772 21.706 8.55261 20.7208 7.69086L14.3594 2.12613ZM10 16.1136C9.58579 16.1136 9.25 16.4494 9.25 16.8636C9.25 17.2779 9.58579 17.6136 10 17.6136L14 17.6136C14.4142 17.6136 14.75 17.2779 14.75 16.8636C14.75 16.4494 14.4142 16.1136 14 16.1136L10 16.1136Z" fill={color}/>
-</g>
-</g>
-<defs>
-<clipPath id="clip0_1_110">
-<rect fill={color} transform="translate(1.72998 22.75) rotate(-90)"/>
-</clipPath>
-</defs>
+  {#if title}<title>{title}</title>{/if}
+  <g clip-path="url(#a)"><path fill={color} fill-rule="evenodd" d="M14.469 2.163a3.75 3.75 0 0 0-4.938 0L2.873 7.988a4.75 4.75 0 0 0-1.623 3.575V20A3.75 3.75 0 0 0 5 23.75h14A3.75 3.75 0 0 0 22.75 20v-8.437a4.75 4.75 0 0 0-1.623-3.575zM8.162 14.825a.75.75 0 0 0-1.355.644 5.75 5.75 0 0 0 10.388-.004.75.75 0 1 0-1.355-.643 4.25 4.25 0 0 1-7.678.003" clip-rule="evenodd"/></g><defs><clipPath id="a"><path fill={color} d="M0 24V0h24v24z"/></clipPath></defs>
 </svg>

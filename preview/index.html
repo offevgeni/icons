@@ -1,450 +1,1111 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Icon Library — 11 icons</title>
+<title>Библиотека иконок — 11 шт.</title>
 <style>
+  :root {
+    --bg: #f8f9fa; --bg-card: #ffffff; --bg-input: #ffffff;
+    --bg-hover: #f1f3f5; --text: #1a1a2e; --text-muted: #6b7280;
+    --text-dim: #9ca3af; --border: #e5e7eb; --border-hover: #d1d5db;
+    --accent: #6366f1; --accent-light: rgba(99,102,241,.08);
+    --accent-hover: #4f46e5; --danger: #ef4444; --danger-bg: #fef2f2;
+    --success: #10b981; --success-bg: rgba(16,185,129,.08);
+    --warning: #f59e0b; --warning-bg: rgba(245,158,11,.08);
+    --icon-size: 28px; --radius: 12px;
+    --shadow: 0 1px 3px rgba(0,0,0,.04), 0 1px 2px rgba(0,0,0,.06);
+    --shadow-hover: 0 10px 30px rgba(0,0,0,.08);
+    --icon-color: #1a1a2e;
+  }
+  .dark {
+    --bg: #0f0f1a; --bg-card: #1a1a2e; --bg-input: #16213e;
+    --bg-hover: #232340; --text: #e2e8f0; --text-muted: #94a3b8;
+    --text-dim: #64748b; --border: #2d2d44; --border-hover: #3d3d5c;
+    --accent: #818cf8; --accent-light: rgba(129,140,248,.1);
+    --accent-hover: #6366f1; --danger: #f87171; --danger-bg: #1c1017;
+    --success: #34d399; --success-bg: rgba(52,211,153,.1);
+    --warning: #fbbf24; --warning-bg: rgba(251,191,36,.1);
+    --shadow: 0 1px 3px rgba(0,0,0,.3);
+    --shadow-hover: 0 10px 30px rgba(0,0,0,.4);
+    --icon-color: #e2e8f0;
+  }
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #f5f5f5; color: #111; padding: 2rem;
-    transition: background .2s, color .2s;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg); color: var(--text);
+    min-height: 100vh; transition: background .25s, color .25s;
   }
-  body.dark { background: #1a1a2e; color: #eee; }
 
-  .header { max-width: 1200px; margin: 0 auto 1.5rem; }
-  .header h1 { font-size: 1.75rem; margin-bottom: .15rem; }
-  .count { color: #888; margin-bottom: 1rem; font-size: .9rem; }
-
-  .controls { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; margin-bottom: 1.5rem; }
-
+  .toolbar {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg-card); border-bottom: 1px solid var(--border);
+    padding: .75rem 1.5rem; box-shadow: var(--shadow);
+  }
+  .toolbar-inner {
+    max-width: 1400px; margin: 0 auto;
+    display: flex; flex-wrap: wrap; align-items: center; gap: .75rem;
+  }
+  .toolbar-brand {
+    display: flex; align-items: center; gap: .5rem;
+    font-weight: 700; font-size: 1.1rem; white-space: nowrap; margin-right: .25rem;
+  }
+  .badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--accent); color: #fff;
+    font-size: .65rem; font-weight: 700;
+    padding: .1rem .45rem; border-radius: 99px; min-width: 22px;
+  }
+  .badge-version {
+    background: var(--success); font-size: .6rem;
+    padding: .1rem .4rem; border-radius: 99px; color: #fff; font-weight: 600;
+    cursor: pointer; transition: opacity .15s;
+  }
+  .badge-version:hover { opacity: .85; }
+  .search-wrap {
+    flex: 1; min-width: 180px; max-width: 360px; position: relative;
+  }
+  .search-wrap svg {
+    position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+    color: var(--text-dim); pointer-events: none; width: 15px; height: 15px;
+  }
   .search {
-    flex: 1; min-width: 180px; padding: .6rem 1rem;
-    border: 2px solid #ddd; border-radius: 10px; font-size: .95rem;
-    outline: none; background: #fff; color: #111; transition: border .2s;
+    width: 100%; padding: .5rem .7rem .5rem 2rem;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    font-size: .85rem; outline: none;
+    background: var(--bg-input); color: var(--text);
+    transition: border .2s, box-shadow .2s;
   }
-  .search:focus { border-color: #333; }
-  body.dark .search { background: #2a2a3e; color: #eee; border-color: #444; }
-  body.dark .search:focus { border-color: #7c7cf0; }
+  .search:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-light); }
+  .search::placeholder { color: var(--text-dim); }
+  .toolbar-right {
+    display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; margin-left: auto;
+  }
+  .size-ctrl {
+    display: flex; align-items: center; gap: .35rem;
+    font-size: .75rem; color: var(--text-muted);
+  }
+  .size-ctrl input[type=range] { width: 70px; accent-color: var(--accent); }
+  .btn-icon {
+    width: 34px; height: 34px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 8px; border: 1.5px solid var(--border);
+    background: var(--bg-input); color: var(--text);
+    cursor: pointer; transition: all .15s;
+  }
+  .btn-icon:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+  .btn-icon svg { width: 16px; height: 16px; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: .35rem;
+    padding: .45rem .9rem; border-radius: 8px;
+    background: var(--accent); color: #fff;
+    border: none; font-size: .8rem; font-weight: 600;
+    cursor: pointer; transition: background .15s;
+  }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-primary svg { width: 15px; height: 15px; }
+  .btn-primary:disabled { opacity: .5; cursor: not-allowed; }
+  .btn-success {
+    display: inline-flex; align-items: center; gap: .35rem;
+    padding: .45rem .9rem; border-radius: 8px;
+    background: var(--success); color: #fff;
+    border: none; font-size: .8rem; font-weight: 600;
+    cursor: pointer; transition: opacity .15s;
+  }
+  .btn-success:hover { opacity: .9; }
+  .btn-success:disabled { opacity: .5; cursor: not-allowed; }
+  .btn-secondary {
+    padding: .45rem .9rem; border-radius: 8px;
+    background: transparent; color: var(--text);
+    border: 1.5px solid var(--border);
+    font-size: .8rem; cursor: pointer; transition: all .15s;
+  }
+  .btn-secondary:hover { border-color: var(--text-muted); background: var(--bg-hover); }
+  .btn-danger {
+    padding: .45rem .9rem; border-radius: 8px;
+    background: var(--danger); color: #fff;
+    border: none; font-size: .8rem; font-weight: 600;
+    cursor: pointer; transition: background .15s;
+  }
+  .btn-danger:hover { background: #dc2626; }
 
-  .size-ctrl { display: flex; align-items: center; gap: .4rem; font-size: .85rem; white-space: nowrap; }
-  .size-ctrl input[type=range] { width: 90px; }
-  label { font-size: .85rem; cursor: pointer; user-select: none; white-space: nowrap; }
+  .main { max-width: 1400px; margin: 0 auto; padding: 1.25rem 1.5rem 4rem; }
 
-  /* ─── Drop zone ─── */
   .dropzone {
-    max-width: 1200px; margin: 0 auto 1.5rem;
-    border: 2px dashed #ccc; border-radius: 14px;
-    padding: 2rem; text-align: center;
-    color: #999; transition: all .2s; cursor: pointer;
-    position: relative;
+    border: 2px dashed var(--border); border-radius: var(--radius);
+    padding: 2rem 1.5rem; text-align: center;
+    color: var(--text-dim); transition: all .25s;
+    cursor: pointer; margin-bottom: 1.25rem;
   }
   .dropzone:hover, .dropzone.over {
-    border-color: #333; color: #333; background: rgba(0,0,0,.02);
-  }
-  body.dark .dropzone { border-color: #444; color: #666; }
-  body.dark .dropzone:hover, body.dark .dropzone.over {
-    border-color: #7c7cf0; color: #bbb; background: rgba(124,124,240,.05);
+    border-color: var(--accent); background: var(--accent-light); color: var(--accent);
   }
   .dropzone input { display: none; }
-  .dropzone .label { font-size: .95rem; pointer-events: none; }
-  .dropzone .hint { font-size: .75rem; margin-top: .35rem; pointer-events: none; }
-  .dropzone .btn {
-    display: inline-block; margin-top: .75rem;
-    padding: .45rem 1.25rem; background: #333; color: #fff;
-    border: none; border-radius: 8px; font-size: .85rem;
-    cursor: pointer; pointer-events: auto;
-  }
-  .dropzone .btn:hover { background: #555; }
-  body.dark .dropzone .btn { background: #7c7cf0; }
+  .dropzone-icon { font-size: 1.75rem; margin-bottom: .35rem; }
+  .dropzone-text { font-size: .9rem; font-weight: 500; }
+  .dropzone-hint { font-size: .75rem; margin-top: .2rem; opacity: .7; }
 
-  /* ─── Grid ─── */
+  /* ─── Панель публикации ─── */
+  .publish-panel {
+    background: var(--bg-card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); margin-bottom: 1.25rem;
+    box-shadow: var(--shadow); overflow: hidden;
+  }
+  .publish-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 1.25rem; cursor: pointer; user-select: none;
+  }
+  .publish-header:hover { background: var(--bg-hover); }
+  .publish-header h2 { font-size: .95rem; font-weight: 700; }
+  .publish-toggle-icon { font-size: .8rem; color: var(--text-dim); transition: transform .2s; }
+  .publish-body { padding: 0 1.25rem 1.25rem; }
+  .publish-section {
+    margin-bottom: 1.25rem; padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .publish-section:last-child { margin-bottom: 0; border-bottom: none; padding-bottom: 0; }
+  .publish-section h3 {
+    font-size: .82rem; font-weight: 700; margin-bottom: .65rem;
+    color: var(--text); display: flex; align-items: center; gap: .4rem;
+  }
+  .publish-hint {
+    font-size: .72rem; color: var(--text-dim); line-height: 1.5;
+    margin-bottom: .65rem;
+  }
+  .publish-row {
+    display: flex; flex-wrap: wrap; align-items: center; gap: .65rem;
+    margin-bottom: .6rem;
+  }
+  .publish-row:last-child { margin-bottom: 0; }
+  .publish-label {
+    font-size: .75rem; color: var(--text-muted); font-weight: 600;
+    min-width: 100px;
+  }
+  .bump-group { display: flex; gap: .35rem; }
+  .bump-btn {
+    padding: .3rem .65rem; border-radius: 6px;
+    border: 1.5px solid var(--border); background: var(--bg-input);
+    color: var(--text); font-size: .72rem; font-weight: 600;
+    cursor: pointer; transition: all .15s;
+  }
+  .bump-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .bump-btn.active { border-color: var(--accent); background: var(--accent); color: #fff; }
+  .code-block {
+    background: var(--bg-hover); border: 1px solid var(--border);
+    border-radius: 8px; padding: .5rem .75rem;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: .73rem; color: var(--text);
+    position: relative; overflow-x: auto; cursor: pointer;
+    transition: border-color .15s; flex: 1; min-width: 0;
+  }
+  .code-block:hover { border-color: var(--accent); }
+  .code-block .copy-hint {
+    position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+    font-size: .58rem; color: var(--text-dim); font-family: sans-serif;
+    opacity: 0; transition: opacity .15s; pointer-events: none;
+  }
+  .code-block:hover .copy-hint { opacity: 1; }
+  .changelog-area {
+    width: 100%; min-height: 55px; padding: .45rem .65rem;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    font-size: .75rem; outline: none; resize: vertical;
+    background: var(--bg-input); color: var(--text); font-family: inherit;
+  }
+  .changelog-area:focus { border-color: var(--accent); }
+  .publish-status {
+    margin-top: .75rem; padding: .5rem .75rem;
+    border-radius: 8px; font-size: .75rem; display: none; line-height: 1.5;
+  }
+  .publish-status.show { display: block; }
+  .publish-status.success { background: var(--success-bg); color: var(--success); border: 1px solid var(--success); }
+  .publish-status.error { background: var(--danger-bg); color: var(--danger); border: 1px solid var(--danger); }
+  .publish-status.info { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent); }
+  .publish-status.warning { background: var(--warning-bg); color: var(--warning); border: 1px solid var(--warning); }
+
+  .step-list { font-size: .72rem; color: var(--text-muted); line-height: 1.8; padding-left: 1.25rem; }
+  .step-list li { margin-bottom: .15rem; }
+  .step-list code {
+    background: var(--bg-hover); padding: .1rem .35rem;
+    border-radius: 4px; font-size: .7rem;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+
+  .info-bar {
+    display: flex; flex-wrap: wrap; align-items: center; gap: .5rem;
+    margin-bottom: 1rem; font-size: .78rem; color: var(--text-muted);
+  }
+  .chip {
+    display: inline-flex; align-items: center; gap: .25rem;
+    padding: .2rem .55rem; border-radius: 6px;
+    background: var(--bg-card); border: 1px solid var(--border); font-size: .75rem;
+  }
+  .kbd {
+    display: inline-flex; padding: .1rem .35rem;
+    border-radius: 4px; border: 1px solid var(--border);
+    background: var(--bg-hover); font-size: .65rem;
+    font-family: monospace; color: var(--text-muted);
+  }
+
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    gap: .75rem; max-width: 1200px; margin: 0 auto;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: .65rem;
   }
-
   .card {
     position: relative;
     display: flex; flex-direction: column; align-items: center;
-    padding: 1.25rem .75rem .75rem;
-    background: #fff; border-radius: 12px;
-    border: 2px solid transparent; transition: all .15s;
+    padding: 1.1rem .6rem .6rem;
+    background: var(--bg-card); border-radius: var(--radius);
+    border: 1.5px solid transparent;
+    transition: all .2s; cursor: default; box-shadow: var(--shadow);
   }
-  .card:hover { border-color: #ddd; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.06); }
-  body.dark .card { background: #2a2a3e; }
-  body.dark .card:hover { border-color: #444; }
-
+  .card:hover {
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-hover); transform: translateY(-1px);
+  }
+  .card.selected {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent-light), var(--shadow-hover);
+  }
   .card .delete {
-    position: absolute; top: 4px; right: 6px;
-    background: none; border: none; color: #ccc;
-    font-size: 1.1rem; cursor: pointer; line-height: 1;
-    width: 22px; height: 22px; border-radius: 6px;
+    position: absolute; top: 5px; right: 5px;
+    width: 22px; height: 22px;
     display: flex; align-items: center; justify-content: center;
-    opacity: 0; transition: all .15s;
+    background: none; border: none;
+    color: var(--text-dim); border-radius: 6px;
+    cursor: pointer; opacity: 0; transition: all .15s;
   }
+  .card .delete svg { width: 12px; height: 12px; }
   .card:hover .delete { opacity: 1; }
-  .card .delete:hover { background: #fee; color: #e33; }
-  body.dark .card .delete:hover { background: #422; color: #f66; }
-
+  .card .delete:hover { background: var(--danger-bg); color: var(--danger); }
   .preview {
     display: flex; align-items: center; justify-content: center;
-    margin-bottom: .65rem; color: #333;
+    margin-bottom: .5rem; color: var(--icon-color);
   }
-  .preview svg { width: var(--icon-size, 28px); height: var(--icon-size, 28px); }
-  body.dark .preview { color: #eee; }
-
+  .preview svg {
+    width: var(--icon-size); height: var(--icon-size);
+    color: var(--icon-color); fill: currentColor;
+  }
+  .preview svg[fill="none"] { fill: none; stroke: var(--icon-color); }
+  .preview svg[fill="none"] * { stroke: var(--icon-color); }
+  .preview svg:not([fill="none"]) path,
+  .preview svg:not([fill="none"]) circle,
+  .preview svg:not([fill="none"]) rect,
+  .preview svg:not([fill="none"]) polygon,
+  .preview svg:not([fill="none"]) polyline,
+  .preview svg:not([fill="none"]) ellipse,
+  .preview svg:not([fill="none"]) line { fill: var(--icon-color); stroke: none; }
+  .preview svg path[fill="none"],
+  .preview svg circle[fill="none"],
+  .preview svg rect[fill="none"] { fill: none !important; }
+  .name-row {
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: .2rem; max-width: 100%;
+  }
   .name {
-    font-size: .72rem; color: #888; text-align: center;
-    word-break: break-all; margin-bottom: .5rem;
-    padding: 1px 4px; border-radius: 4px; cursor: default;
+    font-size: .68rem; color: var(--text-muted);
+    text-align: center; word-break: break-all;
+    padding: 2px 6px; border-radius: 4px;
+    cursor: pointer; transition: background .15s; max-width: 100%;
   }
-  .name:hover { background: #f0f0f0; }
-  body.dark .name:hover { background: #3a3a4e; }
-
-  .copy {
-    font-size: .65rem; padding: .25rem .5rem;
-    background: #f0f0f0; border: 1px solid #ddd; border-radius: 6px;
-    cursor: pointer; color: #555; transition: all .15s;
-    max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  .name:hover { background: var(--bg-hover); }
+  .meta {
+    font-size: .55rem; color: var(--text-dim);
+    margin-bottom: .35rem; font-family: monospace;
   }
-  .copy:hover { background: #333; color: #fff; border-color: #333; }
-  body.dark .copy { background: #3a3a4e; border-color: #555; color: #aaa; }
-  body.dark .copy:hover { background: #7c7cf0; border-color: #7c7cf0; color: #fff; }
-
+  .actions { display: flex; gap: .3rem; flex-wrap: wrap; justify-content: center; }
+  .copy-btn {
+    display: inline-flex; align-items: center; gap: .2rem;
+    font-size: .6rem; font-weight: 500;
+    padding: .15rem .4rem;
+    background: transparent; border: 1px solid var(--border);
+    border-radius: 5px; cursor: pointer;
+    color: var(--text-muted); transition: all .15s; white-space: nowrap;
+  }
+  .copy-btn svg { width: 11px; height: 11px; flex-shrink: 0; }
+  .copy-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
   .hidden { display: none !important; }
 
+  .empty { text-align: center; padding: 4rem 2rem; color: var(--text-dim); }
+  .empty-icon { font-size: 2.5rem; margin-bottom: .75rem; opacity: .5; }
+  .empty-text { font-size: 1rem; font-weight: 500; }
+  .empty-hint { font-size: .8rem; margin-top: .3rem; }
+
   .toast {
-    position: fixed; bottom: 2rem; left: 50%;
-    transform: translateX(-50%) translateY(80px);
-    background: #333; color: #fff; padding: .6rem 1.25rem;
-    border-radius: 8px; font-size: .85rem;
-    transition: transform .3s ease; z-index: 10;
-    pointer-events: none;
+    position: fixed; bottom: 1.5rem; left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--text); color: var(--bg);
+    padding: .55rem 1.25rem; border-radius: 10px;
+    font-size: .8rem; font-weight: 500;
+    box-shadow: 0 10px 40px rgba(0,0,0,.25);
+    transition: transform .3s cubic-bezier(.4,0,.2,1);
+    z-index: 1000; pointer-events: none; white-space: nowrap;
   }
   .toast.show { transform: translateX(-50%) translateY(0); }
 
-  .empty {
-    max-width: 1200px; margin: 3rem auto; text-align: center;
-    color: #aaa; font-size: 1rem;
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,.5);
+    backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 500; opacity: 0; pointer-events: none; transition: opacity .2s;
+  }
+  .modal-overlay.active { opacity: 1; pointer-events: auto; }
+  .modal {
+    background: var(--bg-card); border-radius: 16px;
+    padding: 1.75rem; max-width: 440px; width: 90%;
+    box-shadow: 0 25px 60px rgba(0,0,0,.25);
+    transform: scale(.95); transition: transform .2s;
+  }
+  .modal-overlay.active .modal { transform: scale(1); }
+  .modal h2 { font-size: 1.05rem; margin-bottom: .85rem; }
+  .modal-input {
+    width: 100%; padding: .55rem .7rem;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    font-size: .85rem; outline: none;
+    background: var(--bg-input); color: var(--text); margin-bottom: .85rem;
+  }
+  .modal-input:focus { border-color: var(--accent); }
+  .modal-actions { display: flex; gap: .6rem; justify-content: flex-end; }
+
+  .bulk-bar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--bg-card); border-top: 1px solid var(--border);
+    padding: .65rem 1.5rem;
+    display: flex; align-items: center; justify-content: center; gap: .75rem;
+    transform: translateY(100%);
+    transition: transform .3s cubic-bezier(.4,0,.2,1);
+    z-index: 200; box-shadow: 0 -4px 20px rgba(0,0,0,.1);
+  }
+  .bulk-bar.visible { transform: translateY(0); }
+  .bulk-bar span { font-size: .85rem; font-weight: 600; }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .spinner {
+    display: inline-block; width: 14px; height: 14px;
+    border: 2px solid rgba(255,255,255,.3);
+    border-top-color: #fff; border-radius: 50%;
+    animation: spin .6s linear infinite;
+  }
+
+  @media (max-width: 640px) {
+    .toolbar { padding: .6rem .75rem; }
+    .main { padding: .75rem; }
+    .grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: .5rem; }
+    .card { padding: .85rem .4rem .4rem; }
+    .search-wrap { max-width: none; }
   }
 </style>
 </head>
 <body>
-  <div class="header">
-    <h1>📦 Icon Library</h1>
-    <p class="count"><span id="count">11</span> icons</p>
-
-    <div class="controls">
-      <input class="search" id="search" type="text" placeholder="Search icons..." oninput="filter()">
-      <div class="size-ctrl">
-        <span>Size:</span>
-        <input type="range" min="16" max="64" value="28" oninput="resize(this.value)">
-        <span id="sizeVal">28</span>
+  <div class="toolbar">
+    <div class="toolbar-inner">
+      <div class="toolbar-brand">
+        <span>📦</span><span>Иконки</span>
+        <span class="badge" id="countBadge">11</span>
+        <span class="badge-version" id="versionBadge" onclick="togglePublish()" title="Нажмите для публикации">v1.2.0</span>
       </div>
-      <label><input type="checkbox" onchange="document.body.classList.toggle('dark', this.checked)"> Dark</label>
+      <div class="search-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input class="search" id="search" type="text" placeholder="Поиск иконок...  ⌘K" oninput="filter()">
+      </div>
+      <div class="toolbar-right">
+        <div class="size-ctrl">
+          <input type="range" min="16" max="64" value="28" oninput="resizeIcons(this.value)">
+          <span id="sizeVal">28</span>
+        </div>
+        <button class="btn-icon" onclick="toggleTheme()" title="Сменить тему">
+          <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+        <button class="btn-success" onclick="togglePublish()" title="Опубликовать новую версию">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0018 9h-1.26A8 8 0 103 16.3"/></svg>
+          Публикация
+        </button>
+        <button class="btn-primary" onclick="document.getElementById('fileInput').click()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Добавить
+        </button>
+      </div>
     </div>
   </div>
 
-  <div class="dropzone" id="dropzone"
-       ondrop="handleDrop(event)" ondragover="dragOver(event)"
-       ondragenter="dragEnter(event)" ondragleave="dragLeave(event)"
-       onclick="document.getElementById('fileInput').click()">
-    <input type="file" id="fileInput" accept=".svg" multiple onchange="handleFiles(this.files)">
-    <div class="label">Drop SVG files here</div>
-    <div class="hint">or click / use the button below</div>
-    <button class="btn" onclick="event.stopPropagation(); document.getElementById('fileInput').click()">
-      Choose files
-    </button>
+  <div class="main">
+
+    <!-- Панель публикации -->
+    <div class="publish-panel" id="publishPanel" style="display:none;">
+      <div class="publish-header" onclick="togglePublishBody()">
+        <h2>🚀 Публикация и подключение</h2>
+        <span class="publish-toggle-icon" id="publishToggleIcon">▼</span>
+      </div>
+      <div class="publish-body" id="publishBody">
+
+        <!-- Секция: Как подключить -->
+        <div class="publish-section">
+          <h3>📥 Как подключить к проекту</h3>
+          <div class="publish-hint">
+            Выполните эту команду в терминале вашего проекта, чтобы установить библиотеку иконок:
+          </div>
+          <div class="publish-row">
+            <span class="publish-label">Установка:</span>
+            <div class="code-block" onclick="copyText(this.querySelector('code').textContent)">
+              <code>npm install @offevgeni/icons@latest</code>
+              <span class="copy-hint">скопировать</span>
+            </div>
+          </div>
+          <div class="publish-hint" style="margin-top:.5rem;">
+            Теперь вы можете использовать иконки в Svelte-компонентах:
+          </div>
+          <div class="publish-row">
+            <span class="publish-label">Импорт:</span>
+            <div class="code-block" onclick="copyText(this.querySelector('code').textContent)">
+              <code>import { Heart, Icon } from '@offevgeni/icons';</code>
+              <span class="copy-hint">скопировать</span>
+            </div>
+          </div>
+          <div class="publish-row">
+            <span class="publish-label">По имени:</span>
+            <div class="code-block" onclick="copyText(this.querySelector('code').textContent)">
+              <code>&lt;Icon name="heart" size={24} color="red" /&gt;</code>
+              <span class="copy-hint">скопировать</span>
+            </div>
+          </div>
+          <div class="publish-row">
+            <span class="publish-label">Напрямую:</span>
+            <div class="code-block" onclick="copyText(this.querySelector('code').textContent)">
+              <code>&lt;Heart size={24} color="currentColor" /&gt;</code>
+              <span class="copy-hint">скопировать</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Секция: Обновление -->
+        <div class="publish-section">
+          <h3>🔄 Как обновлять иконки в проекте</h3>
+          <div class="publish-hint">
+            После публикации новой версии выполните в проекте-потребителе:
+          </div>
+          <div class="publish-row">
+            <span class="publish-label">Обновить:</span>
+            <div class="code-block" onclick="copyText(this.querySelector('code').textContent)">
+              <code>npm update @offevgeni/icons</code>
+              <span class="copy-hint">скопировать</span>
+            </div>
+          </div>
+          <div class="publish-hint" style="margin-top:.5rem;">
+            💡 <strong>Совет:</strong> чтобы всегда получать последнюю версию автоматически,
+            в <code>package.json</code> вашего проекта укажите:
+          </div>
+          <div class="publish-row">
+            <div class="code-block" style="flex:1;" onclick="copyText(this.querySelector('code').textContent)">
+              <code>"@offevgeni/icons": "^1.2.0"</code>
+              <span class="copy-hint">скопировать</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Секция: Публикация -->
+        <div class="publish-section">
+          <h3>📤 Опубликовать новую версию</h3>
+          <div class="publish-hint">
+            Нажмите «Опубликовать» — сервер автоматически выполнит сборку, обновит версию,
+            создаст git-коммит с тегом и опубликует пакет в npm-реестр.
+          </div>
+          <div class="publish-row">
+            <span class="publish-label">Текущая:</span>
+            <strong id="currentVersion">1.2.0</strong>
+          </div>
+          <div class="publish-row">
+            <span class="publish-label">Тип версии:</span>
+            <div class="bump-group">
+              <button class="bump-btn active" data-bump="patch" onclick="selectBump('patch')" title="Исправления, мелкие изменения (1.2.3 → 1.2.4)">Патч</button>
+              <button class="bump-btn" data-bump="minor" onclick="selectBump('minor')" title="Новые иконки, обратно совместимые изменения (1.2.3 → 1.3.0)">Минор</button>
+              <button class="bump-btn" data-bump="major" onclick="selectBump('major')" title="Крупные несовместимые изменения (1.2.3 → 2.0.0)">Мажор</button>
+            </div>
+            <span id="bumpPreview" style="font-size:.75rem;color:var(--text-muted);"></span>
+          </div>
+          <div class="publish-hint" style="margin-top:.35rem; font-size:.68rem;">
+            <strong>Патч</strong> — мелкие правки, исправления иконок •
+            <strong>Минор</strong> — добавление новых иконок •
+            <strong>Мажор</strong> — удаление или переименование иконок
+          </div>
+          <div class="publish-row">
+            <span class="publish-label">Описание:</span>
+            <textarea class="changelog-area" id="publishMessage" placeholder="Что изменилось? (необязательно, например: добавлены иконки корзины и звезды)"></textarea>
+          </div>
+          <div class="publish-row" style="justify-content:flex-end;gap:.5rem;">
+            <button class="btn-success" id="publishBtn" onclick="doPublish()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0018 9h-1.26A8 8 0 103 16.3"/></svg>
+              Опубликовать
+            </button>
+          </div>
+          <div class="publish-status" id="publishStatus"></div>
+        </div>
+
+        <!-- Секция: Подготовка -->
+        <div class="publish-section">
+          <h3>⚙️ Предварительная настройка (один раз)</h3>
+          <div class="publish-hint">
+            Чтобы публикация работала, нужно один раз настроить авторизацию в npm:
+          </div>
+          <ol class="step-list">
+            <li>Зарегистрируйтесь на <a href="https://www.npmjs.com" target="_blank" style="color:var(--accent);">npmjs.com</a> (если ещё нет аккаунта)</li>
+            <li>В терминале этого проекта выполните: <code>npm login</code></li>
+            <li>Введите логин, пароль и email</li>
+            <li>Готово! Теперь кнопка «Опубликовать» будет работать</li>
+          </ol>
+          <div class="publish-hint" style="margin-top:.65rem;">
+            <strong>Для GitHub Packages</strong> (альтернатива):
+          </div>
+          <ol class="step-list">
+            <li>Создайте Personal Access Token на <a href="https://github.com/settings/tokens" target="_blank" style="color:var(--accent);">github.com/settings/tokens</a> с правами <code>write:packages</code></li>
+            <li>Выполните: <code>npm login --registry=https://npm.pkg.github.com</code></li>
+            <li>Username — ваш GitHub-логин, Password — токен</li>
+          </ol>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Зона загрузки -->
+    <div class="dropzone" id="dropzone"
+         ondrop="handleDrop(event)" ondragover="event.preventDefault()"
+         ondragenter="dragEnter(event)" ondragleave="dragLeave(event)"
+         onclick="document.getElementById('fileInput').click()">
+      <input type="file" id="fileInput" accept=".svg" multiple onchange="handleFiles(this.files)">
+      <div class="dropzone-icon">📁</div>
+      <div class="dropzone-text">Перетащите SVG-файлы сюда или нажмите для выбора</div>
+      <div class="dropzone-hint">Файлы автоматически оптимизируются через SVGO, цвета нормализуются, размеры выравниваются</div>
+    </div>
+
+    
+    <div class="info-bar">
+      <div class="chip">📊 <strong>11</strong> иконок</div>
+      <div class="chip"><kbd class="kbd">Shift</kbd> + клик — выделение нескольких</div>
+      <div class="chip"><kbd class="kbd">⌘K</kbd> поиск</div>
+      <div class="chip">🖱️ Двойной клик по имени — переименовать</div>
+    </div>
+
+    <div class="grid" id="grid">
+      <div class="card" data-name="bar-chart-3 BarChart3" data-component="BarChart3" data-kebab="bar-chart-3">
+        <button class="delete" onclick="del('bar-chart-3')" title="Удалить">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="preview"><svg xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2" viewBox="-1.28 -1.28 34.56 34.56"><path d="M29 10a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1zM9 16a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1zM19 4a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v24a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1z"/></svg></div>
+        <div class="name-row">
+          <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'bar-chart-3')">bar-chart-3</span>
+        </div>
+        <div class="meta">0 0 32 32</div>
+        <div class="actions">
+          <button class="copy-btn" onclick="copyImport('BarChart3')" title="Скопировать import">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Import
+          </button>
+          <button class="copy-btn" onclick="copyComponent('BarChart3')" title="Скопировать тег">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Тег
+          </button>
+          <button class="copy-btn" onclick="downloadSvg('bar-chart-3')" title="Скачать SVG">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="card" data-name="heart Heart" data-component="Heart" data-kebab="heart">
+        <button class="delete" onclick="del('heart')" title="Удалить">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="preview"><svg fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M7 2C3.313 2 1 5.215 1 8.5c0 3.341 1.674 6.2 3.772 8.43 2.1 2.233 4.705 3.927 6.78 4.964a1 1 0 0 0 .895 0c2.076-1.037 4.68-2.73 6.782-4.964C21.326 14.7 23 11.84 23 8.5 23 5.22 20.729 2 17 2c-1.725 0-2.947.48-3.881 1.21a7 7 0 0 0-1.122 1.126 7 7 0 0 0-1.132-1.128C9.929 2.48 8.709 2 7 2"/></svg></div>
+        <div class="name-row">
+          <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'heart')">heart</span>
+        </div>
+        <div class="meta">0 0 24 24</div>
+        <div class="actions">
+          <button class="copy-btn" onclick="copyImport('Heart')" title="Скопировать import">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Import
+          </button>
+          <button class="copy-btn" onclick="copyComponent('Heart')" title="Скопировать тег">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Тег
+          </button>
+          <button class="copy-btn" onclick="downloadSvg('heart')" title="Скачать SVG">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="card" data-name="home Home" data-component="Home" data-kebab="home">
+        <button class="delete" onclick="del('home')" title="Удалить">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="preview"><svg fill="none" viewBox="0 0 24 24"><g clip-path="url(#a)"><path fill="currentColor" fill-rule="evenodd" d="M14.469 2.163a3.75 3.75 0 0 0-4.938 0L2.873 7.988a4.75 4.75 0 0 0-1.623 3.575V20A3.75 3.75 0 0 0 5 23.75h14A3.75 3.75 0 0 0 22.75 20v-8.437a4.75 4.75 0 0 0-1.623-3.575zM8.162 14.825a.75.75 0 0 0-1.355.644 5.75 5.75 0 0 0 10.388-.004.75.75 0 1 0-1.355-.643 4.25 4.25 0 0 1-7.678.003" clip-rule="evenodd"/></g><defs><clipPath id="a"><path fill="currentColor" d="M0 24V0h24v24z"/></clipPath></defs></svg></div>
+        <div class="name-row">
+          <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'home')">home</span>
+        </div>
+        <div class="meta">0 0 24 24</div>
+        <div class="actions">
+          <button class="copy-btn" onclick="copyImport('Home')" title="Скопировать import">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Import
+          </button>
+          <button class="copy-btn" onclick="copyComponent('Home')" title="Скопировать тег">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Тег
+          </button>
+          <button class="copy-btn" onclick="downloadSvg('home')" title="Скачать SVG">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="card" data-name="layout-grid LayoutGrid" data-component="LayoutGrid" data-kebab="layout-grid">
+        <button class="delete" onclick="del('layout-grid')" title="Удалить">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="preview"><svg xml:space="preserve" id="_x32_" viewBox="-20.48 -20.48 552.96 552.96"><path d="M421.289 0H90.71C40.609 0 0 40.61 0 90.703V160h512V90.703C512 40.61 471.39 0 421.289 0"/><path d="M0 421.297C0 471.39 40.609 512 90.71 512H296V216H0z"/><path d="M352 512h69.289C471.39 512 512 471.39 512 421.297V216H352z"/></svg></div>
+        <div class="name-row">
+          <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'layout-grid')">layout-grid</span>
+        </div>
+        <div class="meta">0 0 512 512</div>
+        <div class="actions">
+          <button class="copy-btn" onclick="copyImport('LayoutGrid')" title="Скопировать import">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Import
+          </button>
+          <button class="copy-btn" onclick="copyComponent('LayoutGrid')" title="Скопировать тег">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Тег
+          </button>
+          <button class="copy-btn" onclick="downloadSvg('layout-grid')" title="Скачать SVG">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="card" data-name="list List" data-component="List" data-kebab="list">
+        <button class="delete" onclick="del('list')" title="Удалить">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="preview"><svg viewBox="-1.24 -5.74 33.48 33.48"><path fill-rule="evenodd" d="M29 17H10a2 2 0 0 0 0 4h19a2 2 0 0 0 0-4m0-8H10a2 2 0 0 0 0 4h19a2 2 0 0 0 0-4M10 5h19a2 2 0 0 0 0-4H10a2 2 0 0 0 0 4M3 16a3 3 0 1 0 0 6 3 3 0 0 0 0-6m0-8a3 3 0 1 0 0 6 3 3 0 0 0 0-6m0-8a3 3 0 1 0 0 6 3 3 0 0 0 0-6"/></svg></div>
+        <div class="name-row">
+          <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'list')">list</span>
+        </div>
+        <div class="meta">0 -4.5 31 31</div>
+        <div class="actions">
+          <button class="copy-btn" onclick="copyImport('List')" title="Скопировать import">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Import
+          </button>
+          <button class="copy-btn" onclick="copyComponent('List')" title="Скопировать тег">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Тег
+          </button>
+          <button class="copy-btn" onclick="downloadSvg('list')" title="Скачать SVG">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="card" data-name="log-out LogOut" data-component="LogOut" data-kebab="log-out">
+        <button class="delete" onclick="del('log-out')" title="Удалить">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="preview"><svg viewBox="0 0 24 24"><path d="m20.49 3.84-6-1.5A2 2 0 0 0 12 4.28V5h-2a2 2 0 0 0-2 2v1a1 1 0 0 0 2 0V7h2v10h-2v-1a1 1 0 0 0-2 0v1a2 2 0 0 0 2 2h2v.72a2 2 0 0 0 .77 1.57 2 2 0 0 0 1.23.43 2 2 0 0 0 .49-.06l6-1.5A2 2 0 0 0 22 18.22V5.78a2 2 0 0 0-1.51-1.94"/><path d="M4.41 13H9a1 1 0 0 0 0-2H4.41l1.3-1.29a1 1 0 0 0-1.42-1.42l-3 3a1.2 1.2 0 0 0-.21.33.94.94 0 0 0 0 .76 1.2 1.2 0 0 0 .21.33l3 3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42Z"/></svg></div>
+        <div class="name-row">
+          <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'log-out')">log-out</span>
+        </div>
+        <div class="meta">0 0 24 24</div>
+        <div class="actions">
+          <button class="copy-btn" onclick="copyImport('LogOut')" title="Скопировать import">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Import
+          </button>
+          <button class="copy-btn" onclick="copyComponent('LogOut')" title="Скопировать тег">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Тег
+          </button>
+          <button class="copy-btn" onclick="downloadSvg('log-out')" title="Скачать SVG">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="card" data-name="map Map" data-component="Map" data-kebab="map">
+        <button class="delete" onclick="del('map')" title="Удалить">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="preview"><svg viewBox="-2.24 -2.24 60.48 60.48"><path d="M34.188 51.414v-39.21l-11.579-7.08c-.398-.258-.867-.422-1.312-.54v39.751l11.812 6.61a6 6 0 0 0 1.079.468M6.273 50.71c.61 0 1.196-.187 1.97-.61l9.843-5.296V5.008c-.422.21-.867.445-1.312.703l-11.11 6.352c-1.406.796-2.062 1.921-2.062 3.492v32.46c0 1.735 1.007 2.696 2.672 2.696m31.126.656c.234-.07.468-.164.703-.328l12.257-6.96c1.383-.774 2.04-1.9 2.04-3.47V8.102c0-1.735-.985-2.672-2.672-2.672-.586 0-1.195.164-1.946.586L37.4 11.78Z"/></svg></div>
+        <div class="name-row">
+          <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'map')">map</span>
+        </div>
+        <div class="meta">0 0 56 56</div>
+        <div class="actions">
+          <button class="copy-btn" onclick="copyImport('Map')" title="Скопировать import">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Import
+          </button>
+          <button class="copy-btn" onclick="copyComponent('Map')" title="Скопировать тег">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Тег
+          </button>
+          <button class="copy-btn" onclick="downloadSvg('map')" title="Скачать SVG">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="card" data-name="pet Pet" data-component="Pet" data-kebab="pet">
+        <button class="delete" onclick="del('pet')" title="Удалить">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="preview"><svg fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M19.08 15.72c-.59-3.53-3.98-6.4-7.56-6.4-3.89 0-7.31 3.15-7.64 7.03-.13 1.5.35 2.92 1.34 3.99C6.2 21.41 7.58 22 9.08 22h4.68c1.69 0 3.17-.66 4.18-1.85s1.41-2.77 1.14-4.43"/><path fill="currentColor" d="M10.28 7.86a2.93 2.93 0 1 0 0-5.86 2.93 2.93 0 0 0 0 5.86"/><path fill="currentColor" d="M16.94 9.028a2.44 2.44 0 1 0 0-4.88 2.44 2.44 0 0 0 0 4.88"/><path fill="currentColor" d="M20.55 12.931a1.95 1.95 0 1 0 0-3.9 1.95 1.95 0 0 0 0 3.9"/><path fill="currentColor" d="M3.94 10.982a2.44 2.44 0 1 0 0-4.88 2.44 2.44 0 0 0 0 4.88"/></svg></div>
+        <div class="name-row">
+          <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'pet')">pet</span>
+        </div>
+        <div class="meta">0 0 24 24</div>
+        <div class="actions">
+          <button class="copy-btn" onclick="copyImport('Pet')" title="Скопировать import">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Import
+          </button>
+          <button class="copy-btn" onclick="copyComponent('Pet')" title="Скопировать тег">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Тег
+          </button>
+          <button class="copy-btn" onclick="downloadSvg('pet')" title="Скачать SVG">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="card" data-name="plus Plus" data-component="Plus" data-kebab="plus">
+        <button class="delete" onclick="del('plus')" title="Удалить">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="preview"><svg fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M11 17a1 1 0 1 0 2 0v-4h4a1 1 0 1 0 0-2h-4V7a1 1 0 1 0-2 0v4H7a1 1 0 1 0 0 2h4z" clip-rule="evenodd"/></svg></div>
+        <div class="name-row">
+          <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'plus')">plus</span>
+        </div>
+        <div class="meta">0 0 24 24</div>
+        <div class="actions">
+          <button class="copy-btn" onclick="copyImport('Plus')" title="Скопировать import">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Import
+          </button>
+          <button class="copy-btn" onclick="copyComponent('Plus')" title="Скопировать тег">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Тег
+          </button>
+          <button class="copy-btn" onclick="downloadSvg('plus')" title="Скачать SVG">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="card" data-name="shield Shield" data-component="Shield" data-kebab="shield">
+        <button class="delete" onclick="del('shield')" title="Удалить">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="preview"><svg fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M12.824 2.196a3 3 0 0 0-1.648 0l-5 1.428A3 3 0 0 0 4 6.51v5.374a9 9 0 0 0 3.769 7.324l2.487 1.776a3 3 0 0 0 3.488 0l2.487-1.776A9 9 0 0 0 20 11.883V6.51a3 3 0 0 0-2.176-2.885z" clip-rule="evenodd"/></svg></div>
+        <div class="name-row">
+          <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'shield')">shield</span>
+        </div>
+        <div class="meta">0 0 24 24</div>
+        <div class="actions">
+          <button class="copy-btn" onclick="copyImport('Shield')" title="Скопировать import">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Import
+          </button>
+          <button class="copy-btn" onclick="copyComponent('Shield')" title="Скопировать тег">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Тег
+          </button>
+          <button class="copy-btn" onclick="downloadSvg('shield')" title="Скачать SVG">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="card" data-name="user User" data-component="User" data-kebab="user">
+        <button class="delete" onclick="del('user')" title="Удалить">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="preview"><svg viewBox="0 0 24 24"><path d="M21 20a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2 8 8 0 0 1 1.79-5 2 2 0 0 1 2.67-.39 8.07 8.07 0 0 0 9.07 0 2 2 0 0 1 2.68.39A8 8 0 0 1 21 20m-9-6a6 6 0 1 0-6-6 6 6 0 0 0 6 6"/></svg></div>
+        <div class="name-row">
+          <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'user')">user</span>
+        </div>
+        <div class="meta">0 0 24 24</div>
+        <div class="actions">
+          <button class="copy-btn" onclick="copyImport('User')" title="Скопировать import">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Import
+          </button>
+          <button class="copy-btn" onclick="copyComponent('User')" title="Скопировать тег">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Тег
+          </button>
+          <button class="copy-btn" onclick="downloadSvg('user')" title="Скачать SVG">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </button>
+        </div>
+      </div></div>
   </div>
 
-  
-
-  <div class="grid" id="grid">
-    
-      <div class="card" data-name="bar-chart-3 BarChart3">
-        <button class="delete" onclick="del('bar-chart-3')" title="Delete">×</button>
-        <div class="preview"><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>
-<svg fill="#000000" viewBox="0 0 32 32" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M29,10c0,-0.552 -0.448,-1 -1,-1l-4,0c-0.552,0 -1,0.448 -1,1l-0,18c0,0.552 0.448,1 1,1l4,0c0.552,0 1,-0.448 1,-1l-0,-18Zm-20,6c-0,-0.552 -0.448,-1 -1,-1l-4,0c-0.552,0 -1,0.448 -1,1l-0,12c0,0.552 0.448,1 1,1l4,0c0.552,0 1,-0.448 1,-1l-0,-12Zm10,-12c0,-0.552 -0.448,-1 -1,-1l-4,0c-0.552,0 -1,0.448 -1,1l-0,24c0,0.552 0.448,1 1,1l4,0c0.552,0 1,-0.448 1,-1l-0,-24Z"/><g id="Icon"/></svg></div>
-        <div class="name" ondblclick="rename(this, 'bar-chart-3')">bar-chart-3</div>
-        <button class="copy" onclick="copy('BarChart3')">
-          import { BarChart3 }
-        </button>
-      </div>
-      <div class="card" data-name="conditioner Conditioner">
-        <button class="delete" onclick="del('conditioner')" title="Delete">×</button>
-        <div class="preview">
-<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24"><path d="M19,0H5C2.243,0,0,2.243,0,5v1c0,2.757,2.243,5,5,5h14c2.757,0,5-2.243,5-5v-1c0-2.757-2.243-5-5-5Zm0,8H5c-.553,0-1-.448-1-1s.447-1,1-1h14c.553,0,1,.448,1,1s-.447,1-1,1Zm-6,6v9c0,.552-.447,1-1,1s-1-.448-1-1V14c0-.552,.447-1,1-1s1,.448,1,1Zm-4,0v6c0,2.206-1.794,4-4,4s-4-1.794-4-4c0-1.739,1.121-3.397,2.667-3.943,.521-.184,1.092,.09,1.276,.61,.184,.521-.09,1.092-.61,1.276-.747,.264-1.333,1.167-1.333,2.057,0,1.103,.897,2,2,2s2-.897,2-2v-6c0-.552,.447-1,1-1s1,.448,1,1Zm14,6c0,2.206-1.794,4-4,4s-4-1.794-4-4v-6c0-.552,.447-1,1-1s1,.448,1,1v6c0,1.103,.897,2,2,2s2-.897,2-2c0-.89-.586-1.793-1.333-2.057-.521-.184-.794-.755-.61-1.276,.185-.521,.755-.794,1.276-.61,1.546,.546,2.667,2.204,2.667,3.943Z"/></svg>
-</div>
-        <div class="name" ondblclick="rename(this, 'conditioner')">conditioner</div>
-        <button class="copy" onclick="copy('Conditioner')">
-          import { Conditioner }
-        </button>
-      </div>
-      <div class="card" data-name="heart Heart">
-        <button class="delete" onclick="del('heart')" title="Delete">×</button>
-        <div class="preview">
-<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M7 2C3.31333 2 1 5.21475 1 8.5C1 11.8412 2.67415 14.6994 4.77151 16.9297C6.8721 19.1634 9.47698 20.8565 11.5528 21.8944C11.8343 22.0352 12.1657 22.0352 12.4472 21.8944C14.523 20.8565 17.1279 19.1634 19.2285 16.9297C21.3259 14.6994 23 11.8412 23 8.5C23 5.22013 20.7289 2 17 2C15.275 2 14.0531 2.47979 13.1186 3.20977C12.6785 3.55357 12.311 3.95011 11.9974 4.33639C11.6802 3.94929 11.3091 3.55266 10.8649 3.2079C9.92877 2.48125 8.70883 2 7 2Z" fill="#000000"/>
-</svg></div>
-        <div class="name" ondblclick="rename(this, 'heart')">heart</div>
-        <button class="copy" onclick="copy('Heart')">
-          import { Heart }
-        </button>
-      </div>
-      <div class="card" data-name="home Home">
-        <button class="delete" onclick="del('home')" title="Delete">×</button>
-        <div class="preview">
-
-<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="style=fill">
-<g id="home-line" clip-path="url(#clip0_1_110)">
-<path id="Subtract" fill-rule="evenodd" clip-rule="evenodd" d="M14.3594 2.12613C13.0087 0.944612 10.9923 0.94461 9.64162 2.12612L3.2802 7.69086C2.29508 8.55261 1.72998 9.79772 1.72998 11.1066L1.72998 19.1672C1.72998 21.1459 3.33403 22.75 5.31273 22.75L18.6883 22.75C20.667 22.75 22.271 21.1459 22.271 19.1672L22.271 11.1066C22.271 9.79772 21.706 8.55261 20.7208 7.69086L14.3594 2.12613ZM10 16.1136C9.58579 16.1136 9.25 16.4494 9.25 16.8636C9.25 17.2779 9.58579 17.6136 10 17.6136L14 17.6136C14.4142 17.6136 14.75 17.2779 14.75 16.8636C14.75 16.4494 14.4142 16.1136 14 16.1136L10 16.1136Z" fill="#000000"/>
-</g>
-</g>
-<defs>
-<clipPath id="clip0_1_110">
-<rect fill="white" transform="translate(1.72998 22.75) rotate(-90)"/>
-</clipPath>
-</defs>
-</svg></div>
-        <div class="name" ondblclick="rename(this, 'home')">home</div>
-        <button class="copy" onclick="copy('Home')">
-          import { Home }
-        </button>
-      </div>
-      <div class="card" data-name="layout-grid LayoutGrid">
-        <button class="delete" onclick="del('layout-grid')" title="Delete">×</button>
-        <div class="preview">
-
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-
-<svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-	 viewBox="0 0 512 512"  xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#000000;}
-</style>
-<g>
-	<path class="st0" d="M421.289,0H90.71C40.609,0,0,40.61,0,90.703V160h512V90.703C512,40.61,471.39,0,421.289,0z"/>
-	<path class="st0" d="M0,421.297C0,471.39,40.609,512,90.71,512H296V216H0V421.297z"/>
-	<path class="st0" d="M352,512h69.289C471.39,512,512,471.39,512,421.297V216H352V512z"/>
-</g>
-</svg></div>
-        <div class="name" ondblclick="rename(this, 'layout-grid')">layout-grid</div>
-        <button class="copy" onclick="copy('LayoutGrid')">
-          import { LayoutGrid }
-        </button>
-      </div>
-      <div class="card" data-name="list List">
-        <button class="delete" onclick="del('list')" title="Delete">×</button>
-        <div class="preview">
-
-<svg viewBox="0 -4.5 31 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    
-    <title>list</title>
-    <desc>Created with Sketch Beta.</desc>
-    <defs>
-
-</defs>
-    <g id="Page-1" stroke="none" stroke- fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-206.000000, -626.000000)" fill="#000000">
-            <path d="M235,643 L216,643 C214.896,643 214,643.896 214,645 C214,646.104 214.896,647 216,647 L235,647 C236.104,647 237,646.104 237,645 C237,643.896 236.104,643 235,643 L235,643 Z M235,635 L216,635 C214.896,635 214,635.896 214,637 C214,638.104 214.896,639 216,639 L235,639 C236.104,639 237,638.104 237,637 C237,635.896 236.104,635 235,635 L235,635 Z M216,631 L235,631 C236.104,631 237,630.104 237,629 C237,627.896 236.104,627 235,627 L216,627 C214.896,627 214,627.896 214,629 C214,630.104 214.896,631 216,631 L216,631 Z M209,642 C207.343,642 206,643.343 206,645 C206,646.657 207.343,648 209,648 C210.657,648 212,646.657 212,645 C212,643.343 210.657,642 209,642 L209,642 Z M209,634 C207.343,634 206,635.343 206,637 C206,638.657 207.343,640 209,640 C210.657,640 212,638.657 212,637 C212,635.343 210.657,634 209,634 L209,634 Z M209,626 C207.343,626 206,627.343 206,629 C206,630.657 207.343,632 209,632 C210.657,632 212,630.657 212,629 C212,627.343 210.657,626 209,626 L209,626 Z" id="list" sketch:type="MSShapeGroup">
-
-</path>
-        </g>
-    </g>
-</svg></div>
-        <div class="name" ondblclick="rename(this, 'list')">list</div>
-        <button class="copy" onclick="copy('List')">
-          import { List }
-        </button>
-      </div>
-      <div class="card" data-name="log-out LogOut">
-        <button class="delete" onclick="del('log-out')" title="Delete">×</button>
-        <div class="preview">
-<svg fill="#000000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="sign-out" class="icon glyph"><path d="M20.49,3.84l-6-1.5A2,2,0,0,0,12,4.28V5H10A2,2,0,0,0,8,7V8a1,1,0,0,0,2,0V7h2V17H10V16a1,1,0,0,0-2,0v1a2,2,0,0,0,2,2h2v.72a2,2,0,0,0,.77,1.57,2,2,0,0,0,1.23.43,2.12,2.12,0,0,0,.49-.06l6-1.5A2,2,0,0,0,22,18.22V5.78A2,2,0,0,0,20.49,3.84Z"></path><path d="M4.41,13H9a1,1,0,0,0,0-2H4.41l1.3-1.29A1,1,0,0,0,4.29,8.29l-3,3h0a1.15,1.15,0,0,0-.21.33.94.94,0,0,0,0,.76,1.15,1.15,0,0,0,.21.33h0l3,3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z"></path></svg></div>
-        <div class="name" ondblclick="rename(this, 'log-out')">log-out</div>
-        <button class="copy" onclick="copy('LogOut')">
-          import { LogOut }
-        </button>
-      </div>
-      <div class="card" data-name="map Map">
-        <button class="delete" onclick="del('map')" title="Delete">×</button>
-        <div class="preview">
-<svg fill="#000000" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg"><path d="M 34.1876 51.4141 L 34.1876 12.2032 L 22.6095 5.1250 C 22.2110 4.8672 21.7422 4.7032 21.2969 4.5859 L 21.2969 44.3360 L 33.1095 50.9453 C 33.4844 51.1563 33.8360 51.2969 34.1876 51.4141 Z M 6.2735 50.7110 C 6.8829 50.7110 7.4688 50.5235 8.2422 50.1016 L 18.0860 44.8047 L 18.0860 5.0078 C 17.6641 5.2188 17.2188 5.4532 16.7735 5.7110 L 5.6641 12.0625 C 4.2579 12.8594 3.6016 13.9844 3.6016 15.5547 L 3.6016 48.0156 C 3.6016 49.7500 4.6095 50.7110 6.2735 50.7110 Z M 37.3985 51.3672 C 37.6329 51.2969 37.8673 51.2032 38.1016 51.0391 L 50.3593 44.0781 C 51.7422 43.3047 52.3984 42.1797 52.3984 40.6094 L 52.3984 8.1016 C 52.3984 6.3672 51.4144 5.4297 49.7267 5.4297 C 49.1406 5.4297 48.5315 5.5938 47.7812 6.0157 L 37.3985 11.7813 Z"/></svg></div>
-        <div class="name" ondblclick="rename(this, 'map')">map</div>
-        <button class="copy" onclick="copy('Map')">
-          import { Map }
-        </button>
-      </div>
-      <div class="card" data-name="plus Plus">
-        <button class="delete" onclick="del('plus')" title="Delete">×</button>
-        <div class="preview">
-<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M11 17C11 17.5523 11.4477 18 12 18C12.5523 18 13 17.5523 13 17V13H17C17.5523 13 18 12.5523 18 12C18 11.4477 17.5523 11 17 11H13V7C13 6.44771 12.5523 6 12 6C11.4477 6 11 6.44771 11 7V11H7C6.44772 11 6 11.4477 6 12C6 12.5523 6.44772 13 7 13H11V17Z" fill="#000000"/>
-</svg></div>
-        <div class="name" ondblclick="rename(this, 'plus')">plus</div>
-        <button class="copy" onclick="copy('Plus')">
-          import { Plus }
-        </button>
-      </div>
-      <div class="card" data-name="shield Shield">
-        <button class="delete" onclick="del('shield')" title="Delete">×</button>
-        <div class="preview">
-<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M12.8242 2.19551C12.2855 2.0416 11.7145 2.0416 11.1758 2.19551L6.17584 3.62408C4.88793 3.99205 4 5.16921 4 6.50865V11.8831C4 14.7897 5.40369 17.5173 7.76886 19.2067L10.2563 20.9834C11.2994 21.7285 12.7006 21.7285 13.7437 20.9834L16.2311 19.2067C18.5963 17.5173 20 14.7897 20 11.8831V6.50865C20 5.16921 19.1121 3.99205 17.8242 3.62408L12.8242 2.19551Z" fill="#000000"/>
-</svg></div>
-        <div class="name" ondblclick="rename(this, 'shield')">shield</div>
-        <button class="copy" onclick="copy('Shield')">
-          import { Shield }
-        </button>
-      </div>
-      <div class="card" data-name="user User">
-        <button class="delete" onclick="del('user')" title="Delete">×</button>
-        <div class="preview">
-<svg fill="#000000" viewBox="0 0 24 24" id="user-3" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg" class="icon flat-color"><path id="primary" d="M21,20a2,2,0,0,1-2,2H5a2,2,0,0,1-2-2,8,8,0,0,1,1.79-5,2,2,0,0,1,2.67-.39,8.07,8.07,0,0,0,9.07,0,2,2,0,0,1,2.68.39A8,8,0,0,1,21,20Zm-9-6A6,6,0,1,0,6,8,6,6,0,0,0,12,14Z" style="fill: rgb(0, 0, 0);"></path></svg></div>
-        <div class="name" ondblclick="rename(this, 'user')">user</div>
-        <button class="copy" onclick="copy('User')">
-          import { User }
-        </button>
-      </div>
+  <div class="bulk-bar" id="bulkBar">
+    <span id="selectedCount">0 выбрано</span>
+    <button class="btn-danger" onclick="bulkDelete()">Удалить выбранные</button>
+    <button class="btn-secondary" onclick="clearSelection()">Отмена</button>
   </div>
-
   <div class="toast" id="toast"></div>
+  <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+    <div class="modal">
+      <h2 id="modalTitle">Переименовать</h2>
+      <input class="modal-input" id="modalInput" placeholder="Новое имя...">
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="closeModal()">Отмена</button>
+        <button class="btn-primary" id="modalConfirm" onclick="confirmModal()">Переименовать</button>
+      </div>
+    </div>
+  </div>
 
-  <script>
-    // ─── Search & resize ───
-    function filter() {
-      const q = document.getElementById('search').value.toLowerCase();
-      document.querySelectorAll('.card').forEach(c => {
-        c.classList.toggle('hidden', !c.dataset.name.toLowerCase().includes(q));
+<script>
+const PKG = '@offevgeni/icons';
+const CURRENT_VERSION = '1.2.0';
+let selectedBump = 'patch';
+let selectedCards = new Set();
+let modalCallback = null;
+let publishOpen = false;
+
+// ─── Тема ───
+function initTheme() {
+  const saved = localStorage.getItem('icon-lib-theme');
+  if (saved === 'dark' || (!saved && matchMedia('(prefers-color-scheme:dark)').matches))
+    document.documentElement.classList.add('dark');
+  updateThemeIcon();
+}
+function toggleTheme() {
+  document.documentElement.classList.toggle('dark');
+  localStorage.setItem('icon-lib-theme',
+    document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+  updateThemeIcon();
+}
+function updateThemeIcon() {
+  const d = document.documentElement.classList.contains('dark');
+  document.getElementById('themeIcon').innerHTML = d
+    ? '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>'
+    : '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>';
+}
+initTheme();
+
+// ─── Поиск ───
+function filter() {
+  const q = document.getElementById('search').value.toLowerCase();
+  let v = 0;
+  document.querySelectorAll('.card').forEach(c => {
+    const m = c.dataset.name.toLowerCase().includes(q);
+    c.classList.toggle('hidden', !m);
+    if (m) v++;
+  });
+  document.getElementById('countBadge').textContent = v;
+}
+function resizeIcons(val) {
+  document.getElementById('sizeVal').textContent = val;
+  document.documentElement.style.setProperty('--icon-size', val + 'px');
+}
+
+// ─── Уведомления ───
+let _t;
+function toast(msg, dur = 2500) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  clearTimeout(_t); _t = setTimeout(() => el.classList.remove('show'), dur);
+}
+
+// ─── Модальное окно ───
+function openModal(title, value, btnText, cb) {
+  document.getElementById('modalTitle').textContent = title;
+  const inp = document.getElementById('modalInput');
+  inp.value = value;
+  document.getElementById('modalConfirm').textContent = btnText;
+  document.getElementById('modalOverlay').classList.add('active');
+  setTimeout(() => { inp.focus(); inp.select(); }, 50);
+  modalCallback = cb;
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+  modalCallback = null;
+}
+function confirmModal() {
+  const val = document.getElementById('modalInput').value.trim();
+  if (val && modalCallback) modalCallback(val);
+  closeModal();
+}
+document.addEventListener('keydown', e => {
+  if (document.getElementById('modalOverlay').classList.contains('active')) {
+    if (e.key === 'Enter') { e.preventDefault(); confirmModal(); }
+    if (e.key === 'Escape') closeModal();
+    return;
+  }
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); document.getElementById('search').focus(); }
+  if (e.key === 'Escape') clearSelection();
+});
+
+// ─── Копирование ───
+function copyText(text) {
+  navigator.clipboard.writeText(text).then(() => toast('✓ Скопировано'));
+}
+function copyImport(name) { copyText("import { " + name + " } from '" + PKG + "';"); }
+function copyComponent(name) { copyText('<' + name + ' />'); }
+function downloadSvg(name) { window.open('/api/svg/' + encodeURIComponent(name), '_blank'); }
+
+// ─── Выделение ───
+document.getElementById('grid').addEventListener('click', e => {
+  if (!e.shiftKey) return;
+  const card = e.target.closest('.card');
+  if (!card || e.target.closest('button')) return;
+  e.preventDefault();
+  const n = card.dataset.kebab;
+  if (selectedCards.has(n)) { selectedCards.delete(n); card.classList.remove('selected'); }
+  else { selectedCards.add(n); card.classList.add('selected'); }
+  updateBulkBar();
+});
+function updateBulkBar() {
+  const n = selectedCards.size;
+  document.getElementById('selectedCount').textContent = n + ' выбрано';
+  document.getElementById('bulkBar').classList.toggle('visible', n > 0);
+}
+function clearSelection() {
+  selectedCards.clear();
+  document.querySelectorAll('.card.selected').forEach(c => c.classList.remove('selected'));
+  updateBulkBar();
+}
+async function bulkDelete() {
+  const n = selectedCards.size;
+  if (!confirm('Удалить ' + n + ' иконок?')) return;
+  toast('Удаление...', 5000);
+  for (const name of [...selectedCards])
+    try { await fetch('/api/icons/' + encodeURIComponent(name), { method: 'DELETE' }); } catch {}
+  try { await fetch('/api/rebuild', { method: 'POST' }); } catch {}
+  clearSelection();
+}
+
+// ─── Перетаскивание ───
+let dragCounter = 0;
+function dragEnter(e) { e.preventDefault(); dragCounter++; document.getElementById('dropzone').classList.add('over'); }
+function dragLeave(e) { dragCounter--; if (dragCounter<=0) { dragCounter=0; document.getElementById('dropzone').classList.remove('over'); } }
+function handleDrop(e) {
+  e.preventDefault(); dragCounter=0;
+  document.getElementById('dropzone').classList.remove('over');
+  const files = [...e.dataTransfer.files].filter(f => f.name.endsWith('.svg'));
+  if (files.length) uploadFiles(files);
+}
+function handleFiles(fl) {
+  const files = [...fl].filter(f => f.name.endsWith('.svg'));
+  if (files.length) uploadFiles(files);
+  document.getElementById('fileInput').value = '';
+}
+async function uploadFiles(files) {
+  toast('Загрузка ' + files.length + ' файлов...', 5000);
+  const payload = [];
+  for (const f of files) payload.push({ name: f.name, content: await f.text() });
+  try {
+    const r = await fetch('/api/upload', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ files: payload }),
+    });
+    const d = await r.json();
+    if (d.ok) toast('✓ Добавлено: ' + d.saved + ' иконок');
+    else toast('✗ ' + (d.error || 'Ошибка'));
+  } catch { toast('✗ Сервер не запущен — выполните npm run dev'); }
+}
+
+// ─── Удаление и переименование ───
+async function del(name) {
+  if (!confirm('Удалить иконку «' + name + '»?')) return;
+  try {
+    const r = await fetch('/api/icons/' + encodeURIComponent(name), { method: 'DELETE' });
+    if ((await r.json()).ok) toast('✓ Удалено: ' + name);
+  } catch { toast('✗ Ошибка сервера'); }
+}
+function rename(el, oldName) {
+  openModal('Переименовать иконку', oldName, 'Переименовать', async (newName) => {
+    try {
+      const r = await fetch('/api/icons/' + encodeURIComponent(oldName), {
+        method: 'PATCH', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ newName }),
       });
+      const d = await r.json();
+      if (d.ok) toast('✓ Переименовано → ' + d.name);
+      else toast('✗ ' + (d.error || 'Ошибка'));
+    } catch { toast('✗ Не удалось переименовать'); }
+  });
+}
+
+// ─── Панель публикации ───
+function togglePublish() {
+  const panel = document.getElementById('publishPanel');
+  publishOpen = !publishOpen;
+  panel.style.display = publishOpen ? 'block' : 'none';
+  if (publishOpen) updateBumpPreview();
+}
+function togglePublishBody() {
+  const body = document.getElementById('publishBody');
+  const icon = document.getElementById('publishToggleIcon');
+  const isOpen = body.style.display !== 'none';
+  body.style.display = isOpen ? 'none' : 'block';
+  icon.textContent = isOpen ? '▶' : '▼';
+}
+function selectBump(type) {
+  selectedBump = type;
+  document.querySelectorAll('.bump-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.bump === type));
+  updateBumpPreview();
+}
+function updateBumpPreview() {
+  const p = CURRENT_VERSION.split('.').map(Number);
+  let next;
+  if (selectedBump === 'major') next = (p[0]+1)+'.0.0';
+  else if (selectedBump === 'minor') next = p[0]+'.'+(p[1]+1)+'.0';
+  else next = p[0]+'.'+p[1]+'.'+(p[2]+1);
+  document.getElementById('bumpPreview').textContent = CURRENT_VERSION + ' → ' + next;
+}
+updateBumpPreview();
+
+function setPublishStatus(msg, type) {
+  const el = document.getElementById('publishStatus');
+  el.innerHTML = msg; el.className = 'publish-status show ' + type;
+}
+
+async function doPublish() {
+  const btn = document.getElementById('publishBtn');
+  const message = document.getElementById('publishMessage').value.trim();
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Публикуем...';
+  setPublishStatus('⏳ Собираем и публикуем...', 'info');
+  try {
+    const r = await fetch('/api/publish', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ bump: selectedBump, message: message || undefined }),
+    });
+    const d = await r.json();
+    if (d.ok) {
+      setPublishStatus(
+        '✅ Версия <strong>v' + d.version + '</strong> опубликована!<br>' +
+        '📋 В вашем проекте выполните: <code>npm update @offevgeni/icons</code>',
+        'success'
+      );
+      document.getElementById('currentVersion').textContent = d.version;
+      document.getElementById('versionBadge').textContent = 'v' + d.version;
+      document.getElementById('publishMessage').value = '';
+    } else {
+      setPublishStatus('❌ ' + (d.error || 'Ошибка публикации'), 'error');
     }
-    function resize(v) {
-      document.getElementById('sizeVal').textContent = v;
-      document.documentElement.style.setProperty('--icon-size', v + 'px');
-    }
+  } catch (e) {
+    setPublishStatus('❌ ' + e.message, 'error');
+  }
+  btn.disabled = false;
+  btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0018 9h-1.26A8 8 0 103 16.3"/></svg> Опубликовать';
+}
 
-    // ─── Toast ───
-    let _t;
-    function toast(msg) {
-      const el = document.getElementById('toast');
-      el.textContent = msg;
-      el.classList.add('show');
-      clearTimeout(_t);
-      _t = setTimeout(() => el.classList.remove('show'), 2500);
-    }
-
-    // ─── Copy import ───
-    function copy(name) {
-      navigator.clipboard.writeText("import { " + name + " } from '@myorg/icons';")
-        .then(() => toast('Copied: ' + name));
-    }
-
-    // ─── Drag & drop ───
-    function dragOver(e) { e.preventDefault(); }
-    function dragEnter(e) { e.preventDefault(); document.getElementById('dropzone').classList.add('over'); }
-    function dragLeave(e) { document.getElementById('dropzone').classList.remove('over'); }
-
-    function handleDrop(e) {
-      e.preventDefault();
-      document.getElementById('dropzone').classList.remove('over');
-      const files = [...e.dataTransfer.files].filter(f => f.name.endsWith('.svg'));
-      if (files.length) uploadFiles(files);
-    }
-
-    function handleFiles(fileList) {
-      const files = [...fileList].filter(f => f.name.endsWith('.svg'));
-      if (files.length) uploadFiles(files);
-      document.getElementById('fileInput').value = '';
-    }
-
-    async function uploadFiles(files) {
-      toast('Uploading ' + files.length + ' file(s)...');
-
-      const payload = [];
-      for (const file of files) {
-        const content = await file.text();
-        payload.push({ name: file.name, content });
-      }
-
-      try {
-        const resp = await fetch('/api/upload', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ files: payload }),
-        });
-        const data = await resp.json();
-        if (data.ok) {
-          toast('Added ' + data.saved + ' icon(s)!');
-          // SSE перезагрузит страницу
-        } else {
-          toast('Error: ' + (data.error || 'upload failed'));
-        }
-      } catch (e) {
-        toast('Server not running — use: npm run dev');
-      }
-    }
-
-    // ─── Delete ───
-    async function del(name) {
-      if (!confirm('Delete icon "' + name + '"?')) return;
-      try {
-        const resp = await fetch('/api/icons/' + encodeURIComponent(name), { method: 'DELETE' });
-        const data = await resp.json();
-        if (data.ok) toast('Deleted: ' + name);
-      } catch (e) {
-        toast('Server not running');
-      }
-    }
-
-    // ─── Rename (double-click on name) ───
-    function rename(el, oldName) {
-      const input = document.createElement('input');
-      input.value = oldName;
-      input.style.cssText = 'width:100%;font-size:.72rem;text-align:center;border:1px solid #7c7cf0;border-radius:4px;padding:1px 4px;outline:none;';
-      el.replaceWith(input);
-      input.focus();
-      input.select();
-
-      async function commit() {
-        const newName = input.value.trim();
-        if (!newName || newName === oldName) {
-          input.replaceWith(el);
-          return;
-        }
-        try {
-          await fetch('/api/icons/' + encodeURIComponent(oldName), {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ newName }),
-          });
-        } catch (e) {
-          toast('Rename failed');
-          input.replaceWith(el);
-        }
-      }
-
-      input.addEventListener('blur', commit);
-      input.addEventListener('keydown', e => {
-        if (e.key === 'Enter') commit();
-        if (e.key === 'Escape') input.replaceWith(el);
-      });
-    }
-
-    // ─── SSE live reload ───
-    if (location.protocol !== 'file:') {
-      const es = new EventSource('/api/events');
-      es.onmessage = (e) => {
-        if (e.data === 'reload') location.reload();
-      };
-      es.onerror = () => {
-        setTimeout(() => location.reload(), 2000);
-      };
-    }
-  </script>
+// ─── SSE ───
+if (location.protocol !== 'file:') {
+  let rt;
+  function connectSSE() {
+    const es = new EventSource('/api/events');
+    es.onmessage = e => { if (e.data === 'reload') location.reload(); };
+    es.onerror = () => { es.close(); clearTimeout(rt); rt = setTimeout(connectSSE, 3000); };
+  }
+  connectSSE();
+}
+</script>
 </body>
 </html>

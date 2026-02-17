@@ -1,6 +1,6 @@
 {
   "name": "@offevgeni/icons",
-  "version": "1.1.0",
+  "version": "1.2.1",
   "type": "module",
   "svelte": "./src/index.js",
   "main": "./src/index.js",
@@ -20,13 +20,12 @@
   "scripts": {
     "build": "node scripts/build.js",
     "dev": "node scripts/dev.js",
-    "watch": "node scripts/watch.js",
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
     "svelte": "^5.0.0"
   },
   "devDependencies": {
-    "chokidar": "^3.5.3"
+    "svgo": "^3.2.0"
   }
 }

@@ -1,19 +1,26 @@
 <script>
-  let { 
-    size = 24, 
+  let {
+    size = 24,
     color = 'currentColor',
+    title = '',
     class: className = '',
-    ...props 
+    ...rest
   } = $props();
+
+  const sizeProps = $derived(typeof size === 'number'
+    ? { width: size, height: size }
+    : { width: size, height: size });
 </script>
 
 <svg
-  width={size}
-  height={size}
-  viewBox="0 0 32 32"
+  viewBox="-1.28 -1.28 34.56 34.56"
+  {...sizeProps}
   fill={color}
-  class="icon icon-bar-chart-3 {className}"
-  {...props}
+  class="icon icon-bar-chart-3{className ? ' ' + className : ''}"
+  aria-hidden={!title}
+  {...rest}
+  role={title ? 'img' : 'presentation'}
 >
-  <path d="M29,10c0,-0.552 -0.448,-1 -1,-1l-4,0c-0.552,0 -1,0.448 -1,1l-0,18c0,0.552 0.448,1 1,1l4,0c0.552,0 1,-0.448 1,-1l-0,-18Zm-20,6c-0,-0.552 -0.448,-1 -1,-1l-4,0c-0.552,0 -1,0.448 -1,1l-0,12c0,0.552 0.448,1 1,1l4,0c0.552,0 1,-0.448 1,-1l-0,-12Zm10,-12c0,-0.552 -0.448,-1 -1,-1l-4,0c-0.552,0 -1,0.448 -1,1l-0,24c0,0.552 0.448,1 1,1l4,0c0.552,0 1,-0.448 1,-1l-0,-24Z"/><g id="Icon"/>
+  {#if title}<title>{title}</title>{/if}
+  <path d="M29 10a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1zM9 16a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1zM19 4a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v24a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1z"/>
 </svg>

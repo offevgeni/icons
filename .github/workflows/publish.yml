@@ -5,8 +5,7 @@ on:
     branches: [main]
     paths:
       - 'svg/**'
-
-  # ручной запуск из веб-интерфейса GitHub
+      - 'package.json'
   workflow_dispatch:
 
 jobs:
@@ -32,16 +31,15 @@ jobs:
       - name: Build icons
         run: npm run build
 
-      - name: Commit, bump version & push
+      - name: Commit generated files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
           git add -A
           git diff --staged --quiet || git commit -m "build: auto-generate icons [skip ci]"
-
-          npm version patch -m "v%s [skip ci]"
-          git push --follow-tags
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish to GitHub Packages
         run: npm publish --ignore-scripts
