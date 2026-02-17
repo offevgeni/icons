@@ -1,8 +1,6 @@
 <script>
   import BarChart3 from './icons/BarChart3.svelte';
   import Heart from './icons/Heart.svelte';
-  import HelpCenter from './icons/HelpCenter.svelte';
-  import HelpCircle from './icons/HelpCircle.svelte';
   import Home from './icons/Home.svelte';
   import LayoutGrid from './icons/LayoutGrid.svelte';
   import List from './icons/List.svelte';
@@ -11,15 +9,11 @@
   import Pet from './icons/Pet.svelte';
   import Plus from './icons/Plus.svelte';
   import Shield from './icons/Shield.svelte';
-  import TimeQuarterPast from './icons/TimeQuarterPast.svelte';
-  import Time from './icons/Time.svelte';
   import User from './icons/User.svelte';
 
   const iconMap = {
     'bar-chart-3': BarChart3,
     'heart': Heart,
-    'help-center': HelpCenter,
-    'help-circle': HelpCircle,
     'home': Home,
     'layout-grid': LayoutGrid,
     'list': List,
@@ -28,8 +22,6 @@
     'pet': Pet,
     'plus': Plus,
     'shield': Shield,
-    'time-quarter-past': TimeQuarterPast,
-    'time': Time,
     'user': User
   };
 
