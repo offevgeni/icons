@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Иконки — 11 шт.</title>
+<title>Иконки — 10 шт.</title>
 <style>
   :root {
     --bg:#f8f9fa;--bg-card:#fff;--bg-input:#fff;--bg-hover:#f1f3f5;
@@ -174,8 +174,8 @@
   <div class="toolbar-inner">
     <div class="toolbar-brand">
       <span>📦</span><span>Иконки</span>
-      <span class="badge" id="countBadge">11</span>
-      <span class="badge-version" id="versionBadge" onclick="togglePublish()" title="Публикация">v1.2.11</span>
+      <span class="badge" id="countBadge">10</span>
+      <span class="badge-version" id="versionBadge" onclick="togglePublish()" title="Публикация">v1.2.12</span>
     </div>
     <div class="search-wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -183,8 +183,8 @@
     </div>
     <div class="toolbar-right">
       <div class="filter-group">
-        <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">Все (11)</button>
-        <button class="filter-btn" data-filter="fill" onclick="setFilter('fill')">◼ Fill (11)</button>
+        <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">Все (10)</button>
+        <button class="filter-btn" data-filter="fill" onclick="setFilter('fill')">◼ Fill (10)</button>
         <button class="filter-btn" data-filter="stroke" onclick="setFilter('stroke')">〰 Stroke (0)</button>
       </div>
       <div class="size-ctrl">
@@ -238,7 +238,7 @@
         <h3>📤 Опубликовать</h3>
         <div class="publish-row">
           <span class="publish-label">Текущая:</span>
-          <strong id="currentVersion">1.2.11</strong>
+          <strong id="currentVersion">1.2.12</strong>
         </div>
         <div class="publish-row">
           <span class="publish-label">Тип версии:</span>
@@ -284,8 +284,8 @@
 
   
   <div class="info-bar">
-    <div class="chip">📊 <strong>11</strong> иконок</div>
-    <div class="chip">◼ Fill: <strong>11</strong></div>
+    <div class="chip">📊 <strong>10</strong> иконок</div>
+    <div class="chip">◼ Fill: <strong>10</strong></div>
     <div class="chip">〰 Stroke: <strong>0</strong></div>
     <div class="chip"><kbd class="kbd">Shift</kbd> + клик — выделение нескольких</div>
     <div class="chip"><kbd class="kbd">⌘K</kbd> поиск</div>
@@ -476,29 +476,6 @@
           </button>
         </div>
       </div>
-      <div class="card" data-name="plus Plus" data-component="Plus" data-kebab="plus" data-type="fill">
-        <button class="delete" onclick="del('plus')" title="Удалить">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-        <div class="preview"><svg viewBox="4.8 4.8 14.4 14.4"><path fill="currentColor" fill-rule="evenodd" d="M11 17a1 1 0 1 0 2 0v-4h4a1 1 0 1 0 0-2h-4V7a1 1 0 1 0-2 0v4H7a1 1 0 1 0 0 2h4z" clip-rule="evenodd"/></svg></div>
-        <div class="name-row">
-          <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'plus')">plus</span>
-        </div>
-        <div class="meta">◼ fill · 0 0 24 24</div>
-        <div class="actions">
-          <button class="copy-btn" onclick="copyImport('Plus')" title="Скопировать import">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-            Import
-          </button>
-          <button class="copy-btn" onclick="copyComponent('Plus')" title="Скопировать тег">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-            Тег
-          </button>
-          <button class="copy-btn" onclick="downloadSvg('plus')" title="Скачать SVG">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          </button>
-        </div>
-      </div>
       <div class="card" data-name="shield Shield" data-component="Shield" data-kebab="shield" data-type="fill">
         <button class="delete" onclick="del('shield')" title="Удалить">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -566,7 +543,7 @@
 
 <script>
 const PKG = '@offevgeni/icons';
-const CURRENT_VERSION = '1.2.11';
+const CURRENT_VERSION = '1.2.12';
 let selectedBump = 'patch';
 let selectedCards = new Set();
 let modalCallback = null;
