@@ -77,6 +77,11 @@ function checkGit() {
     catch { return false; }
 }
 
+function getGitBranch() {
+    try { return execSync('git rev-parse --abbrev-ref HEAD', { cwd: ROOT, stdio: 'pipe' }).toString().trim(); }
+    catch { return 'main'; }
+}
+
 // Watcher
 let watchTimeout;
 function setupWatcher() {
@@ -193,12 +198,54 @@ const server = http.createServer(async (req, res) => {
             const hasGit = checkGit();
             if (hasGit) {
                 try {
+                    // Прячем несохранённые изменения если есть
+                    let stashed = false;
+                    try {
+                        const status = await runCmd('git status --porcelain');
+                        if (status) {
+                            await runCmd('git stash');
+                            stashed = true;
+                        }
+                    } catch {}
+
+                    // Синхронизируемся с remote
+                    try {
+                        await runCmd('git push --follow-tags');
+                        console.log('  ⬆️  Отправлено в удалённый репозиторий');
+                    } catch (e) {
+                        try {
+                            const branch = getGitBranch();
+                            await runCmd(`git push --force-with-lease origin ${branch} --follow-tags`);
+                            console.log('  ⬆️  Отправлено (force-with-lease)');
+                        } catch (e2) {
+                            console.warn('  ⚠️  Не удалось отправить:', e2.message);
+                        }
+                    }
+
+                    // Возвращаем спрятанные изменения
+                    if (stashed) {
+                        try { await runCmd('git stash pop'); } catch {}
+                    }
+
+                    // Коммитим и тегируем
                     await runCmd('git add -A');
                     await runCmd(`git commit -m "${commitMsg}" --allow-empty`);
                     await runCmd(`git tag v${newVersion}`);
                     console.log('  📌 Git-коммит и тег созданы');
-                    try { await runCmd('git push --follow-tags'); console.log('  ⬆️  Отправлено в удалённый репозиторий'); }
-                    catch (e) { console.warn('  ⚠️  Не удалось отправить (нет remote?):', e.message); }
+
+                    // Пушим
+                    try {
+                        await runCmd('git push --follow-tags');
+                        console.log('  ⬆️  Отправлено в удалённый репозиторий');
+                    } catch (e) {
+                        // Если обычный push отклонён — форсируем
+                        try {
+                            await runCmd('git push --force-with-lease --follow-tags');
+                            console.log('  ⬆️  Отправлено (force-with-lease)');
+                        } catch (e2) {
+                            console.warn('  ⚠️  Не удалось отправить:', e2.message);
+                        }
+                    }
                 } catch (e) { console.warn('  ⚠️  Git-ошибка:', e.message); }
             }
 

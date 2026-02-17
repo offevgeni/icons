@@ -1,6 +1,7 @@
 <script>
   import BarChart3 from './icons/BarChart3.svelte';
   import Heart from './icons/Heart.svelte';
+  import HelpCircle from './icons/HelpCircle.svelte';
   import Home from './icons/Home.svelte';
   import LayoutGrid from './icons/LayoutGrid.svelte';
   import List from './icons/List.svelte';
@@ -14,6 +15,7 @@
   const iconMap = {
     'bar-chart-3': BarChart3,
     'heart': Heart,
+    'help-circle': HelpCircle,
     'home': Home,
     'layout-grid': LayoutGrid,
     'list': List,

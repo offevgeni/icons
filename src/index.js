@@ -1,6 +1,7 @@
 // Файл сгенерирован автоматически — не редактируйте вручную
 export { default as BarChart3 } from './icons/BarChart3.svelte';
 export { default as Heart } from './icons/Heart.svelte';
+export { default as HelpCircle } from './icons/HelpCircle.svelte';
 export { default as Home } from './icons/Home.svelte';
 export { default as LayoutGrid } from './icons/LayoutGrid.svelte';
 export { default as List } from './icons/List.svelte';
@@ -13,4 +14,4 @@ export { default as User } from './icons/User.svelte';
 
 export { default as Icon } from './Icon.svelte';
 
-export const iconNames = ['bar-chart-3', 'heart', 'home', 'layout-grid', 'list', 'log-out', 'map', 'pet', 'plus', 'shield', 'user'];
+export const iconNames = ['bar-chart-3', 'heart', 'help-circle', 'home', 'layout-grid', 'list', 'log-out', 'map', 'pet', 'plus', 'shield', 'user'];
