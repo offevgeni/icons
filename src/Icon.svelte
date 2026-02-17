@@ -8,6 +8,7 @@
   import Map from './icons/Map.svelte';
   import Pet from './icons/Pet.svelte';
   import Plus from './icons/Plus.svelte';
+  import Share2 from './icons/Share2.svelte';
   import Shield from './icons/Shield.svelte';
   import User from './icons/User.svelte';
 
@@ -21,6 +22,7 @@
     'map': Map,
     'pet': Pet,
     'plus': Plus,
+    'share-2': Share2,
     'shield': Shield,
     'user': User
   };

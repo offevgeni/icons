@@ -8,9 +8,10 @@ export { default as LogOut } from './icons/LogOut.svelte';
 export { default as Map } from './icons/Map.svelte';
 export { default as Pet } from './icons/Pet.svelte';
 export { default as Plus } from './icons/Plus.svelte';
+export { default as Share2 } from './icons/Share2.svelte';
 export { default as Shield } from './icons/Shield.svelte';
 export { default as User } from './icons/User.svelte';
 
 export { default as Icon } from './Icon.svelte';
 
-export const iconNames = ['bar-chart-3', 'heart', 'home', 'layout-grid', 'list', 'log-out', 'map', 'pet', 'plus', 'shield', 'user'];
+export const iconNames = ['bar-chart-3', 'heart', 'home', 'layout-grid', 'list', 'log-out', 'map', 'pet', 'plus', 'share-2', 'shield', 'user'];
