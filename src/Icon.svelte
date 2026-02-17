@@ -29,7 +29,7 @@
     name,
     size = 24,
     color = 'currentColor',
-    strokeWidth = 2,
+    strokeWidth = 1.5,
     title = '',
     class: className = '',
     ...rest
@@ -41,7 +41,7 @@
 {#if IconComponent}
   <IconComponent {size} {color} {strokeWidth} {title} class={className} {...rest} />
 {:else}
-  <span class="icon-not-found" style="display:inline-flex;align-items:center;gap:4px;color:#ef4444;font-size:12px;">
+  <span style="display:inline-flex;align-items:center;gap:4px;color:#ef4444;font-size:12px;">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
     </svg>

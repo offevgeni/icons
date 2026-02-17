@@ -3,597 +3,304 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Библиотека иконок — 11 шт.</title>
+<title>Иконки — 11 шт.</title>
 <style>
   :root {
-    --bg: #f8f9fa; --bg-card: #ffffff; --bg-input: #ffffff;
-    --bg-hover: #f1f3f5; --text: #1a1a2e; --text-muted: #6b7280;
-    --text-dim: #9ca3af; --border: #e5e7eb; --border-hover: #d1d5db;
-    --accent: #6366f1; --accent-light: rgba(99,102,241,.08);
-    --accent-hover: #4f46e5; --danger: #ef4444; --danger-bg: #fef2f2;
-    --success: #10b981; --success-bg: rgba(16,185,129,.08);
-    --warning: #f59e0b; --warning-bg: rgba(245,158,11,.08);
-    --icon-size: 28px; --radius: 12px;
-    --shadow: 0 1px 3px rgba(0,0,0,.04), 0 1px 2px rgba(0,0,0,.06);
-    --shadow-hover: 0 10px 30px rgba(0,0,0,.08);
-    --icon-color: #1a1a2e;
+    --bg:#f8f9fa;--bg-card:#fff;--bg-input:#fff;--bg-hover:#f1f3f5;
+    --text:#1a1a2e;--text-muted:#6b7280;--text-dim:#9ca3af;
+    --border:#e5e7eb;--border-hover:#d1d5db;
+    --accent:#6366f1;--accent-light:rgba(99,102,241,.08);--accent-hover:#4f46e5;
+    --danger:#ef4444;--danger-bg:#fef2f2;
+    --success:#10b981;--success-bg:rgba(16,185,129,.08);
+    --warning:#f59e0b;--warning-bg:rgba(245,158,11,.08);
+    --icon-size:28px;--radius:12px;
+    --shadow:0 1px 3px rgba(0,0,0,.04),0 1px 2px rgba(0,0,0,.06);
+    --shadow-hover:0 10px 30px rgba(0,0,0,.08);
+    --icon-color:#1a1a2e;
   }
   .dark {
-    --bg: #0f0f1a; --bg-card: #1a1a2e; --bg-input: #16213e;
-    --bg-hover: #232340; --text: #e2e8f0; --text-muted: #94a3b8;
-    --text-dim: #64748b; --border: #2d2d44; --border-hover: #3d3d5c;
-    --accent: #818cf8; --accent-light: rgba(129,140,248,.1);
-    --accent-hover: #6366f1; --danger: #f87171; --danger-bg: #1c1017;
-    --success: #34d399; --success-bg: rgba(52,211,153,.1);
-    --warning: #fbbf24; --warning-bg: rgba(251,191,36,.1);
-    --shadow: 0 1px 3px rgba(0,0,0,.3);
-    --shadow-hover: 0 10px 30px rgba(0,0,0,.4);
-    --icon-color: #e2e8f0;
+    --bg:#0f0f1a;--bg-card:#1a1a2e;--bg-input:#16213e;--bg-hover:#232340;
+    --text:#e2e8f0;--text-muted:#94a3b8;--text-dim:#64748b;
+    --border:#2d2d44;--border-hover:#3d3d5c;
+    --accent:#818cf8;--accent-light:rgba(129,140,248,.1);--accent-hover:#6366f1;
+    --danger:#f87171;--danger-bg:#1c1017;
+    --success:#34d399;--success-bg:rgba(52,211,153,.1);
+    --warning:#fbbf24;--warning-bg:rgba(251,191,36,.1);
+    --shadow:0 1px 3px rgba(0,0,0,.3);--shadow-hover:0 10px 30px rgba(0,0,0,.4);
+    --icon-color:#e2e8f0;
   }
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: var(--bg); color: var(--text);
-    min-height: 100vh; transition: background .25s, color .25s;
-  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .25s,color .25s;}
 
-  .toolbar {
-    position: sticky; top: 0; z-index: 100;
-    background: var(--bg-card); border-bottom: 1px solid var(--border);
-    padding: .75rem 1.5rem; box-shadow: var(--shadow);
-  }
-  .toolbar-inner {
-    max-width: 1400px; margin: 0 auto;
-    display: flex; flex-wrap: wrap; align-items: center; gap: .75rem;
-  }
-  .toolbar-brand {
-    display: flex; align-items: center; gap: .5rem;
-    font-weight: 700; font-size: 1.1rem; white-space: nowrap; margin-right: .25rem;
-  }
-  .badge {
-    display: inline-flex; align-items: center; justify-content: center;
-    background: var(--accent); color: #fff;
-    font-size: .65rem; font-weight: 700;
-    padding: .1rem .45rem; border-radius: 99px; min-width: 22px;
-  }
-  .badge-version {
-    background: var(--success); font-size: .6rem;
-    padding: .1rem .4rem; border-radius: 99px; color: #fff; font-weight: 600;
-    cursor: pointer; transition: opacity .15s;
-  }
-  .badge-version:hover { opacity: .85; }
-  .search-wrap {
-    flex: 1; min-width: 180px; max-width: 360px; position: relative;
-  }
-  .search-wrap svg {
-    position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
-    color: var(--text-dim); pointer-events: none; width: 15px; height: 15px;
-  }
-  .search {
-    width: 100%; padding: .5rem .7rem .5rem 2rem;
-    border: 1.5px solid var(--border); border-radius: 8px;
-    font-size: .85rem; outline: none;
-    background: var(--bg-input); color: var(--text);
-    transition: border .2s, box-shadow .2s;
-  }
-  .search:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-light); }
-  .search::placeholder { color: var(--text-dim); }
-  .toolbar-right {
-    display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; margin-left: auto;
-  }
-  .size-ctrl {
-    display: flex; align-items: center; gap: .35rem;
-    font-size: .75rem; color: var(--text-muted);
-  }
-  .size-ctrl input[type=range] { width: 70px; accent-color: var(--accent); }
-  .btn-icon {
-    width: 34px; height: 34px;
-    display: inline-flex; align-items: center; justify-content: center;
-    border-radius: 8px; border: 1.5px solid var(--border);
-    background: var(--bg-input); color: var(--text);
-    cursor: pointer; transition: all .15s;
-  }
-  .btn-icon:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
-  .btn-icon svg { width: 16px; height: 16px; }
-  .btn-primary {
-    display: inline-flex; align-items: center; gap: .35rem;
-    padding: .45rem .9rem; border-radius: 8px;
-    background: var(--accent); color: #fff;
-    border: none; font-size: .8rem; font-weight: 600;
-    cursor: pointer; transition: background .15s;
-  }
-  .btn-primary:hover { background: var(--accent-hover); }
-  .btn-primary svg { width: 15px; height: 15px; }
-  .btn-primary:disabled { opacity: .5; cursor: not-allowed; }
-  .btn-success {
-    display: inline-flex; align-items: center; gap: .35rem;
-    padding: .45rem .9rem; border-radius: 8px;
-    background: var(--success); color: #fff;
-    border: none; font-size: .8rem; font-weight: 600;
-    cursor: pointer; transition: opacity .15s;
-  }
-  .btn-success:hover { opacity: .9; }
-  .btn-success:disabled { opacity: .5; cursor: not-allowed; }
-  .btn-secondary {
-    padding: .45rem .9rem; border-radius: 8px;
-    background: transparent; color: var(--text);
-    border: 1.5px solid var(--border);
-    font-size: .8rem; cursor: pointer; transition: all .15s;
-  }
-  .btn-secondary:hover { border-color: var(--text-muted); background: var(--bg-hover); }
-  .btn-danger {
-    padding: .45rem .9rem; border-radius: 8px;
-    background: var(--danger); color: #fff;
-    border: none; font-size: .8rem; font-weight: 600;
-    cursor: pointer; transition: background .15s;
-  }
-  .btn-danger:hover { background: #dc2626; }
+  .toolbar{position:sticky;top:0;z-index:100;background:var(--bg-card);border-bottom:1px solid var(--border);padding:.75rem 1.5rem;box-shadow:var(--shadow);}
+  .toolbar-inner{max-width:1400px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:.75rem;}
+  .toolbar-brand{display:flex;align-items:center;gap:.5rem;font-weight:700;font-size:1.1rem;white-space:nowrap;margin-right:.25rem;}
+  .badge{display:inline-flex;align-items:center;justify-content:center;background:var(--accent);color:#fff;font-size:.65rem;font-weight:700;padding:.1rem .45rem;border-radius:99px;min-width:22px;}
+  .badge-version{background:var(--success);font-size:.6rem;padding:.1rem .4rem;border-radius:99px;color:#fff;font-weight:600;cursor:pointer;transition:opacity .15s;}
+  .badge-version:hover{opacity:.85;}
+  .search-wrap{flex:1;min-width:180px;max-width:360px;position:relative;}
+  .search-wrap svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text-dim);pointer-events:none;width:15px;height:15px;}
+  .search{width:100%;padding:.5rem .7rem .5rem 2rem;border:1.5px solid var(--border);border-radius:8px;font-size:.85rem;outline:none;background:var(--bg-input);color:var(--text);transition:border .2s,box-shadow .2s;}
+  .search:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-light);}
+  .search::placeholder{color:var(--text-dim);}
+  .toolbar-right{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-left:auto;}
+  .filter-group{display:flex;gap:.25rem;}
+  .filter-btn{padding:.3rem .65rem;border-radius:6px;border:1.5px solid var(--border);background:var(--bg-input);color:var(--text-muted);font-size:.72rem;font-weight:600;cursor:pointer;transition:all .15s;}
+  .filter-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .filter-btn.active{border-color:var(--accent);background:var(--accent);color:#fff;}
+  .size-ctrl{display:flex;align-items:center;gap:.35rem;font-size:.75rem;color:var(--text-muted);}
+  .size-ctrl input[type=range]{width:70px;accent-color:var(--accent);}
+  .btn-icon{width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;border:1.5px solid var(--border);background:var(--bg-input);color:var(--text);cursor:pointer;transition:all .15s;}
+  .btn-icon:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light);}
+  .btn-icon svg{width:16px;height:16px;}
+  .btn-primary{display:inline-flex;align-items:center;gap:.35rem;padding:.45rem .9rem;border-radius:8px;background:var(--accent);color:#fff;border:none;font-size:.8rem;font-weight:600;cursor:pointer;transition:background .15s;}
+  .btn-primary:hover{background:var(--accent-hover);}
+  .btn-primary svg{width:15px;height:15px;}
+  .btn-primary:disabled{opacity:.5;cursor:not-allowed;}
+  .btn-success{display:inline-flex;align-items:center;gap:.35rem;padding:.45rem .9rem;border-radius:8px;background:var(--success);color:#fff;border:none;font-size:.8rem;font-weight:600;cursor:pointer;transition:opacity .15s;}
+  .btn-success:hover{opacity:.9;}
+  .btn-success:disabled{opacity:.5;cursor:not-allowed;}
+  .btn-secondary{padding:.45rem .9rem;border-radius:8px;background:transparent;color:var(--text);border:1.5px solid var(--border);font-size:.8rem;cursor:pointer;transition:all .15s;}
+  .btn-secondary:hover{border-color:var(--text-muted);background:var(--bg-hover);}
+  .btn-danger{padding:.45rem .9rem;border-radius:8px;background:var(--danger);color:#fff;border:none;font-size:.8rem;font-weight:600;cursor:pointer;transition:background .15s;}
+  .btn-danger:hover{background:#dc2626;}
 
-  .main { max-width: 1400px; margin: 0 auto; padding: 1.25rem 1.5rem 4rem; }
+  .main{max-width:1400px;margin:0 auto;padding:1.25rem 1.5rem 4rem;}
 
-  .dropzone {
-    border: 2px dashed var(--border); border-radius: var(--radius);
-    padding: 2rem 1.5rem; text-align: center;
-    color: var(--text-dim); transition: all .25s;
-    cursor: pointer; margin-bottom: 1.25rem;
-  }
-  .dropzone:hover, .dropzone.over {
-    border-color: var(--accent); background: var(--accent-light); color: var(--accent);
-  }
-  .dropzone input { display: none; }
-  .dropzone-icon { font-size: 1.75rem; margin-bottom: .35rem; }
-  .dropzone-text { font-size: .9rem; font-weight: 500; }
-  .dropzone-hint { font-size: .75rem; margin-top: .2rem; opacity: .7; }
+  .dropzone{border:2px dashed var(--border);border-radius:var(--radius);padding:2rem 1.5rem;text-align:center;color:var(--text-dim);transition:all .25s;cursor:pointer;margin-bottom:1.25rem;}
+  .dropzone:hover,.dropzone.over{border-color:var(--accent);background:var(--accent-light);color:var(--accent);}
+  .dropzone input{display:none;}
+  .dropzone-icon{font-size:1.75rem;margin-bottom:.35rem;}
+  .dropzone-text{font-size:.9rem;font-weight:500;}
+  .dropzone-hint{font-size:.75rem;margin-top:.2rem;opacity:.7;}
 
-  /* ─── Панель публикации ─── */
-  .publish-panel {
-    background: var(--bg-card); border: 1.5px solid var(--border);
-    border-radius: var(--radius); margin-bottom: 1.25rem;
-    box-shadow: var(--shadow); overflow: hidden;
-  }
-  .publish-header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1rem 1.25rem; cursor: pointer; user-select: none;
-  }
-  .publish-header:hover { background: var(--bg-hover); }
-  .publish-header h2 { font-size: .95rem; font-weight: 700; }
-  .publish-toggle-icon { font-size: .8rem; color: var(--text-dim); transition: transform .2s; }
-  .publish-body { padding: 0 1.25rem 1.25rem; }
-  .publish-section {
-    margin-bottom: 1.25rem; padding-bottom: 1.25rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .publish-section:last-child { margin-bottom: 0; border-bottom: none; padding-bottom: 0; }
-  .publish-section h3 {
-    font-size: .82rem; font-weight: 700; margin-bottom: .65rem;
-    color: var(--text); display: flex; align-items: center; gap: .4rem;
-  }
-  .publish-hint {
-    font-size: .72rem; color: var(--text-dim); line-height: 1.5;
-    margin-bottom: .65rem;
-  }
-  .publish-row {
-    display: flex; flex-wrap: wrap; align-items: center; gap: .65rem;
-    margin-bottom: .6rem;
-  }
-  .publish-row:last-child { margin-bottom: 0; }
-  .publish-label {
-    font-size: .75rem; color: var(--text-muted); font-weight: 600;
-    min-width: 100px;
-  }
-  .bump-group { display: flex; gap: .35rem; }
-  .bump-btn {
-    padding: .3rem .65rem; border-radius: 6px;
-    border: 1.5px solid var(--border); background: var(--bg-input);
-    color: var(--text); font-size: .72rem; font-weight: 600;
-    cursor: pointer; transition: all .15s;
-  }
-  .bump-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .bump-btn.active { border-color: var(--accent); background: var(--accent); color: #fff; }
-  .code-block {
-    background: var(--bg-hover); border: 1px solid var(--border);
-    border-radius: 8px; padding: .5rem .75rem;
-    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-    font-size: .73rem; color: var(--text);
-    position: relative; overflow-x: auto; cursor: pointer;
-    transition: border-color .15s; flex: 1; min-width: 0;
-  }
-  .code-block:hover { border-color: var(--accent); }
-  .code-block .copy-hint {
-    position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
-    font-size: .58rem; color: var(--text-dim); font-family: sans-serif;
-    opacity: 0; transition: opacity .15s; pointer-events: none;
-  }
-  .code-block:hover .copy-hint { opacity: 1; }
-  .changelog-area {
-    width: 100%; min-height: 55px; padding: .45rem .65rem;
-    border: 1.5px solid var(--border); border-radius: 8px;
-    font-size: .75rem; outline: none; resize: vertical;
-    background: var(--bg-input); color: var(--text); font-family: inherit;
-  }
-  .changelog-area:focus { border-color: var(--accent); }
-  .publish-status {
-    margin-top: .75rem; padding: .5rem .75rem;
-    border-radius: 8px; font-size: .75rem; display: none; line-height: 1.5;
-  }
-  .publish-status.show { display: block; }
-  .publish-status.success { background: var(--success-bg); color: var(--success); border: 1px solid var(--success); }
-  .publish-status.error { background: var(--danger-bg); color: var(--danger); border: 1px solid var(--danger); }
-  .publish-status.info { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent); }
-  .publish-status.warning { background: var(--warning-bg); color: var(--warning); border: 1px solid var(--warning); }
+  .publish-panel{background:var(--bg-card);border:1.5px solid var(--border);border-radius:var(--radius);margin-bottom:1.25rem;box-shadow:var(--shadow);overflow:hidden;}
+  .publish-header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;cursor:pointer;user-select:none;}
+  .publish-header:hover{background:var(--bg-hover);}
+  .publish-header h2{font-size:.95rem;font-weight:700;}
+  .publish-toggle-icon{font-size:.8rem;color:var(--text-dim);transition:transform .2s;}
+  .publish-body{padding:0 1.25rem 1.25rem;}
+  .publish-section{margin-bottom:1.25rem;padding-bottom:1.25rem;border-bottom:1px solid var(--border);}
+  .publish-section:last-child{margin-bottom:0;border-bottom:none;padding-bottom:0;}
+  .publish-section h3{font-size:.82rem;font-weight:700;margin-bottom:.65rem;color:var(--text);display:flex;align-items:center;gap:.4rem;}
+  .publish-hint{font-size:.72rem;color:var(--text-dim);line-height:1.5;margin-bottom:.65rem;}
+  .publish-row{display:flex;flex-wrap:wrap;align-items:center;gap:.65rem;margin-bottom:.6rem;}
+  .publish-row:last-child{margin-bottom:0;}
+  .publish-label{font-size:.75rem;color:var(--text-muted);font-weight:600;min-width:100px;}
+  .bump-group{display:flex;gap:.35rem;}
+  .bump-btn{padding:.3rem .65rem;border-radius:6px;border:1.5px solid var(--border);background:var(--bg-input);color:var(--text);font-size:.72rem;font-weight:600;cursor:pointer;transition:all .15s;}
+  .bump-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .bump-btn.active{border-color:var(--accent);background:var(--accent);color:#fff;}
+  .code-block{background:var(--bg-hover);border:1px solid var(--border);border-radius:8px;padding:.5rem .75rem;font-family:'SF Mono','Fira Code','Consolas',monospace;font-size:.73rem;color:var(--text);position:relative;overflow-x:auto;cursor:pointer;transition:border-color .15s;flex:1;min-width:0;}
+  .code-block:hover{border-color:var(--accent);}
+  .code-block .copy-hint{position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:.58rem;color:var(--text-dim);font-family:sans-serif;opacity:0;transition:opacity .15s;pointer-events:none;}
+  .code-block:hover .copy-hint{opacity:1;}
+  .changelog-area{width:100%;min-height:55px;padding:.45rem .65rem;border:1.5px solid var(--border);border-radius:8px;font-size:.75rem;outline:none;resize:vertical;background:var(--bg-input);color:var(--text);font-family:inherit;}
+  .changelog-area:focus{border-color:var(--accent);}
+  .publish-status{margin-top:.75rem;padding:.5rem .75rem;border-radius:8px;font-size:.75rem;display:none;line-height:1.5;}
+  .publish-status.show{display:block;}
+  .publish-status.success{background:var(--success-bg);color:var(--success);border:1px solid var(--success);}
+  .publish-status.error{background:var(--danger-bg);color:var(--danger);border:1px solid var(--danger);}
+  .publish-status.info{background:var(--accent-light);color:var(--accent);border:1px solid var(--accent);}
+  .step-list{font-size:.72rem;color:var(--text-muted);line-height:1.8;padding-left:1.25rem;}
+  .step-list li{margin-bottom:.15rem;}
+  .step-list code{background:var(--bg-hover);padding:.1rem .35rem;border-radius:4px;font-size:.7rem;font-family:'SF Mono','Fira Code',monospace;}
 
-  .step-list { font-size: .72rem; color: var(--text-muted); line-height: 1.8; padding-left: 1.25rem; }
-  .step-list li { margin-bottom: .15rem; }
-  .step-list code {
-    background: var(--bg-hover); padding: .1rem .35rem;
-    border-radius: 4px; font-size: .7rem;
-    font-family: 'SF Mono', 'Fira Code', monospace;
-  }
+  .info-bar{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin-bottom:1rem;font-size:.78rem;color:var(--text-muted);}
+  .chip{display:inline-flex;align-items:center;gap:.25rem;padding:.2rem .55rem;border-radius:6px;background:var(--bg-card);border:1px solid var(--border);font-size:.75rem;}
+  .kbd{display:inline-flex;padding:.1rem .35rem;border-radius:4px;border:1px solid var(--border);background:var(--bg-hover);font-size:.65rem;font-family:monospace;color:var(--text-muted);}
 
-  .info-bar {
-    display: flex; flex-wrap: wrap; align-items: center; gap: .5rem;
-    margin-bottom: 1rem; font-size: .78rem; color: var(--text-muted);
-  }
-  .chip {
-    display: inline-flex; align-items: center; gap: .25rem;
-    padding: .2rem .55rem; border-radius: 6px;
-    background: var(--bg-card); border: 1px solid var(--border); font-size: .75rem;
-  }
-  .kbd {
-    display: inline-flex; padding: .1rem .35rem;
-    border-radius: 4px; border: 1px solid var(--border);
-    background: var(--bg-hover); font-size: .65rem;
-    font-family: monospace; color: var(--text-muted);
-  }
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.65rem;}
+  .card{position:relative;display:flex;flex-direction:column;align-items:center;padding:1.1rem .6rem .6rem;background:var(--bg-card);border-radius:var(--radius);border:1.5px solid transparent;transition:all .2s;cursor:default;box-shadow:var(--shadow);}
+  .card:hover{border-color:var(--border-hover);box-shadow:var(--shadow-hover);transform:translateY(-1px);}
+  .card.selected{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-light),var(--shadow-hover);}
+  .card .delete{position:absolute;top:5px;right:5px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;background:none;border:none;color:var(--text-dim);border-radius:6px;cursor:pointer;opacity:0;transition:all .15s;}
+  .card .delete svg{width:12px;height:12px;}
+  .card:hover .delete{opacity:1;}
+  .card .delete:hover{background:var(--danger-bg);color:var(--danger);}
+  .preview{display:flex;align-items:center;justify-content:center;margin-bottom:.5rem;}
+  .preview svg{width:var(--icon-size);height:var(--icon-size);color:var(--icon-color);}
+  /* Fill иконки */
+  .preview svg:not([fill="none"]){fill:var(--icon-color);}
+  .preview svg:not([fill="none"]) *{fill:inherit;}
+  /* Stroke иконки */
+  .preview svg[fill="none"]{fill:none;stroke:var(--icon-color);}
+  .preview svg[fill="none"] *{stroke:inherit;}
+  .name-row{display:flex;align-items:center;justify-content:center;margin-bottom:.2rem;max-width:100%;}
+  .name{font-size:.68rem;color:var(--text-muted);text-align:center;word-break:break-all;padding:2px 6px;border-radius:4px;cursor:pointer;transition:background .15s;max-width:100%;}
+  .name:hover{background:var(--bg-hover);}
+  .meta{font-size:.55rem;color:var(--text-dim);margin-bottom:.35rem;font-family:monospace;}
+  .actions{display:flex;gap:.3rem;flex-wrap:wrap;justify-content:center;}
+  .copy-btn{display:inline-flex;align-items:center;gap:.2rem;font-size:.6rem;font-weight:500;padding:.15rem .4rem;background:transparent;border:1px solid var(--border);border-radius:5px;cursor:pointer;color:var(--text-muted);transition:all .15s;white-space:nowrap;}
+  .copy-btn svg{width:11px;height:11px;flex-shrink:0;}
+  .copy-btn:hover{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .hidden{display:none!important;}
 
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: .65rem;
-  }
-  .card {
-    position: relative;
-    display: flex; flex-direction: column; align-items: center;
-    padding: 1.1rem .6rem .6rem;
-    background: var(--bg-card); border-radius: var(--radius);
-    border: 1.5px solid transparent;
-    transition: all .2s; cursor: default; box-shadow: var(--shadow);
-  }
-  .card:hover {
-    border-color: var(--border-hover);
-    box-shadow: var(--shadow-hover); transform: translateY(-1px);
-  }
-  .card.selected {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 2px var(--accent-light), var(--shadow-hover);
-  }
-  .card .delete {
-    position: absolute; top: 5px; right: 5px;
-    width: 22px; height: 22px;
-    display: flex; align-items: center; justify-content: center;
-    background: none; border: none;
-    color: var(--text-dim); border-radius: 6px;
-    cursor: pointer; opacity: 0; transition: all .15s;
-  }
-  .card .delete svg { width: 12px; height: 12px; }
-  .card:hover .delete { opacity: 1; }
-  .card .delete:hover { background: var(--danger-bg); color: var(--danger); }
-  .preview {
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: .5rem; color: var(--icon-color);
-  }
-  .preview svg {
-    width: var(--icon-size); height: var(--icon-size);
-    color: var(--icon-color); fill: currentColor;
-  }
-  .preview svg[fill="none"] { fill: none; stroke: var(--icon-color); }
-  .preview svg[fill="none"] * { stroke: var(--icon-color); }
-  .preview svg:not([fill="none"]) path,
-  .preview svg:not([fill="none"]) circle,
-  .preview svg:not([fill="none"]) rect,
-  .preview svg:not([fill="none"]) polygon,
-  .preview svg:not([fill="none"]) polyline,
-  .preview svg:not([fill="none"]) ellipse,
-  .preview svg:not([fill="none"]) line { fill: var(--icon-color); stroke: none; }
-  .preview svg path[fill="none"],
-  .preview svg circle[fill="none"],
-  .preview svg rect[fill="none"] { fill: none !important; }
-  .name-row {
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: .2rem; max-width: 100%;
-  }
-  .name {
-    font-size: .68rem; color: var(--text-muted);
-    text-align: center; word-break: break-all;
-    padding: 2px 6px; border-radius: 4px;
-    cursor: pointer; transition: background .15s; max-width: 100%;
-  }
-  .name:hover { background: var(--bg-hover); }
-  .meta {
-    font-size: .55rem; color: var(--text-dim);
-    margin-bottom: .35rem; font-family: monospace;
-  }
-  .actions { display: flex; gap: .3rem; flex-wrap: wrap; justify-content: center; }
-  .copy-btn {
-    display: inline-flex; align-items: center; gap: .2rem;
-    font-size: .6rem; font-weight: 500;
-    padding: .15rem .4rem;
-    background: transparent; border: 1px solid var(--border);
-    border-radius: 5px; cursor: pointer;
-    color: var(--text-muted); transition: all .15s; white-space: nowrap;
-  }
-  .copy-btn svg { width: 11px; height: 11px; flex-shrink: 0; }
-  .copy-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
-  .hidden { display: none !important; }
+  .empty{text-align:center;padding:4rem 2rem;color:var(--text-dim);}
+  .empty-icon{font-size:2.5rem;margin-bottom:.75rem;opacity:.5;}
+  .empty-text{font-size:1rem;font-weight:500;}
+  .empty-hint{font-size:.8rem;margin-top:.3rem;}
 
-  .empty { text-align: center; padding: 4rem 2rem; color: var(--text-dim); }
-  .empty-icon { font-size: 2.5rem; margin-bottom: .75rem; opacity: .5; }
-  .empty-text { font-size: 1rem; font-weight: 500; }
-  .empty-hint { font-size: .8rem; margin-top: .3rem; }
+  .toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--text);color:var(--bg);padding:.55rem 1.25rem;border-radius:10px;font-size:.8rem;font-weight:500;box-shadow:0 10px 40px rgba(0,0,0,.25);transition:transform .3s cubic-bezier(.4,0,.2,1);z-index:1000;pointer-events:none;white-space:nowrap;}
+  .toast.show{transform:translateX(-50%) translateY(0);}
 
-  .toast {
-    position: fixed; bottom: 1.5rem; left: 50%;
-    transform: translateX(-50%) translateY(100px);
-    background: var(--text); color: var(--bg);
-    padding: .55rem 1.25rem; border-radius: 10px;
-    font-size: .8rem; font-weight: 500;
-    box-shadow: 0 10px 40px rgba(0,0,0,.25);
-    transition: transform .3s cubic-bezier(.4,0,.2,1);
-    z-index: 1000; pointer-events: none; white-space: nowrap;
-  }
-  .toast.show { transform: translateX(-50%) translateY(0); }
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:500;opacity:0;pointer-events:none;transition:opacity .2s;}
+  .modal-overlay.active{opacity:1;pointer-events:auto;}
+  .modal{background:var(--bg-card);border-radius:16px;padding:1.75rem;max-width:440px;width:90%;box-shadow:0 25px 60px rgba(0,0,0,.25);transform:scale(.95);transition:transform .2s;}
+  .modal-overlay.active .modal{transform:scale(1);}
+  .modal h2{font-size:1.05rem;margin-bottom:.85rem;}
+  .modal-input{width:100%;padding:.55rem .7rem;border:1.5px solid var(--border);border-radius:8px;font-size:.85rem;outline:none;background:var(--bg-input);color:var(--text);margin-bottom:.85rem;}
+  .modal-input:focus{border-color:var(--accent);}
+  .modal-actions{display:flex;gap:.6rem;justify-content:flex-end;}
 
-  .modal-overlay {
-    position: fixed; inset: 0; background: rgba(0,0,0,.5);
-    backdrop-filter: blur(4px);
-    display: flex; align-items: center; justify-content: center;
-    z-index: 500; opacity: 0; pointer-events: none; transition: opacity .2s;
-  }
-  .modal-overlay.active { opacity: 1; pointer-events: auto; }
-  .modal {
-    background: var(--bg-card); border-radius: 16px;
-    padding: 1.75rem; max-width: 440px; width: 90%;
-    box-shadow: 0 25px 60px rgba(0,0,0,.25);
-    transform: scale(.95); transition: transform .2s;
-  }
-  .modal-overlay.active .modal { transform: scale(1); }
-  .modal h2 { font-size: 1.05rem; margin-bottom: .85rem; }
-  .modal-input {
-    width: 100%; padding: .55rem .7rem;
-    border: 1.5px solid var(--border); border-radius: 8px;
-    font-size: .85rem; outline: none;
-    background: var(--bg-input); color: var(--text); margin-bottom: .85rem;
-  }
-  .modal-input:focus { border-color: var(--accent); }
-  .modal-actions { display: flex; gap: .6rem; justify-content: flex-end; }
+  .bulk-bar{position:fixed;bottom:0;left:0;right:0;background:var(--bg-card);border-top:1px solid var(--border);padding:.65rem 1.5rem;display:flex;align-items:center;justify-content:center;gap:.75rem;transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);z-index:200;box-shadow:0 -4px 20px rgba(0,0,0,.1);}
+  .bulk-bar.visible{transform:translateY(0);}
+  .bulk-bar span{font-size:.85rem;font-weight:600;}
 
-  .bulk-bar {
-    position: fixed; bottom: 0; left: 0; right: 0;
-    background: var(--bg-card); border-top: 1px solid var(--border);
-    padding: .65rem 1.5rem;
-    display: flex; align-items: center; justify-content: center; gap: .75rem;
-    transform: translateY(100%);
-    transition: transform .3s cubic-bezier(.4,0,.2,1);
-    z-index: 200; box-shadow: 0 -4px 20px rgba(0,0,0,.1);
-  }
-  .bulk-bar.visible { transform: translateY(0); }
-  .bulk-bar span { font-size: .85rem; font-weight: 600; }
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;}
 
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .spinner {
-    display: inline-block; width: 14px; height: 14px;
-    border: 2px solid rgba(255,255,255,.3);
-    border-top-color: #fff; border-radius: 50%;
-    animation: spin .6s linear infinite;
-  }
-
-  @media (max-width: 640px) {
-    .toolbar { padding: .6rem .75rem; }
-    .main { padding: .75rem; }
-    .grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: .5rem; }
-    .card { padding: .85rem .4rem .4rem; }
-    .search-wrap { max-width: none; }
+  @media(max-width:640px){
+    .toolbar{padding:.6rem .75rem;}
+    .main{padding:.75rem;}
+    .grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:.5rem;}
+    .card{padding:.85rem .4rem .4rem;}
+    .search-wrap{max-width:none;}
   }
 </style>
 </head>
 <body>
-  <div class="toolbar">
-    <div class="toolbar-inner">
-      <div class="toolbar-brand">
-        <span>📦</span><span>Иконки</span>
-        <span class="badge" id="countBadge">11</span>
-        <span class="badge-version" id="versionBadge" onclick="togglePublish()" title="Нажмите для публикации">v1.2.8</span>
+<div class="toolbar">
+  <div class="toolbar-inner">
+    <div class="toolbar-brand">
+      <span>📦</span><span>Иконки</span>
+      <span class="badge" id="countBadge">11</span>
+      <span class="badge-version" id="versionBadge" onclick="togglePublish()" title="Публикация">v1.2.9</span>
+    </div>
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="search" id="search" type="text" placeholder="Поиск...  ⌘K" oninput="filterIcons()">
+    </div>
+    <div class="toolbar-right">
+      <div class="filter-group">
+        <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">Все (11)</button>
+        <button class="filter-btn" data-filter="fill" onclick="setFilter('fill')">◼ Fill (11)</button>
+        <button class="filter-btn" data-filter="stroke" onclick="setFilter('stroke')">〰 Stroke (0)</button>
       </div>
-      <div class="search-wrap">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input class="search" id="search" type="text" placeholder="Поиск иконок...  ⌘K" oninput="filter()">
+      <div class="size-ctrl">
+        <input type="range" min="16" max="64" value="28" oninput="resizeIcons(this.value)">
+        <span id="sizeVal">28</span>
       </div>
-      <div class="toolbar-right">
-        <div class="size-ctrl">
-          <input type="range" min="16" max="64" value="28" oninput="resizeIcons(this.value)">
-          <span id="sizeVal">28</span>
+      <button class="btn-icon" onclick="toggleTheme()" title="Сменить тему">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      </button>
+      <button class="btn-success" onclick="togglePublish()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0018 9h-1.26A8 8 0 103 16.3"/></svg>
+        Публикация
+      </button>
+      <button class="btn-primary" onclick="document.getElementById('fileInput').click()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Добавить
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="publish-panel" id="publishPanel" style="display:none;">
+    <div class="publish-header" onclick="togglePublishBody()">
+      <h2>🚀 Публикация и подключение</h2>
+      <span class="publish-toggle-icon" id="publishToggleIcon">▼</span>
+    </div>
+    <div class="publish-body" id="publishBody">
+      <div class="publish-section">
+        <h3>📥 Подключение к проекту</h3>
+        <div class="publish-row">
+          <span class="publish-label">Установка:</span>
+          <div class="code-block" onclick="copyText(this.querySelector('code').textContent)">
+            <code>npm install @offevgeni/icons@latest</code><span class="copy-hint">скопировать</span>
+          </div>
         </div>
-        <button class="btn-icon" onclick="toggleTheme()" title="Сменить тему">
-          <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-        </button>
-        <button class="btn-success" onclick="togglePublish()" title="Опубликовать новую версию">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0018 9h-1.26A8 8 0 103 16.3"/></svg>
-          Публикация
-        </button>
-        <button class="btn-primary" onclick="document.getElementById('fileInput').click()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          Добавить
-        </button>
+        <div class="publish-row">
+          <span class="publish-label">Импорт:</span>
+          <div class="code-block" onclick="copyText(this.querySelector('code').textContent)">
+            <code>import { Heart, Icon } from '@offevgeni/icons';</code><span class="copy-hint">скопировать</span>
+          </div>
+        </div>
+        <div class="publish-row">
+          <span class="publish-label">По имени:</span>
+          <div class="code-block" onclick="copyText(this.querySelector('code').textContent)">
+            <code>&lt;Icon name="heart" size={24} /&gt;</code><span class="copy-hint">скопировать</span>
+          </div>
+        </div>
+      </div>
+      <div class="publish-section">
+        <h3>📤 Опубликовать</h3>
+        <div class="publish-row">
+          <span class="publish-label">Текущая:</span>
+          <strong id="currentVersion">1.2.9</strong>
+        </div>
+        <div class="publish-row">
+          <span class="publish-label">Тип версии:</span>
+          <div class="bump-group">
+            <button class="bump-btn active" data-bump="patch" onclick="selectBump('patch')">Патч</button>
+            <button class="bump-btn" data-bump="minor" onclick="selectBump('minor')">Минор</button>
+            <button class="bump-btn" data-bump="major" onclick="selectBump('major')">Мажор</button>
+          </div>
+          <span id="bumpPreview" style="font-size:.75rem;color:var(--text-muted);"></span>
+        </div>
+        <div class="publish-row">
+          <span class="publish-label">Описание:</span>
+          <textarea class="changelog-area" id="publishMessage" placeholder="Что изменилось?"></textarea>
+        </div>
+        <div class="publish-row" style="justify-content:flex-end;">
+          <button class="btn-success" id="publishBtn" onclick="doPublish()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0018 9h-1.26A8 8 0 103 16.3"/></svg>
+            Опубликовать
+          </button>
+        </div>
+        <div class="publish-status" id="publishStatus"></div>
+      </div>
+      <div class="publish-section">
+        <h3>⚙️ Настройка (один раз)</h3>
+        <ol class="step-list">
+          <li>Зарегистрируйтесь на <a href="https://www.npmjs.com" target="_blank" style="color:var(--accent);">npmjs.com</a></li>
+          <li>Выполните в терминале: <code>npm login</code></li>
+          <li>Готово — кнопка «Опубликовать» будет работать</li>
+        </ol>
       </div>
     </div>
   </div>
 
-  <div class="main">
+  <div class="dropzone" id="dropzone"
+       ondrop="handleDrop(event)" ondragover="event.preventDefault()"
+       ondragenter="dragEnter(event)" ondragleave="dragLeave(event)"
+       onclick="document.getElementById('fileInput').click()">
+    <input type="file" id="fileInput" accept=".svg" multiple onchange="handleFiles(this.files)">
+    <div class="dropzone-icon">📁</div>
+    <div class="dropzone-text">Перетащите SVG-файлы сюда или нажмите для выбора</div>
+    <div class="dropzone-hint">Fill и stroke иконки определяются автоматически · Цвета нормализуются · Stroke-width приводится к 1.5</div>
+  </div>
 
-    <!-- Панель публикации -->
-    <div class="publish-panel" id="publishPanel" style="display:none;">
-      <div class="publish-header" onclick="togglePublishBody()">
-        <h2>🚀 Публикация и подключение</h2>
-        <span class="publish-toggle-icon" id="publishToggleIcon">▼</span>
-      </div>
-      <div class="publish-body" id="publishBody">
+  
+  <div class="info-bar">
+    <div class="chip">📊 <strong>11</strong> иконок</div>
+    <div class="chip">◼ Fill: <strong>11</strong></div>
+    <div class="chip">〰 Stroke: <strong>0</strong></div>
+    <div class="chip"><kbd class="kbd">Shift</kbd> + клик — выделение нескольких</div>
+    <div class="chip"><kbd class="kbd">⌘K</kbd> поиск</div>
+  </div>
 
-        <!-- Секция: Как подключить -->
-        <div class="publish-section">
-          <h3>📥 Как подключить к проекту</h3>
-          <div class="publish-hint">
-            Выполните эту команду в терминале вашего проекта, чтобы установить библиотеку иконок:
-          </div>
-          <div class="publish-row">
-            <span class="publish-label">Установка:</span>
-            <div class="code-block" onclick="copyText(this.querySelector('code').textContent)">
-              <code>npm install @offevgeni/icons@latest</code>
-              <span class="copy-hint">скопировать</span>
-            </div>
-          </div>
-          <div class="publish-hint" style="margin-top:.5rem;">
-            Теперь вы можете использовать иконки в Svelte-компонентах:
-          </div>
-          <div class="publish-row">
-            <span class="publish-label">Импорт:</span>
-            <div class="code-block" onclick="copyText(this.querySelector('code').textContent)">
-              <code>import { Heart, Icon } from '@offevgeni/icons';</code>
-              <span class="copy-hint">скопировать</span>
-            </div>
-          </div>
-          <div class="publish-row">
-            <span class="publish-label">По имени:</span>
-            <div class="code-block" onclick="copyText(this.querySelector('code').textContent)">
-              <code>&lt;Icon name="heart" size={24} color="red" /&gt;</code>
-              <span class="copy-hint">скопировать</span>
-            </div>
-          </div>
-          <div class="publish-row">
-            <span class="publish-label">Напрямую:</span>
-            <div class="code-block" onclick="copyText(this.querySelector('code').textContent)">
-              <code>&lt;Heart size={24} color="currentColor" /&gt;</code>
-              <span class="copy-hint">скопировать</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Секция: Обновление -->
-        <div class="publish-section">
-          <h3>🔄 Как обновлять иконки в проекте</h3>
-          <div class="publish-hint">
-            После публикации новой версии выполните в проекте-потребителе:
-          </div>
-          <div class="publish-row">
-            <span class="publish-label">Обновить:</span>
-            <div class="code-block" onclick="copyText(this.querySelector('code').textContent)">
-              <code>npm update @offevgeni/icons</code>
-              <span class="copy-hint">скопировать</span>
-            </div>
-          </div>
-          <div class="publish-hint" style="margin-top:.5rem;">
-            💡 <strong>Совет:</strong> чтобы всегда получать последнюю версию автоматически,
-            в <code>package.json</code> вашего проекта укажите:
-          </div>
-          <div class="publish-row">
-            <div class="code-block" style="flex:1;" onclick="copyText(this.querySelector('code').textContent)">
-              <code>"@offevgeni/icons": "^1.2.8"</code>
-              <span class="copy-hint">скопировать</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Секция: Публикация -->
-        <div class="publish-section">
-          <h3>📤 Опубликовать новую версию</h3>
-          <div class="publish-hint">
-            Нажмите «Опубликовать» — сервер автоматически выполнит сборку, обновит версию,
-            создаст git-коммит с тегом и опубликует пакет в npm-реестр.
-          </div>
-          <div class="publish-row">
-            <span class="publish-label">Текущая:</span>
-            <strong id="currentVersion">1.2.8</strong>
-          </div>
-          <div class="publish-row">
-            <span class="publish-label">Тип версии:</span>
-            <div class="bump-group">
-              <button class="bump-btn active" data-bump="patch" onclick="selectBump('patch')" title="Исправления, мелкие изменения (1.2.3 → 1.2.4)">Патч</button>
-              <button class="bump-btn" data-bump="minor" onclick="selectBump('minor')" title="Новые иконки, обратно совместимые изменения (1.2.3 → 1.3.0)">Минор</button>
-              <button class="bump-btn" data-bump="major" onclick="selectBump('major')" title="Крупные несовместимые изменения (1.2.3 → 2.0.0)">Мажор</button>
-            </div>
-            <span id="bumpPreview" style="font-size:.75rem;color:var(--text-muted);"></span>
-          </div>
-          <div class="publish-hint" style="margin-top:.35rem; font-size:.68rem;">
-            <strong>Патч</strong> — мелкие правки, исправления иконок •
-            <strong>Минор</strong> — добавление новых иконок •
-            <strong>Мажор</strong> — удаление или переименование иконок
-          </div>
-          <div class="publish-row">
-            <span class="publish-label">Описание:</span>
-            <textarea class="changelog-area" id="publishMessage" placeholder="Что изменилось? (необязательно, например: добавлены иконки корзины и звезды)"></textarea>
-          </div>
-          <div class="publish-row" style="justify-content:flex-end;gap:.5rem;">
-            <button class="btn-success" id="publishBtn" onclick="doPublish()">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0018 9h-1.26A8 8 0 103 16.3"/></svg>
-              Опубликовать
-            </button>
-          </div>
-          <div class="publish-status" id="publishStatus"></div>
-        </div>
-
-        <!-- Секция: Подготовка -->
-        <div class="publish-section">
-          <h3>⚙️ Предварительная настройка (один раз)</h3>
-          <div class="publish-hint">
-            Чтобы публикация работала, нужно один раз настроить авторизацию в npm:
-          </div>
-          <ol class="step-list">
-            <li>Зарегистрируйтесь на <a href="https://www.npmjs.com" target="_blank" style="color:var(--accent);">npmjs.com</a> (если ещё нет аккаунта)</li>
-            <li>В терминале этого проекта выполните: <code>npm login</code></li>
-            <li>Введите логин, пароль и email</li>
-            <li>Готово! Теперь кнопка «Опубликовать» будет работать</li>
-          </ol>
-          <div class="publish-hint" style="margin-top:.65rem;">
-            <strong>Для GitHub Packages</strong> (альтернатива):
-          </div>
-          <ol class="step-list">
-            <li>Создайте Personal Access Token на <a href="https://github.com/settings/tokens" target="_blank" style="color:var(--accent);">github.com/settings/tokens</a> с правами <code>write:packages</code></li>
-            <li>Выполните: <code>npm login --registry=https://npm.pkg.github.com</code></li>
-            <li>Username — ваш GitHub-логин, Password — токен</li>
-          </ol>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Зона загрузки -->
-    <div class="dropzone" id="dropzone"
-         ondrop="handleDrop(event)" ondragover="event.preventDefault()"
-         ondragenter="dragEnter(event)" ondragleave="dragLeave(event)"
-         onclick="document.getElementById('fileInput').click()">
-      <input type="file" id="fileInput" accept=".svg" multiple onchange="handleFiles(this.files)">
-      <div class="dropzone-icon">📁</div>
-      <div class="dropzone-text">Перетащите SVG-файлы сюда или нажмите для выбора</div>
-      <div class="dropzone-hint">Файлы автоматически оптимизируются через SVGO, цвета нормализуются, размеры выравниваются</div>
-    </div>
-
-    
-    <div class="info-bar">
-      <div class="chip">📊 <strong>11</strong> иконок</div>
-      <div class="chip"><kbd class="kbd">Shift</kbd> + клик — выделение нескольких</div>
-      <div class="chip"><kbd class="kbd">⌘K</kbd> поиск</div>
-      <div class="chip">🖱️ Двойной клик по имени — переименовать</div>
-    </div>
-
-    <div class="grid" id="grid">
-      <div class="card" data-name="bar-chart-3 BarChart3" data-component="BarChart3" data-kebab="bar-chart-3">
+  <div class="grid" id="grid">
+      <div class="card" data-name="bar-chart-3 BarChart3" data-component="BarChart3" data-kebab="bar-chart-3" data-type="fill">
         <button class="delete" onclick="del('bar-chart-3')" title="Удалить">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
-        <div class="preview"><svg xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2" viewBox="-1.28 -1.28 34.56 34.56"><path d="M29 10a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1zM9 16a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1zM19 4a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v24a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1z"/></svg></div>
+        <div class="preview"><svg xml:space="preserve" viewBox="-1.28 -1.28 34.56 34.56"><path d="M29 10a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1zM9 16a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1zM19 4a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v24a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1z"/></svg></div>
         <div class="name-row">
           <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'bar-chart-3')">bar-chart-3</span>
         </div>
-        <div class="meta">0 0 32 32</div>
+        <div class="meta">◼ fill · 0 0 32 32</div>
         <div class="actions">
           <button class="copy-btn" onclick="copyImport('BarChart3')" title="Скопировать import">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
@@ -608,15 +315,15 @@
           </button>
         </div>
       </div>
-      <div class="card" data-name="heart Heart" data-component="Heart" data-kebab="heart">
+      <div class="card" data-name="heart Heart" data-component="Heart" data-kebab="heart" data-type="fill">
         <button class="delete" onclick="del('heart')" title="Удалить">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
-        <div class="preview"><svg fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M7 2C3.313 2 1 5.215 1 8.5c0 3.341 1.674 6.2 3.772 8.43 2.1 2.233 4.705 3.927 6.78 4.964a1 1 0 0 0 .895 0c2.076-1.037 4.68-2.73 6.782-4.964C21.326 14.7 23 11.84 23 8.5 23 5.22 20.729 2 17 2c-1.725 0-2.947.48-3.881 1.21a7 7 0 0 0-1.122 1.126 7 7 0 0 0-1.132-1.128C9.929 2.48 8.709 2 7 2"/></svg></div>
+        <div class="preview"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 2C3.313 2 1 5.215 1 8.5c0 3.341 1.674 6.2 3.772 8.43 2.1 2.233 4.705 3.927 6.78 4.964a1 1 0 0 0 .895 0c2.076-1.037 4.68-2.73 6.782-4.964C21.326 14.7 23 11.84 23 8.5 23 5.22 20.729 2 17 2c-1.725 0-2.947.48-3.881 1.21a7 7 0 0 0-1.122 1.126 7 7 0 0 0-1.132-1.128C9.929 2.48 8.709 2 7 2"/></svg></div>
         <div class="name-row">
           <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'heart')">heart</span>
         </div>
-        <div class="meta">0 0 24 24</div>
+        <div class="meta">◼ fill · 0 0 24 24</div>
         <div class="actions">
           <button class="copy-btn" onclick="copyImport('Heart')" title="Скопировать import">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
@@ -631,15 +338,15 @@
           </button>
         </div>
       </div>
-      <div class="card" data-name="home Home" data-component="Home" data-kebab="home">
+      <div class="card" data-name="home Home" data-component="Home" data-kebab="home" data-type="fill">
         <button class="delete" onclick="del('home')" title="Удалить">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
-        <div class="preview"><svg fill="none" viewBox="0 0 24 24"><g clip-path="url(#a)"><path fill="currentColor" fill-rule="evenodd" d="M14.469 2.163a3.75 3.75 0 0 0-4.938 0L2.873 7.988a4.75 4.75 0 0 0-1.623 3.575V20A3.75 3.75 0 0 0 5 23.75h14A3.75 3.75 0 0 0 22.75 20v-8.437a4.75 4.75 0 0 0-1.623-3.575zM8.162 14.825a.75.75 0 0 0-1.355.644 5.75 5.75 0 0 0 10.388-.004.75.75 0 1 0-1.355-.643 4.25 4.25 0 0 1-7.678.003" clip-rule="evenodd"/></g><defs><clipPath id="a"><path fill="currentColor" d="M0 24V0h24v24z"/></clipPath></defs></svg></div>
+        <div class="preview"><svg viewBox="0 0 24 24"><g><path fill="currentColor" fill-rule="evenodd" d="M14.469 2.163a3.75 3.75 0 0 0-4.938 0L2.873 7.988a4.75 4.75 0 0 0-1.623 3.575V20A3.75 3.75 0 0 0 5 23.75h14A3.75 3.75 0 0 0 22.75 20v-8.437a4.75 4.75 0 0 0-1.623-3.575zM8.162 14.825a.75.75 0 0 0-1.355.644 5.75 5.75 0 0 0 10.388-.004.75.75 0 1 0-1.355-.643 4.25 4.25 0 0 1-7.678.003" clip-rule="evenodd"/></g></svg></div>
         <div class="name-row">
           <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'home')">home</span>
         </div>
-        <div class="meta">0 0 24 24</div>
+        <div class="meta">◼ fill · 0 0 24 24</div>
         <div class="actions">
           <button class="copy-btn" onclick="copyImport('Home')" title="Скопировать import">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
@@ -654,15 +361,15 @@
           </button>
         </div>
       </div>
-      <div class="card" data-name="layout-grid LayoutGrid" data-component="LayoutGrid" data-kebab="layout-grid">
+      <div class="card" data-name="layout-grid LayoutGrid" data-component="LayoutGrid" data-kebab="layout-grid" data-type="fill">
         <button class="delete" onclick="del('layout-grid')" title="Удалить">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
-        <div class="preview"><svg xml:space="preserve" id="_x32_" viewBox="-20.48 -20.48 552.96 552.96"><path d="M421.289 0H90.71C40.609 0 0 40.61 0 90.703V160h512V90.703C512 40.61 471.39 0 421.289 0"/><path d="M0 421.297C0 471.39 40.609 512 90.71 512H296V216H0z"/><path d="M352 512h69.289C471.39 512 512 471.39 512 421.297V216H352z"/></svg></div>
+        <div class="preview"><svg xml:space="preserve" viewBox="-20.48 -20.48 552.96 552.96"><path d="M421.289 0H90.71C40.609 0 0 40.61 0 90.703V160h512V90.703C512 40.61 471.39 0 421.289 0"/><path d="M0 421.297C0 471.39 40.609 512 90.71 512H296V216H0z"/><path d="M352 512h69.289C471.39 512 512 471.39 512 421.297V216H352z"/></svg></div>
         <div class="name-row">
           <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'layout-grid')">layout-grid</span>
         </div>
-        <div class="meta">0 0 512 512</div>
+        <div class="meta">◼ fill · 0 0 512 512</div>
         <div class="actions">
           <button class="copy-btn" onclick="copyImport('LayoutGrid')" title="Скопировать import">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
@@ -677,7 +384,7 @@
           </button>
         </div>
       </div>
-      <div class="card" data-name="list List" data-component="List" data-kebab="list">
+      <div class="card" data-name="list List" data-component="List" data-kebab="list" data-type="fill">
         <button class="delete" onclick="del('list')" title="Удалить">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
@@ -685,7 +392,7 @@
         <div class="name-row">
           <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'list')">list</span>
         </div>
-        <div class="meta">0 -4.5 31 31</div>
+        <div class="meta">◼ fill · 0 -4.5 31 31</div>
         <div class="actions">
           <button class="copy-btn" onclick="copyImport('List')" title="Скопировать import">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
@@ -700,7 +407,7 @@
           </button>
         </div>
       </div>
-      <div class="card" data-name="log-out LogOut" data-component="LogOut" data-kebab="log-out">
+      <div class="card" data-name="log-out LogOut" data-component="LogOut" data-kebab="log-out" data-type="fill">
         <button class="delete" onclick="del('log-out')" title="Удалить">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
@@ -708,7 +415,7 @@
         <div class="name-row">
           <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'log-out')">log-out</span>
         </div>
-        <div class="meta">0 0 24 24</div>
+        <div class="meta">◼ fill · 0 0 24 24</div>
         <div class="actions">
           <button class="copy-btn" onclick="copyImport('LogOut')" title="Скопировать import">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
@@ -723,15 +430,15 @@
           </button>
         </div>
       </div>
-      <div class="card" data-name="map Map" data-component="Map" data-kebab="map">
+      <div class="card" data-name="map Map" data-component="Map" data-kebab="map" data-type="fill">
         <button class="delete" onclick="del('map')" title="Удалить">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
-        <div class="preview"><svg fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M2.436 5.147C2 5.643 2 6.495 2 8.197v9.394c0 1.206 0 1.809.315 2.263.314.454.864.645 1.964 1.026l1.294.449c.701.243 1.24.43 1.693.55.296.079.567-.153.567-.459V6.27a.55.55 0 0 0-.425-.52c-.389-.099-.857-.261-1.498-.483-1.553-.539-2.33-.808-2.92-.535a1.7 1.7 0 0 0-.554.415"/><path fill="currentColor" d="m12.62 3.481-1.536 1.065c-.555.385-.963.668-1.31.869a.54.54 0 0 0-.274.458V20.92c0 .37.384.602.696.402.335-.214.719-.48 1.184-.802l1.536-1.065c.555-.385.963-.668 1.31-.869a.54.54 0 0 0 .274-.458V3.08c0-.371-.384-.602-.696-.403-.335.215-.719.48-1.184.803"/><path fill="currentColor" d="m19.72 3.12-1.293-.448c-.701-.243-1.24-.43-1.693-.55-.296-.079-.567.153-.567.459v15.15a.55.55 0 0 0 .425.52c.389.099.857.26 1.498.483 1.553.539 2.33.808 2.92.535a1.7 1.7 0 0 0 .554-.415c.436-.496.436-1.348.436-3.05V6.41c0-1.206 0-1.81-.315-2.263-.314-.454-.864-.645-1.964-1.026"/></svg></div>
+        <div class="preview"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M2.436 5.147C2 5.643 2 6.495 2 8.197v9.394c0 1.206 0 1.809.315 2.263.314.454.864.645 1.964 1.026l1.294.449c.701.243 1.24.43 1.693.55.296.079.567-.153.567-.459V6.27a.55.55 0 0 0-.425-.52c-.389-.099-.857-.261-1.498-.483-1.553-.539-2.33-.808-2.92-.535a1.7 1.7 0 0 0-.554.415"/><path fill="currentColor" d="m12.62 3.481-1.536 1.065c-.555.385-.963.668-1.31.869a.54.54 0 0 0-.274.458V20.92c0 .37.384.602.696.402.335-.214.719-.48 1.184-.802l1.536-1.065c.555-.385.963-.668 1.31-.869a.54.54 0 0 0 .274-.458V3.08c0-.371-.384-.602-.696-.403-.335.215-.719.48-1.184.803"/><path fill="currentColor" d="m19.72 3.12-1.293-.448c-.701-.243-1.24-.43-1.693-.55-.296-.079-.567.153-.567.459v15.15a.55.55 0 0 0 .425.52c.389.099.857.26 1.498.483 1.553.539 2.33.808 2.92.535a1.7 1.7 0 0 0 .554-.415c.436-.496.436-1.348.436-3.05V6.41c0-1.206 0-1.81-.315-2.263-.314-.454-.864-.645-1.964-1.026"/></svg></div>
         <div class="name-row">
           <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'map')">map</span>
         </div>
-        <div class="meta">0 0 24 24</div>
+        <div class="meta">◼ fill · 0 0 24 24</div>
         <div class="actions">
           <button class="copy-btn" onclick="copyImport('Map')" title="Скопировать import">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
@@ -746,15 +453,15 @@
           </button>
         </div>
       </div>
-      <div class="card" data-name="pet Pet" data-component="Pet" data-kebab="pet">
+      <div class="card" data-name="pet Pet" data-component="Pet" data-kebab="pet" data-type="fill">
         <button class="delete" onclick="del('pet')" title="Удалить">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
-        <div class="preview"><svg fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M19.08 15.72c-.59-3.53-3.98-6.4-7.56-6.4-3.89 0-7.31 3.15-7.64 7.03-.13 1.5.35 2.92 1.34 3.99C6.2 21.41 7.58 22 9.08 22h4.68c1.69 0 3.17-.66 4.18-1.85s1.41-2.77 1.14-4.43"/><path fill="currentColor" d="M10.28 7.86a2.93 2.93 0 1 0 0-5.86 2.93 2.93 0 0 0 0 5.86"/><path fill="currentColor" d="M16.94 9.028a2.44 2.44 0 1 0 0-4.88 2.44 2.44 0 0 0 0 4.88"/><path fill="currentColor" d="M20.55 12.931a1.95 1.95 0 1 0 0-3.9 1.95 1.95 0 0 0 0 3.9"/><path fill="currentColor" d="M3.94 10.982a2.44 2.44 0 1 0 0-4.88 2.44 2.44 0 0 0 0 4.88"/></svg></div>
+        <div class="preview"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M19.08 15.72c-.59-3.53-3.98-6.4-7.56-6.4-3.89 0-7.31 3.15-7.64 7.03-.13 1.5.35 2.92 1.34 3.99C6.2 21.41 7.58 22 9.08 22h4.68c1.69 0 3.17-.66 4.18-1.85s1.41-2.77 1.14-4.43"/><path fill="currentColor" d="M10.28 7.86a2.93 2.93 0 1 0 0-5.86 2.93 2.93 0 0 0 0 5.86"/><path fill="currentColor" d="M16.94 9.028a2.44 2.44 0 1 0 0-4.88 2.44 2.44 0 0 0 0 4.88"/><path fill="currentColor" d="M20.55 12.931a1.95 1.95 0 1 0 0-3.9 1.95 1.95 0 0 0 0 3.9"/><path fill="currentColor" d="M3.94 10.982a2.44 2.44 0 1 0 0-4.88 2.44 2.44 0 0 0 0 4.88"/></svg></div>
         <div class="name-row">
           <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'pet')">pet</span>
         </div>
-        <div class="meta">0 0 24 24</div>
+        <div class="meta">◼ fill · 0 0 24 24</div>
         <div class="actions">
           <button class="copy-btn" onclick="copyImport('Pet')" title="Скопировать import">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
@@ -769,15 +476,15 @@
           </button>
         </div>
       </div>
-      <div class="card" data-name="plus Plus" data-component="Plus" data-kebab="plus">
+      <div class="card" data-name="plus Plus" data-component="Plus" data-kebab="plus" data-type="fill">
         <button class="delete" onclick="del('plus')" title="Удалить">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
-        <div class="preview"><svg fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M11 17a1 1 0 1 0 2 0v-4h4a1 1 0 1 0 0-2h-4V7a1 1 0 1 0-2 0v4H7a1 1 0 1 0 0 2h4z" clip-rule="evenodd"/></svg></div>
+        <div class="preview"><svg viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M11 17a1 1 0 1 0 2 0v-4h4a1 1 0 1 0 0-2h-4V7a1 1 0 1 0-2 0v4H7a1 1 0 1 0 0 2h4z" clip-rule="evenodd"/></svg></div>
         <div class="name-row">
           <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'plus')">plus</span>
         </div>
-        <div class="meta">0 0 24 24</div>
+        <div class="meta">◼ fill · 0 0 24 24</div>
         <div class="actions">
           <button class="copy-btn" onclick="copyImport('Plus')" title="Скопировать import">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
@@ -792,15 +499,15 @@
           </button>
         </div>
       </div>
-      <div class="card" data-name="shield Shield" data-component="Shield" data-kebab="shield">
+      <div class="card" data-name="shield Shield" data-component="Shield" data-kebab="shield" data-type="fill">
         <button class="delete" onclick="del('shield')" title="Удалить">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
-        <div class="preview"><svg fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M12.824 2.196a3 3 0 0 0-1.648 0l-5 1.428A3 3 0 0 0 4 6.51v5.374a9 9 0 0 0 3.769 7.324l2.487 1.776a3 3 0 0 0 3.488 0l2.487-1.776A9 9 0 0 0 20 11.883V6.51a3 3 0 0 0-2.176-2.885z" clip-rule="evenodd"/></svg></div>
+        <div class="preview"><svg viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M12.824 2.196a3 3 0 0 0-1.648 0l-5 1.428A3 3 0 0 0 4 6.51v5.374a9 9 0 0 0 3.769 7.324l2.487 1.776a3 3 0 0 0 3.488 0l2.487-1.776A9 9 0 0 0 20 11.883V6.51a3 3 0 0 0-2.176-2.885z" clip-rule="evenodd"/></svg></div>
         <div class="name-row">
           <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'shield')">shield</span>
         </div>
-        <div class="meta">0 0 24 24</div>
+        <div class="meta">◼ fill · 0 0 24 24</div>
         <div class="actions">
           <button class="copy-btn" onclick="copyImport('Shield')" title="Скопировать import">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
@@ -815,7 +522,7 @@
           </button>
         </div>
       </div>
-      <div class="card" data-name="user User" data-component="User" data-kebab="user">
+      <div class="card" data-name="user User" data-component="User" data-kebab="user" data-type="fill">
         <button class="delete" onclick="del('user')" title="Удалить">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
@@ -823,7 +530,7 @@
         <div class="name-row">
           <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'user')">user</span>
         </div>
-        <div class="meta">0 0 24 24</div>
+        <div class="meta">◼ fill · 0 0 24 24</div>
         <div class="actions">
           <button class="copy-btn" onclick="copyImport('User')" title="Скопировать import">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
@@ -838,44 +545,43 @@
           </button>
         </div>
       </div></div>
-  </div>
+</div>
 
-  <div class="bulk-bar" id="bulkBar">
-    <span id="selectedCount">0 выбрано</span>
-    <button class="btn-danger" onclick="bulkDelete()">Удалить выбранные</button>
-    <button class="btn-secondary" onclick="clearSelection()">Отмена</button>
-  </div>
-  <div class="toast" id="toast"></div>
-  <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
-    <div class="modal">
-      <h2 id="modalTitle">Переименовать</h2>
-      <input class="modal-input" id="modalInput" placeholder="Новое имя...">
-      <div class="modal-actions">
-        <button class="btn-secondary" onclick="closeModal()">Отмена</button>
-        <button class="btn-primary" id="modalConfirm" onclick="confirmModal()">Переименовать</button>
-      </div>
+<div class="bulk-bar" id="bulkBar">
+  <span id="selectedCount">0 выбрано</span>
+  <button class="btn-danger" onclick="bulkDelete()">Удалить выбранные</button>
+  <button class="btn-secondary" onclick="clearSelection()">Отмена</button>
+</div>
+<div class="toast" id="toast"></div>
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <h2 id="modalTitle">Переименовать</h2>
+    <input class="modal-input" id="modalInput" placeholder="Новое имя...">
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeModal()">Отмена</button>
+      <button class="btn-primary" id="modalConfirm" onclick="confirmModal()">Переименовать</button>
     </div>
   </div>
+</div>
 
 <script>
 const PKG = '@offevgeni/icons';
-const CURRENT_VERSION = '1.2.8';
+const CURRENT_VERSION = '1.2.9';
 let selectedBump = 'patch';
 let selectedCards = new Set();
 let modalCallback = null;
 let publishOpen = false;
+let currentFilter = 'all';
 
-// ─── Тема ───
 function initTheme() {
-  const saved = localStorage.getItem('icon-lib-theme');
-  if (saved === 'dark' || (!saved && matchMedia('(prefers-color-scheme:dark)').matches))
+  const s = localStorage.getItem('icon-lib-theme');
+  if (s === 'dark' || (!s && matchMedia('(prefers-color-scheme:dark)').matches))
     document.documentElement.classList.add('dark');
   updateThemeIcon();
 }
 function toggleTheme() {
   document.documentElement.classList.toggle('dark');
-  localStorage.setItem('icon-lib-theme',
-    document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+  localStorage.setItem('icon-lib-theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
   updateThemeIcon();
 }
 function updateThemeIcon() {
@@ -886,14 +592,20 @@ function updateThemeIcon() {
 }
 initTheme();
 
-// ─── Поиск ───
-function filter() {
+function setFilter(f) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === f));
+  filterIcons();
+}
+function filterIcons() {
   const q = document.getElementById('search').value.toLowerCase();
   let v = 0;
   document.querySelectorAll('.card').forEach(c => {
-    const m = c.dataset.name.toLowerCase().includes(q);
-    c.classList.toggle('hidden', !m);
-    if (m) v++;
+    const matchSearch = c.dataset.name.toLowerCase().includes(q);
+    const matchFilter = currentFilter === 'all' || c.dataset.type === currentFilter;
+    const show = matchSearch && matchFilter;
+    c.classList.toggle('hidden', !show);
+    if (show) v++;
   });
   document.getElementById('countBadge').textContent = v;
 }
@@ -902,7 +614,6 @@ function resizeIcons(val) {
   document.documentElement.style.setProperty('--icon-size', val + 'px');
 }
 
-// ─── Уведомления ───
 let _t;
 function toast(msg, dur = 2500) {
   const el = document.getElementById('toast');
@@ -910,7 +621,6 @@ function toast(msg, dur = 2500) {
   clearTimeout(_t); _t = setTimeout(() => el.classList.remove('show'), dur);
 }
 
-// ─── Модальное окно ───
 function openModal(title, value, btnText, cb) {
   document.getElementById('modalTitle').textContent = title;
   const inp = document.getElementById('modalInput');
@@ -920,15 +630,9 @@ function openModal(title, value, btnText, cb) {
   setTimeout(() => { inp.focus(); inp.select(); }, 50);
   modalCallback = cb;
 }
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('active');
-  modalCallback = null;
-}
-function confirmModal() {
-  const val = document.getElementById('modalInput').value.trim();
-  if (val && modalCallback) modalCallback(val);
-  closeModal();
-}
+function closeModal() { document.getElementById('modalOverlay').classList.remove('active'); modalCallback = null; }
+function confirmModal() { const v = document.getElementById('modalInput').value.trim(); if (v && modalCallback) modalCallback(v); closeModal(); }
+
 document.addEventListener('keydown', e => {
   if (document.getElementById('modalOverlay').classList.contains('active')) {
     if (e.key === 'Enter') { e.preventDefault(); confirmModal(); }
@@ -939,15 +643,11 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') clearSelection();
 });
 
-// ─── Копирование ───
-function copyText(text) {
-  navigator.clipboard.writeText(text).then(() => toast('✓ Скопировано'));
-}
+function copyText(text) { navigator.clipboard.writeText(text).then(() => toast('✓ Скопировано')); }
 function copyImport(name) { copyText("import { " + name + " } from '" + PKG + "';"); }
 function copyComponent(name) { copyText('<' + name + ' />'); }
 function downloadSvg(name) { window.open('/api/svg/' + encodeURIComponent(name), '_blank'); }
 
-// ─── Выделение ───
 document.getElementById('grid').addEventListener('click', e => {
   if (!e.shiftKey) return;
   const card = e.target.closest('.card');
@@ -959,9 +659,8 @@ document.getElementById('grid').addEventListener('click', e => {
   updateBulkBar();
 });
 function updateBulkBar() {
-  const n = selectedCards.size;
-  document.getElementById('selectedCount').textContent = n + ' выбрано';
-  document.getElementById('bulkBar').classList.toggle('visible', n > 0);
+  document.getElementById('selectedCount').textContent = selectedCards.size + ' выбрано';
+  document.getElementById('bulkBar').classList.toggle('visible', selectedCards.size > 0);
 }
 function clearSelection() {
   selectedCards.clear();
@@ -969,8 +668,7 @@ function clearSelection() {
   updateBulkBar();
 }
 async function bulkDelete() {
-  const n = selectedCards.size;
-  if (!confirm('Удалить ' + n + ' иконок?')) return;
+  if (!confirm('Удалить ' + selectedCards.size + ' иконок?')) return;
   toast('Удаление...', 5000);
   for (const name of [...selectedCards])
     try { await fetch('/api/icons/' + encodeURIComponent(name), { method: 'DELETE' }); } catch {}
@@ -978,12 +676,11 @@ async function bulkDelete() {
   clearSelection();
 }
 
-// ─── Перетаскивание ───
 let dragCounter = 0;
 function dragEnter(e) { e.preventDefault(); dragCounter++; document.getElementById('dropzone').classList.add('over'); }
-function dragLeave(e) { dragCounter--; if (dragCounter<=0) { dragCounter=0; document.getElementById('dropzone').classList.remove('over'); } }
+function dragLeave() { dragCounter--; if (dragCounter <= 0) { dragCounter = 0; document.getElementById('dropzone').classList.remove('over'); } }
 function handleDrop(e) {
-  e.preventDefault(); dragCounter=0;
+  e.preventDefault(); dragCounter = 0;
   document.getElementById('dropzone').classList.remove('over');
   const files = [...e.dataTransfer.files].filter(f => f.name.endsWith('.svg'));
   if (files.length) uploadFiles(files);
@@ -998,19 +695,15 @@ async function uploadFiles(files) {
   const payload = [];
   for (const f of files) payload.push({ name: f.name, content: await f.text() });
   try {
-    const r = await fetch('/api/upload', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ files: payload }),
-    });
+    const r = await fetch('/api/upload', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ files: payload }) });
     const d = await r.json();
     if (d.ok) toast('✓ Добавлено: ' + d.saved + ' иконок');
     else toast('✗ ' + (d.error || 'Ошибка'));
   } catch { toast('✗ Сервер не запущен — выполните npm run dev'); }
 }
 
-// ─── Удаление и переименование ───
 async function del(name) {
-  if (!confirm('Удалить иконку «' + name + '»?')) return;
+  if (!confirm('Удалить «' + name + '»?')) return;
   try {
     const r = await fetch('/api/icons/' + encodeURIComponent(name), { method: 'DELETE' });
     if ((await r.json()).ok) toast('✓ Удалено: ' + name);
@@ -1030,7 +723,6 @@ function rename(el, oldName) {
   });
 }
 
-// ─── Панель публикации ───
 function togglePublish() {
   const panel = document.getElementById('publishPanel');
   publishOpen = !publishOpen;
@@ -1046,8 +738,7 @@ function togglePublishBody() {
 }
 function selectBump(type) {
   selectedBump = type;
-  document.querySelectorAll('.bump-btn').forEach(b =>
-    b.classList.toggle('active', b.dataset.bump === type));
+  document.querySelectorAll('.bump-btn').forEach(b => b.classList.toggle('active', b.dataset.bump === type));
   updateBumpPreview();
 }
 function updateBumpPreview() {
@@ -1064,7 +755,6 @@ function setPublishStatus(msg, type) {
   const el = document.getElementById('publishStatus');
   el.innerHTML = msg; el.className = 'publish-status show ' + type;
 }
-
 async function doPublish() {
   const btn = document.getElementById('publishBtn');
   const message = document.getElementById('publishMessage').value.trim();
@@ -1078,25 +768,18 @@ async function doPublish() {
     });
     const d = await r.json();
     if (d.ok) {
-      setPublishStatus(
-        '✅ Версия <strong>v' + d.version + '</strong> опубликована!<br>' +
-        '📋 В вашем проекте выполните: <code>npm update @offevgeni/icons</code>',
-        'success'
-      );
+      setPublishStatus('✅ Версия <strong>v' + d.version + '</strong> опубликована!<br>Обновите в проекте: <code>npm update @offevgeni/icons</code>', 'success');
       document.getElementById('currentVersion').textContent = d.version;
       document.getElementById('versionBadge').textContent = 'v' + d.version;
       document.getElementById('publishMessage').value = '';
     } else {
       setPublishStatus('❌ ' + (d.error || 'Ошибка публикации'), 'error');
     }
-  } catch (e) {
-    setPublishStatus('❌ ' + e.message, 'error');
-  }
+  } catch (e) { setPublishStatus('❌ ' + e.message, 'error'); }
   btn.disabled = false;
   btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0018 9h-1.26A8 8 0 103 16.3"/></svg> Опубликовать';
 }
 
-// ─── SSE ───
 if (location.protocol !== 'file:') {
   let rt;
   function connectSSE() {
