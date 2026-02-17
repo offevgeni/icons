@@ -402,7 +402,7 @@
       <div class="toolbar-brand">
         <span>📦</span><span>Иконки</span>
         <span class="badge" id="countBadge">11</span>
-        <span class="badge-version" id="versionBadge" onclick="togglePublish()" title="Нажмите для публикации">v1.2.7</span>
+        <span class="badge-version" id="versionBadge" onclick="togglePublish()" title="Нажмите для публикации">v1.2.8</span>
       </div>
       <div class="search-wrap">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -496,7 +496,7 @@
           </div>
           <div class="publish-row">
             <div class="code-block" style="flex:1;" onclick="copyText(this.querySelector('code').textContent)">
-              <code>"@offevgeni/icons": "^1.2.7"</code>
+              <code>"@offevgeni/icons": "^1.2.8"</code>
               <span class="copy-hint">скопировать</span>
             </div>
           </div>
@@ -511,7 +511,7 @@
           </div>
           <div class="publish-row">
             <span class="publish-label">Текущая:</span>
-            <strong id="currentVersion">1.2.7</strong>
+            <strong id="currentVersion">1.2.8</strong>
           </div>
           <div class="publish-row">
             <span class="publish-label">Тип версии:</span>
@@ -727,11 +727,11 @@
         <button class="delete" onclick="del('map')" title="Удалить">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
-        <div class="preview"><svg viewBox="-2.24 -2.24 60.48 60.48"><path d="M34.188 51.414v-39.21l-11.579-7.08c-.398-.258-.867-.422-1.312-.54v39.751l11.812 6.61a6 6 0 0 0 1.079.468M6.273 50.71c.61 0 1.196-.187 1.97-.61l9.843-5.296V5.008c-.422.21-.867.445-1.312.703l-11.11 6.352c-1.406.796-2.062 1.921-2.062 3.492v32.46c0 1.735 1.007 2.696 2.672 2.696m31.126.656c.234-.07.468-.164.703-.328l12.257-6.96c1.383-.774 2.04-1.9 2.04-3.47V8.102c0-1.735-.985-2.672-2.672-2.672-.586 0-1.195.164-1.946.586L37.4 11.78Z"/></svg></div>
+        <div class="preview"><svg fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M2.436 5.147C2 5.643 2 6.495 2 8.197v9.394c0 1.206 0 1.809.315 2.263.314.454.864.645 1.964 1.026l1.294.449c.701.243 1.24.43 1.693.55.296.079.567-.153.567-.459V6.27a.55.55 0 0 0-.425-.52c-.389-.099-.857-.261-1.498-.483-1.553-.539-2.33-.808-2.92-.535a1.7 1.7 0 0 0-.554.415"/><path fill="currentColor" d="m12.62 3.481-1.536 1.065c-.555.385-.963.668-1.31.869a.54.54 0 0 0-.274.458V20.92c0 .37.384.602.696.402.335-.214.719-.48 1.184-.802l1.536-1.065c.555-.385.963-.668 1.31-.869a.54.54 0 0 0 .274-.458V3.08c0-.371-.384-.602-.696-.403-.335.215-.719.48-1.184.803"/><path fill="currentColor" d="m19.72 3.12-1.293-.448c-.701-.243-1.24-.43-1.693-.55-.296-.079-.567.153-.567.459v15.15a.55.55 0 0 0 .425.52c.389.099.857.26 1.498.483 1.553.539 2.33.808 2.92.535a1.7 1.7 0 0 0 .554-.415c.436-.496.436-1.348.436-3.05V6.41c0-1.206 0-1.81-.315-2.263-.314-.454-.864-.645-1.964-1.026"/></svg></div>
         <div class="name-row">
           <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'map')">map</span>
         </div>
-        <div class="meta">0 0 56 56</div>
+        <div class="meta">0 0 24 24</div>
         <div class="actions">
           <button class="copy-btn" onclick="copyImport('Map')" title="Скопировать import">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
@@ -859,7 +859,7 @@
 
 <script>
 const PKG = '@offevgeni/icons';
-const CURRENT_VERSION = '1.2.7';
+const CURRENT_VERSION = '1.2.8';
 let selectedBump = 'patch';
 let selectedCards = new Set();
 let modalCallback = null;
