@@ -57,12 +57,12 @@ function runSvgo(svgString) {
                 params: {
                     overrides: {
                         removeViewBox: false,
-                        removeDimensions: true,
                         mergePaths: false,
                         inlineStyles: false,
                     },
                 },
             },
+            'removeDimensions',
             'removeXMLNS',
             'removeXMLProcInst',
             'removeDoctype',
