@@ -11,9 +11,10 @@ export { default as Map } from './icons/Map.svelte';
 export { default as Pet } from './icons/Pet.svelte';
 export { default as Plus } from './icons/Plus.svelte';
 export { default as Shield } from './icons/Shield.svelte';
+export { default as TimeQuarterPast } from './icons/TimeQuarterPast.svelte';
 export { default as Time } from './icons/Time.svelte';
 export { default as User } from './icons/User.svelte';
 
 export { default as Icon } from './Icon.svelte';
 
-export const iconNames = ['bar-chart-3', 'heart', 'help-center', 'help-circle', 'home', 'layout-grid', 'list', 'log-out', 'map', 'pet', 'plus', 'shield', 'time', 'user'];
+export const iconNames = ['bar-chart-3', 'heart', 'help-center', 'help-circle', 'home', 'layout-grid', 'list', 'log-out', 'map', 'pet', 'plus', 'shield', 'time-quarter-past', 'time', 'user'];

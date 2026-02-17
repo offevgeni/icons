@@ -11,6 +11,7 @@
   import Pet from './icons/Pet.svelte';
   import Plus from './icons/Plus.svelte';
   import Shield from './icons/Shield.svelte';
+  import TimeQuarterPast from './icons/TimeQuarterPast.svelte';
   import Time from './icons/Time.svelte';
   import User from './icons/User.svelte';
 
@@ -27,6 +28,7 @@
     'pet': Pet,
     'plus': Plus,
     'shield': Shield,
+    'time-quarter-past': TimeQuarterPast,
     'time': Time,
     'user': User
   };
