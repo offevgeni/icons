@@ -1,6 +1,8 @@
 <script>
   import BarChart3 from './icons/BarChart3.svelte';
+  import CreditCard from './icons/CreditCard.svelte';
   import Heart from './icons/Heart.svelte';
+  import HelpCircle from './icons/HelpCircle.svelte';
   import Home from './icons/Home.svelte';
   import LayoutGrid from './icons/LayoutGrid.svelte';
   import List from './icons/List.svelte';
@@ -9,12 +11,15 @@
   import Pet from './icons/Pet.svelte';
   import Plus from './icons/Plus.svelte';
   import Share2 from './icons/Share2.svelte';
+  import ShieldCheck from './icons/ShieldCheck.svelte';
   import Shield from './icons/Shield.svelte';
   import User from './icons/User.svelte';
 
   const iconMap = {
     'bar-chart-3': BarChart3,
+    'credit-card': CreditCard,
     'heart': Heart,
+    'help-circle': HelpCircle,
     'home': Home,
     'layout-grid': LayoutGrid,
     'list': List,
@@ -23,6 +28,7 @@
     'pet': Pet,
     'plus': Plus,
     'share-2': Share2,
+    'shield-check': ShieldCheck,
     'shield': Shield,
     'user': User
   };
