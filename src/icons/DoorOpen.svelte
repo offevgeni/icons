@@ -1,0 +1,23 @@
+<script>
+  let {
+    size = 24,
+    color = 'currentColor',
+    title = '',
+    class: className = '',
+    ...rest
+  } = $props();
+</script>
+
+<svg
+  viewBox="-64 -128 768 768"
+  width={size}
+  height={size}
+  fill={color}
+  class="icon icon-door-open{className ? ' ' + className : ''}"
+  aria-hidden={!title}
+  role={title ? "img" : "presentation"}
+  {...rest}
+>
+  {#if title}<title>{title}</title>{/if}
+  <path d="M624 448h-80V113.45C544 86.19 522.47 64 496 64H384v64h96v384h144c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16M312.24 1.01l-192 49.74C105.99 54.44 96 67.7 96 82.92V448H16c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16h336V33.18c0-21.58-19.56-37.41-39.76-32.17M264 288c-13.25 0-24-14.33-24-32s10.75-32 24-32 24 14.33 24 32-10.75 32-24 32"/>
+</svg>

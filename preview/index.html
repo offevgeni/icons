@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Иконки — 15 шт.</title>
+<title>Иконки — 19 шт.</title>
 <style>
   :root {
     --bg:#f8f9fa;--bg-card:#fff;--bg-input:#fff;--bg-hover:#f1f3f5;
@@ -174,8 +174,8 @@
   <div class="toolbar-inner">
     <div class="toolbar-brand">
       <span>📦</span><span>Иконки</span>
-      <span class="badge" id="countBadge">15</span>
-      <span class="badge-version" id="versionBadge" onclick="togglePublish()" title="Публикация">v1.2.16</span>
+      <span class="badge" id="countBadge">19</span>
+      <span class="badge-version" id="versionBadge" onclick="togglePublish()" title="Публикация">v1.2.17</span>
     </div>
     <div class="search-wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -183,9 +183,9 @@
     </div>
     <div class="toolbar-right">
       <div class="filter-group">
-        <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">Все (15)</button>
-        <button class="filter-btn" data-filter="fill" onclick="setFilter('fill')">◼ Fill (14)</button>
-        <button class="filter-btn" data-filter="stroke" onclick="setFilter('stroke')">〰 Stroke (1)</button>
+        <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">Все (19)</button>
+        <button class="filter-btn" data-filter="fill" onclick="setFilter('fill')">◼ Fill (19)</button>
+        <button class="filter-btn" data-filter="stroke" onclick="setFilter('stroke')">〰 Stroke (0)</button>
       </div>
       <div class="size-ctrl">
         <input type="range" min="16" max="64" value="28" oninput="resizeIcons(this.value)">
@@ -238,7 +238,7 @@
         <h3>📤 Опубликовать</h3>
         <div class="publish-row">
           <span class="publish-label">Текущая:</span>
-          <strong id="currentVersion">1.2.16</strong>
+          <strong id="currentVersion">1.2.17</strong>
         </div>
         <div class="publish-row">
           <span class="publish-label">Тип версии:</span>
@@ -284,9 +284,9 @@
 
   
   <div class="info-bar">
-    <div class="chip">📊 <strong>15</strong> иконок</div>
-    <div class="chip">◼ Fill: <strong>14</strong></div>
-    <div class="chip">〰 Stroke: <strong>1</strong></div>
+    <div class="chip">📊 <strong>19</strong> иконок</div>
+    <div class="chip">◼ Fill: <strong>19</strong></div>
+    <div class="chip">〰 Stroke: <strong>0</strong></div>
     <div class="chip"><kbd class="kbd">Shift</kbd> + клик — выделение нескольких</div>
     <div class="chip"><kbd class="kbd">⌘K</kbd> поиск</div>
   </div>
@@ -315,6 +315,52 @@
           </button>
         </div>
       </div>
+      <div class="card" data-name="bath Bath" data-component="Bath" data-kebab="bath" data-type="fill">
+        <button class="delete" onclick="del('bath')" title="Удалить">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="preview"><svg viewBox="0 0 24 24"><path d="M21 12H6V6a2 2 0 0 1 2-2h2a2 2 0 0 1 1.855 1.261A3.35 3.35 0 0 0 10 8.3v.656A1.02 1.02 0 0 0 11 10h4a1.02 1.02 0 0 0 1-1.042v-.833a3.1 3.1 0 0 0-2.093-2.966A4 4 0 0 0 10 2H8a4 4 0 0 0-4 4v6H3a1 1 0 0 0 0 2h1v3a2 2 0 0 0 2 2v2a1 1 0 0 0 2 0v-2h8v2a1 1 0 0 0 2 0v-2a2 2 0 0 0 2-2v-3h1a1 1 0 0 0 0-2"/></svg></div>
+        <div class="name-row">
+          <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'bath')">bath</span>
+        </div>
+        <div class="meta">◼ fill · 0 0 24 24</div>
+        <div class="actions">
+          <button class="copy-btn" onclick="copyImport('Bath')" title="Скопировать import">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Import
+          </button>
+          <button class="copy-btn" onclick="copyComponent('Bath')" title="Скопировать тег">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Тег
+          </button>
+          <button class="copy-btn" onclick="downloadSvg('bath')" title="Скачать SVG">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="card" data-name="bed Bed" data-component="Bed" data-kebab="bed" data-type="fill">
+        <button class="delete" onclick="del('bed')" title="Удалить">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="preview"><svg viewBox="-5.6 -5.51 67.2 67.2"><path d="M5.29 21.994h5.613v-3.179c0-2.064 1.16-3.178 3.248-3.178h8.235c2.088 0 3.248 1.114 3.248 3.178v3.178h5.01v-3.178c0-2.064 1.16-3.178 3.364-3.178h7.725c2.204 0 3.364 1.114 3.364 3.178v3.178h5.614V15.66c0-4.106-2.18-6.193-6.17-6.193H11.46c-3.967 0-6.17 2.087-6.17 6.193ZM0 44.867c0 1.137.742 1.856 1.902 1.856h1.3c1.136 0 1.878-.72 1.878-1.856v-3.294c.255.07.998.116 1.531.116h42.8c.534 0 1.254-.047 1.509-.116v3.294c0 1.137.742 1.856 1.879 1.856h1.322c1.137 0 1.879-.72 1.879-1.856v-13.2c0-4.199-2.343-6.495-6.588-6.495H6.588C2.343 25.172 0 27.468 0 31.667Z"/></svg></div>
+        <div class="name-row">
+          <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'bed')">bed</span>
+        </div>
+        <div class="meta">◼ fill · 0 0 56 56</div>
+        <div class="actions">
+          <button class="copy-btn" onclick="copyImport('Bed')" title="Скопировать import">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Import
+          </button>
+          <button class="copy-btn" onclick="copyComponent('Bed')" title="Скопировать тег">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Тег
+          </button>
+          <button class="copy-btn" onclick="downloadSvg('bed')" title="Скачать SVG">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </button>
+        </div>
+      </div>
       <div class="card" data-name="credit-card CreditCard" data-component="CreditCard" data-kebab="credit-card" data-type="fill">
         <button class="delete" onclick="del('credit-card')" title="Удалить">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -334,6 +380,29 @@
             Тег
           </button>
           <button class="copy-btn" onclick="downloadSvg('credit-card')" title="Скачать SVG">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="card" data-name="door-open DoorOpen" data-component="DoorOpen" data-kebab="door-open" data-type="fill">
+        <button class="delete" onclick="del('door-open')" title="Удалить">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="preview"><svg viewBox="-64 -128 768 768"><path d="M624 448h-80V113.45C544 86.19 522.47 64 496 64H384v64h96v384h144c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16M312.24 1.01l-192 49.74C105.99 54.44 96 67.7 96 82.92V448H16c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16h336V33.18c0-21.58-19.56-37.41-39.76-32.17M264 288c-13.25 0-24-14.33-24-32s10.75-32 24-32 24 14.33 24 32-10.75 32-24 32"/></svg></div>
+        <div class="name-row">
+          <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'door-open')">door-open</span>
+        </div>
+        <div class="meta">◼ fill · 0 -64 640 640</div>
+        <div class="actions">
+          <button class="copy-btn" onclick="copyImport('DoorOpen')" title="Скопировать import">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Import
+          </button>
+          <button class="copy-btn" onclick="copyComponent('DoorOpen')" title="Скопировать тег">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Тег
+          </button>
+          <button class="copy-btn" onclick="downloadSvg('door-open')" title="Скачать SVG">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           </button>
         </div>
@@ -545,15 +614,15 @@
           </button>
         </div>
       </div>
-      <div class="card" data-name="share-2 Share2" data-component="Share2" data-kebab="share-2" data-type="stroke">
+      <div class="card" data-name="share-2 Share2" data-component="Share2" data-kebab="share-2" data-type="fill">
         <button class="delete" onclick="del('share-2')" title="Удалить">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
-        <div class="preview"><svg viewBox="2.4 2.4 19.2 19.2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path stroke="currentColor" d="M20 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-5"/><path stroke="currentColor" d="m16 8-4-4m0 0L8 8m4-4v12"/></svg></div>
+        <div class="preview"><svg viewBox="-0.23 -0.43 24.47 24.47"><path fill="currentColor" d="M20.536 20.536C22 19.07 22 16.714 22 12q0-.901-.003-1.692c-.41.402-.902.828-1.429 1.284L18.08 13.75c-.304.264-.645.56-.953.758-.302.194-1.07.622-1.957.217s-1.066-1.266-1.117-1.62S14 12.312 14 11.917c-1.33.23-2.596.754-3.527 1.48l-.05.04c-.368.288-.72.564-1.004.748a2.8 2.8 0 0 1-.622.314c-.235.08-.817.225-1.417-.127a1.7 1.7 0 0 1-.793-1.106 2.5 2.5 0 0 1-.048-.696c.017-.314.08-.716.14-1.11l.01-.064c.475-3.07 1.812-5.166 3.55-6.473a8.55 8.55 0 0 1 3.76-1.585v-.225c0-.363 0-.766.039-1.107Q13.1 1.999 12 2C7.286 2 4.929 2 3.464 3.464 2 4.93 2 7.286 2 12s0 7.071 1.464 8.535C4.93 22 7.286 22 12 22s7.071 0 8.535-1.465"/><path fill="currentColor" d="m17.155 2.434 2.357 2.043c1.623 1.406 2.434 2.11 2.434 3.023s-.811 1.616-2.434 3.023l-2.357 2.043c-.714.618-1.07.927-1.363.794-.292-.134-.292-.606-.292-1.55v-1.524c-2.124 0-4.374.698-5.95 1.93-.824.644-1.235.966-1.411.862s-.107-.553.032-1.452c.845-5.462 4.63-6.912 7.329-6.912V3.19c0-.944 0-1.416.292-1.55.293-.133.65.176 1.363.794"/></svg></div>
         <div class="name-row">
           <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'share-2')">share-2</span>
         </div>
-        <div class="meta">〰️ stroke · 0 0 24 24</div>
+        <div class="meta">◼ fill · 0 0 24 24</div>
         <div class="actions">
           <button class="copy-btn" onclick="copyImport('Share2')" title="Скопировать import">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
@@ -636,6 +705,29 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           </button>
         </div>
+      </div>
+      <div class="card" data-name="users Users" data-component="Users" data-kebab="users" data-type="fill">
+        <button class="delete" onclick="del('users')" title="Удалить">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="preview"><svg viewBox="-64 -128 768 768"><path d="M192 256c61.9 0 112-50.1 112-112S253.9 32 192 32 80 82.1 80 144s50.1 112 112 112m76.8 32h-8.3c-20.8 10-43.9 16-68.5 16s-47.6-6-68.5-16h-8.3C51.6 288 0 339.6 0 403.2V432c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48v-28.8c0-63.6-51.6-115.2-115.2-115.2M480 256c53 0 96-43 96-96s-43-96-96-96-96 43-96 96 43 96 96 96m48 32h-3.8c-13.9 4.8-28.6 8-44.2 8s-30.3-3.2-44.2-8H432c-20.4 0-39.2 5.9-55.7 15.4 24.4 26.3 39.7 61.2 39.7 99.8v38.4c0 2.2-.5 4.3-.6 6.4H592c26.5 0 48-21.5 48-48 0-61.9-50.1-112-112-112"/></svg></div>
+        <div class="name-row">
+          <span class="name" title="Двойной клик — переименовать" ondblclick="rename(this, 'users')">users</span>
+        </div>
+        <div class="meta">◼ fill · 0 -64 640 640</div>
+        <div class="actions">
+          <button class="copy-btn" onclick="copyImport('Users')" title="Скопировать import">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Import
+          </button>
+          <button class="copy-btn" onclick="copyComponent('Users')" title="Скопировать тег">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Тег
+          </button>
+          <button class="copy-btn" onclick="downloadSvg('users')" title="Скачать SVG">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </button>
+        </div>
       </div></div>
 </div>
 
@@ -658,7 +750,7 @@
 
 <script>
 const PKG = '@offevgeni/icons';
-const CURRENT_VERSION = '1.2.16';
+const CURRENT_VERSION = '1.2.17';
 let selectedBump = 'patch';
 let selectedCards = new Set();
 let modalCallback = null;
