@@ -2,6 +2,7 @@
   let {
     size = 24,
     color = 'currentColor',
+    strokeWidth = 1.5,
     title = '',
     class: className = '',
     ...rest
@@ -9,15 +10,19 @@
 </script>
 
 <svg
-  viewBox="0.4 0.4 31.2 31.2"
+  viewBox="1.2 1.2 21.6 21.6"
   width={size}
   height={size}
-  fill={color}
+  fill="none"
+  stroke={color}
+  stroke-width={strokeWidth}
+  stroke-linecap="round"
+  stroke-linejoin="round"
   class="icon icon-bar-chart-3{className ? ' ' + className : ''}"
   aria-hidden={!title}
   role={title ? "img" : "presentation"}
   {...rest}
 >
   {#if title}<title>{title}</title>{/if}
-  <path d="M29 10a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1zM9 16a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1zM19 4a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v24a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1z"/>
+  <path d="m21 3-7 6-4-4-7 6m1.5 10A1.5 1.5 0 0 1 3 19.5v-2a1.5 1.5 0 0 1 3 0v2A1.5 1.5 0 0 1 4.5 21m7 0a1.5 1.5 0 0 1-1.5-1.5v-5a1.5 1.5 0 0 1 3 0v5a1.5 1.5 0 0 1-1.5 1.5m7 0a1.5 1.5 0 0 1-1.5-1.5v-3a1.5 1.5 0 0 1 3 0v3a1.5 1.5 0 0 1-1.5 1.5"/>
 </svg>

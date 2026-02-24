@@ -1,7 +1,9 @@
 <script>
+  import ArrowLeftRight from './icons/ArrowLeftRight.svelte';
   import BarChart3 from './icons/BarChart3.svelte';
   import Bath from './icons/Bath.svelte';
   import Bed from './icons/Bed.svelte';
+  import Building from './icons/Building.svelte';
   import CreditCard from './icons/CreditCard.svelte';
   import DoorOpen from './icons/DoorOpen.svelte';
   import Heart from './icons/Heart.svelte';
@@ -11,7 +13,7 @@
   import List from './icons/List.svelte';
   import LogOut from './icons/LogOut.svelte';
   import Map from './icons/Map.svelte';
-  import Pet from './icons/Pet.svelte';
+  import Maximize from './icons/Maximize.svelte';
   import Plus from './icons/Plus.svelte';
   import Share2 from './icons/Share2.svelte';
   import ShieldCheck from './icons/ShieldCheck.svelte';
@@ -20,9 +22,11 @@
   import Users from './icons/Users.svelte';
 
   const iconMap = {
+    'arrow-left-right': ArrowLeftRight,
     'bar-chart-3': BarChart3,
     'bath': Bath,
     'bed': Bed,
+    'building': Building,
     'credit-card': CreditCard,
     'door-open': DoorOpen,
     'heart': Heart,
@@ -32,7 +36,7 @@
     'list': List,
     'log-out': LogOut,
     'map': Map,
-    'pet': Pet,
+    'maximize': Maximize,
     'plus': Plus,
     'share-2': Share2,
     'shield-check': ShieldCheck,

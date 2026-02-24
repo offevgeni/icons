@@ -2,6 +2,7 @@
   let {
     size = 24,
     color = 'currentColor',
+    strokeWidth = 1.5,
     title = '',
     class: className = '',
     ...rest
@@ -9,15 +10,19 @@
 </script>
 
 <svg
-  viewBox="-64 -128 768 768"
+  viewBox="0.91 0.67 22.17 22.17"
   width={size}
   height={size}
-  fill={color}
+  fill="none"
+  stroke={color}
+  stroke-width={strokeWidth}
+  stroke-linecap="round"
+  stroke-linejoin="round"
   class="icon icon-door-open{className ? ' ' + className : ''}"
   aria-hidden={!title}
   role={title ? "img" : "presentation"}
   {...rest}
 >
   {#if title}<title>{title}</title>{/if}
-  <path d="M624 448h-80V113.45C544 86.19 522.47 64 496 64H384v64h96v384h144c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16M312.24 1.01l-192 49.74C105.99 54.44 96 67.7 96 82.92V448H16c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16h336V33.18c0-21.58-19.56-37.41-39.76-32.17M264 288c-13.25 0-24-14.33-24-32s10.75-32 24-32 24 14.33 24 32-10.75 32-24 32"/>
+  <path d="M3 21h11V5.99c0-1.365 0-2.047-.281-2.52a2 2 0 0 0-1.093-.876c-.523-.172-1.189-.024-2.52.271l-2.6.578c-.894.199-1.341.298-1.675.539a2 2 0 0 0-.669.833C5 5.193 5 5.651 5 6.567V21m8.994-16H15.8c1.12 0 1.68 0 2.108.218a2 2 0 0 1 .874.874C19 6.52 19 7.08 19 8.2V21h2m-10-9h.01"/>
 </svg>

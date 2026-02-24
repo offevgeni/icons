@@ -2,6 +2,7 @@
   let {
     size = 24,
     color = 'currentColor',
+    strokeWidth = 1.5,
     title = '',
     class: className = '',
     ...rest
@@ -9,15 +10,19 @@
 </script>
 
 <svg
-  viewBox="-64 -128 768 768"
+  viewBox="1.2 1.2 21.6 21.6"
   width={size}
   height={size}
-  fill={color}
+  fill="none"
+  stroke={color}
+  stroke-width={strokeWidth}
+  stroke-linecap="round"
+  stroke-linejoin="round"
   class="icon icon-users{className ? ' ' + className : ''}"
   aria-hidden={!title}
   role={title ? "img" : "presentation"}
   {...rest}
 >
   {#if title}<title>{title}</title>{/if}
-  <path d="M192 256c61.9 0 112-50.1 112-112S253.9 32 192 32 80 82.1 80 144s50.1 112 112 112m76.8 32h-8.3c-20.8 10-43.9 16-68.5 16s-47.6-6-68.5-16h-8.3C51.6 288 0 339.6 0 403.2V432c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48v-28.8c0-63.6-51.6-115.2-115.2-115.2M480 256c53 0 96-43 96-96s-43-96-96-96-96 43-96 96 43 96 96 96m48 32h-3.8c-13.9 4.8-28.6 8-44.2 8s-30.3-3.2-44.2-8H432c-20.4 0-39.2 5.9-55.7 15.4 24.4 26.3 39.7 61.2 39.7 99.8v38.4c0 2.2-.5 4.3-.6 6.4H592c26.5 0 48-21.5 48-48 0-61.9-50.1-112-112-112"/>
+  <path d="M13 20v-2a5 5 0 0 0-10 0v2zm0 0h8v-1c0-2.945-2.239-5-5-5-1.413 0-2.69.626-3.6 1.631M11 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0m7 2a2 2 0 1 1-4 0 2 2 0 0 1 4 0"/>
 </svg>

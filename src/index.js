@@ -1,7 +1,9 @@
 // Файл сгенерирован автоматически — не редактируйте вручную
+export { default as ArrowLeftRight } from './icons/ArrowLeftRight.svelte';
 export { default as BarChart3 } from './icons/BarChart3.svelte';
 export { default as Bath } from './icons/Bath.svelte';
 export { default as Bed } from './icons/Bed.svelte';
+export { default as Building } from './icons/Building.svelte';
 export { default as CreditCard } from './icons/CreditCard.svelte';
 export { default as DoorOpen } from './icons/DoorOpen.svelte';
 export { default as Heart } from './icons/Heart.svelte';
@@ -11,7 +13,7 @@ export { default as LayoutGrid } from './icons/LayoutGrid.svelte';
 export { default as List } from './icons/List.svelte';
 export { default as LogOut } from './icons/LogOut.svelte';
 export { default as Map } from './icons/Map.svelte';
-export { default as Pet } from './icons/Pet.svelte';
+export { default as Maximize } from './icons/Maximize.svelte';
 export { default as Plus } from './icons/Plus.svelte';
 export { default as Share2 } from './icons/Share2.svelte';
 export { default as ShieldCheck } from './icons/ShieldCheck.svelte';
@@ -21,4 +23,4 @@ export { default as Users } from './icons/Users.svelte';
 
 export { default as Icon } from './Icon.svelte';
 
-export const iconNames = ['bar-chart-3', 'bath', 'bed', 'credit-card', 'door-open', 'heart', 'help-circle', 'home', 'layout-grid', 'list', 'log-out', 'map', 'pet', 'plus', 'share-2', 'shield-check', 'shield', 'user', 'users'];
+export const iconNames = ['arrow-left-right', 'bar-chart-3', 'bath', 'bed', 'building', 'credit-card', 'door-open', 'heart', 'help-circle', 'home', 'layout-grid', 'list', 'log-out', 'map', 'maximize', 'plus', 'share-2', 'shield-check', 'shield', 'user', 'users'];

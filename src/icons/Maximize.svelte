@@ -10,7 +10,7 @@
 </script>
 
 <svg
-  viewBox="1.2 1.2 21.6 21.6"
+  viewBox="2.4 2.4 19.2 19.2"
   width={size}
   height={size}
   fill="none"
@@ -18,11 +18,11 @@
   stroke-width={strokeWidth}
   stroke-linecap="round"
   stroke-linejoin="round"
-  class="icon icon-log-out{className ? ' ' + className : ''}"
+  class="icon icon-maximize{className ? ' ' + className : ''}"
   aria-hidden={!title}
   role={title ? "img" : "presentation"}
   {...rest}
 >
   {#if title}<title>{title}</title>{/if}
-  <path d="m16 17 5-5m0 0-5-5m5 5H9m0-9H7.8c-1.68 0-2.52 0-3.162.327a3 3 0 0 0-1.311 1.311C3 5.28 3 6.12 3 7.8v8.4c0 1.68 0 2.52.327 3.162a3 3 0 0 0 1.311 1.311C5.28 21 6.12 21 7.8 21H9"/>
+  <path d="m14 10 6-6m0 0h-4.5M20 4v4.5M4 4l6 6M4 4v4.5M4 4h4.5M14 14l6 6m0 0v-4.5m0 4.5h-4.5M10 14l-6 6m0 0h4.5M4 20v-4.5"/>
 </svg>
