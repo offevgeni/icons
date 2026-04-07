@@ -1,0 +1,18 @@
+<script>
+	export let size = 24;
+	export let title = undefined;
+</script>
+
+<svg
+	{...$$restProps}
+	xmlns="http://www.w3.org/2000/svg"
+	width={size}
+	height={size}
+	viewBox="0 0 24 24"
+	fill="currentColor"
+	role={title ? 'img' : 'presentation'}
+	aria-hidden={title ? undefined : 'true'}
+>
+	{#if title}<title>{title}</title>{/if}
+	{@html "<path id=\"Search-__search\" d=\"M18.5,18.12c-.78-.71-1.25-1.61-1.53-2.26,1.29-1.5,2.07-3.45,2.07-5.57,0-4.73-3.85-8.58-8.58-8.58S1.87,5.55,1.87,10.29s3.85,8.58,8.58,8.58c1.82,0,3.5-.57,4.89-1.54.38.75.93,1.6,1.73,2.33,1.85,1.7,4.16,2.59,4.25,2.63l.75-1.96s-2.04-.79-3.58-2.21ZM3.97,10.29c0-3.58,2.91-6.48,6.48-6.48s6.48,2.91,6.48,6.48-2.91,6.48-6.48,6.48-6.48-2.91-6.48-6.48Z\"/>"}
+</svg>

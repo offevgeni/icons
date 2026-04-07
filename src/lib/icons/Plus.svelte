@@ -8,10 +8,11 @@
 	xmlns="http://www.w3.org/2000/svg"
 	width={size}
 	height={size}
-	viewBox="0 0 28 28"
+	viewBox="0 0 24 24"
+	fill="currentColor"
 	role={title ? 'img' : 'presentation'}
 	aria-hidden={title ? undefined : 'true'}
 >
 	{#if title}<title>{title}</title>{/if}
-	{@html "<path d=\"M0 14h28M14 0v28\" data-name=\"Layer 1\" style=\"fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:2.2px\"/>"}
+	{@html "<polygon id=\"Plus-__plus\" points=\"22.13 10.95 13.05 10.95 13.05 1.87 10.95 1.87 10.95 10.95 1.87 10.95 1.87 13.05 10.95 13.05 10.95 22.13 13.05 22.13 13.05 13.05 22.13 13.05 22.13 10.95\"/>"}
 </svg>
