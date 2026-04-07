@@ -326,10 +326,10 @@
 		</section>
 
 		<section class="card section-card">
-			<div class="section-head">
-				<h2>1. Загрузка и генерация</h2>
-				<p>Загрузите SVG из Illustrator и выберите режим цвета.</p>
-			</div>
+				<div class="section-head">
+					<h2>1. Загрузка и генерация</h2>
+					<p>Загрузите SVG из Illustrator. Режим цвета фиксирован: ч/б (одноцветные).</p>
+				</div>
 
 			<div class="panel">
 				<input
@@ -341,16 +341,9 @@
 					onchange={(event) => (files = event.currentTarget.files)}
 				/>
 
-				<div class="control-row">
-					<label class="option-pill">
-						<input type="radio" bind:group={mode} value="mono" />
-						Monochrome (currentColor)
-					</label>
-					<label class="option-pill">
-						<input type="radio" bind:group={mode} value="original" />
-						Original colors
-					</label>
-				</div>
+					<div class="control-row">
+						<span class="option-pill">Ч/Б (currentColor), без цветовых искажений</span>
+					</div>
 
 				<div class="control-row">
 					<button class="btn btn-primary" type="button" onclick={generate} disabled={!files?.length || loading}>

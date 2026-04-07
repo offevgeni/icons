@@ -61,13 +61,41 @@ function toComponentName(fileName) {
 }
 
 function monoPaint(inner) {
-	return inner.replace(/\s(fill|stroke)=("([^"]*)"|'([^']*)')/gi, (full, attr, _quoted, dq, sq) => {
-		const value = String(dq ?? sq ?? '').trim();
-		if (!value) return full;
-		if (/^(none|currentColor)$/i.test(value)) return full;
-		if (/^url\(#/i.test(value)) return full;
-		return ` ${attr}="currentColor"`;
+	const withNormalizedStyle = inner.replace(/\sstyle=("([^"]*)"|'([^']*)')/gi, (full, _q, dq, sq) => {
+		const styleValue = String(dq ?? sq ?? '').trim();
+		if (!styleValue) return '';
+
+		const normalized = styleValue
+			.split(';')
+			.map((chunk) => chunk.trim())
+			.filter(Boolean)
+			.map((chunk) => {
+				const [rawProp, ...rest] = chunk.split(':');
+				if (!rawProp || !rest.length) return chunk;
+
+				const prop = rawProp.trim().toLowerCase();
+				const value = rest.join(':').trim();
+				if (!value) return chunk;
+
+				if (prop === 'fill' || prop === 'stroke') {
+					return `${rawProp.trim()}:${/^(none)$/i.test(value) ? 'none' : 'currentColor'}`;
+				}
+
+				return `${rawProp.trim()}:${value}`;
+			})
+			.join('; ');
+
+		return normalized ? ` style="${normalized}"` : '';
 	});
+
+	return withNormalizedStyle
+		.replace(/<style[\s\S]*?<\/style>/gi, '')
+		.replace(/\s(fill|stroke)=("([^"]*)"|'([^']*)')/gi, (full, attr, _quoted, dq, sq) => {
+			const value = String(dq ?? sq ?? '').trim();
+			if (!value) return full;
+			if (/^(none|currentColor)$/i.test(value)) return full;
+			return ` ${attr}="currentColor"`;
+		});
 }
 
 function optimizeSvgPreservingGeometry(raw, name) {
@@ -88,7 +116,7 @@ function optimizeSvgPreservingGeometry(raw, name) {
 function makeSvelteComponent(viewBox, inner) {
 	const body = JSON.stringify(inner);
 
-	return `<script>\n\texport let size = 24;\n\texport let title = undefined;\n</script>\n\n<svg\n\t{...$$restProps}\n\txmlns="http://www.w3.org/2000/svg"\n\twidth={size}\n\theight={size}\n\tviewBox="${viewBox}"\n\trole={title ? 'img' : 'presentation'}\n\taria-hidden={title ? undefined : 'true'}\n>\n\t{#if title}<title>{title}</title>{/if}\n\t{@html ${body}}\n</svg>\n`;
+	return `<script>\n\texport let size = 24;\n\texport let title = undefined;\n</script>\n\n<svg\n\t{...$$restProps}\n\txmlns="http://www.w3.org/2000/svg"\n\twidth={size}\n\theight={size}\n\tviewBox="${viewBox}"\n\tfill="currentColor"\n\trole={title ? 'img' : 'presentation'}\n\taria-hidden={title ? undefined : 'true'}\n>\n\t{#if title}<title>{title}</title>{/if}\n\t{@html ${body}}\n</svg>\n`;
 }
 
 function makeRawSvg(viewBox, inner) {
