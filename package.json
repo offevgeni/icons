@@ -2,7 +2,16 @@
 	"name": "@offevgeni/icons",
 	"private": false,
 	"version": "0.0.1",
+	"description": "Personal Svelte icon library by offevgeni",
+	"license": "MIT",
 	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/offevgeni/icons.git"
+	},
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com/"
+	},
 	"files": [
 		"src/lib/icons",
 		"src/lib/index.js",
@@ -17,7 +26,10 @@
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
-		"prepare": "svelte-kit sync || echo ''"
+		"prepare": "svelte-kit sync || echo ''",
+		"release:patch": "npm version patch && git push --follow-tags",
+		"release:minor": "npm version minor && git push --follow-tags",
+		"release:major": "npm version major && git push --follow-tags"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^7.0.0",

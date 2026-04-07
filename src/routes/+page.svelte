@@ -1,6 +1,9 @@
 <script>
 	import { onMount } from 'svelte';
 
+	const THEME_KEY = 'icon-studio-theme';
+
+	let theme = $state('light');
 	let files = $state(null);
 	let mode = $state('mono');
 	let loading = $state(false);
@@ -17,9 +20,18 @@
 	let commitMessage = $state('');
 	let pushAfterCommit = $state(true);
 
+	let releaseStatusLoading = $state(false);
+	let releaseStatus = $state(null);
+	let releaseLoading = $state(false);
+	let releaseResult = $state(null);
+	let releaseLevel = $state('patch');
+	let releasePush = $state(true);
+	let npmTokenInput = $state('');
+	let npmTokenSaving = $state(false);
+
 	let toast = $state({
 		show: false,
-		type: 'success', // success | error | info
+		type: 'success',
 		text: ''
 	});
 
@@ -28,14 +40,41 @@
 	let filteredIcons = $derived.by(() => {
 		const q = query.trim().toLowerCase();
 		if (!q) return icons;
-		return icons.filter((i) => i.name.toLowerCase().includes(q));
+		return icons.filter((icon) => icon.name.toLowerCase().includes(q));
 	});
+
+	let summary = $derived(result?.summary ?? null);
+	let releaseNextVersion = $derived.by(() => {
+		const version = releaseStatus?.effectiveBaseVersion || releaseStatus?.currentVersion;
+		const match = String(version ?? '').match(/^(\d+)\.(\d+)\.(\d+)$/);
+		if (!match) return 'n/a';
+
+		const major = Number(match[1]);
+		const minor = Number(match[2]);
+		const patch = Number(match[3]);
+
+		if (releaseLevel === 'major') return `${major + 1}.0.0`;
+		if (releaseLevel === 'minor') return `${major}.${minor + 1}.0`;
+		return `${major}.${minor}.${patch + 1}`;
+	});
+
+	let fileCount = $derived(files?.length ?? 0);
+
+	function applyTheme(nextTheme, persist = true) {
+		theme = nextTheme === 'dark' ? 'dark' : 'light';
+		document.documentElement.dataset.theme = theme;
+		if (persist) localStorage.setItem(THEME_KEY, theme);
+	}
+
+	function toggleTheme() {
+		applyTheme(theme === 'dark' ? 'light' : 'dark');
+	}
 
 	function showToast(text, type = 'success') {
 		toast = { show: true, text, type };
 		setTimeout(() => {
 			toast = { ...toast, show: false };
-		}, 1800);
+		}, 1900);
 	}
 
 	async function readJsonSafe(res) {
@@ -47,17 +86,21 @@
 		}
 	}
 
+	function summaryText(value) {
+		const created = Number(value?.created ?? 0);
+		const updated = Number(value?.updated ?? 0);
+		const unchanged = Number(value?.unchanged ?? 0);
+		return `Создано: ${created}, обновлено: ${updated}, без изменений: ${unchanged}`;
+	}
+
 	async function refreshIcons() {
 		try {
 			const res = await fetch('/api/icons');
 			const data = await readJsonSafe(res);
-			if (data.ok) {
-				icons = data.icons ?? [];
-			} else {
-				showToast(data.error || 'Не удалось получить список иконок', 'error');
-			}
-		} catch (e) {
-			showToast(e?.message || 'Ошибка загрузки списка', 'error');
+			if (!data.ok) throw new Error(data.error || 'Не удалось получить список иконок');
+			icons = data.icons ?? [];
+		} catch (error) {
+			showToast(error?.message || 'Ошибка загрузки списка', 'error');
 		}
 	}
 
@@ -68,23 +111,38 @@
 			const data = await readJsonSafe(res);
 			if (!data.ok) throw new Error(data.error || 'Не удалось получить git-статус');
 			gitStatus = data.status;
-		} catch (e) {
-			showToast(e?.message || 'Ошибка получения git-статуса', 'error');
+		} catch (error) {
+			showToast(error?.message || 'Ошибка получения git-статуса', 'error');
 		} finally {
 			gitStatusLoading = false;
 		}
 	}
 
-	onMount(async () => {
-		await Promise.all([refreshIcons(), refreshGitStatus()]);
-	});
-
-	function summaryText(summary) {
-		const created = Number(summary?.created ?? 0);
-		const updated = Number(summary?.updated ?? 0);
-		const unchanged = Number(summary?.unchanged ?? 0);
-		return `Создано: ${created}, обновлено: ${updated}, без изменений: ${unchanged}`;
+	async function refreshReleaseStatus() {
+		releaseStatusLoading = true;
+		try {
+			const res = await fetch('/api/release');
+			const data = await readJsonSafe(res);
+			if (!data.ok) throw new Error(data.error || 'Не удалось получить release-статус');
+			releaseStatus = data.status;
+		} catch (error) {
+			showToast(error?.message || 'Ошибка получения release-статуса', 'error');
+		} finally {
+			releaseStatusLoading = false;
+		}
 	}
+
+	onMount(async () => {
+		const savedTheme = localStorage.getItem(THEME_KEY);
+		const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+		if (savedTheme === 'light' || savedTheme === 'dark') {
+			applyTheme(savedTheme, false);
+		} else {
+			applyTheme(prefersDark ? 'dark' : 'light', false);
+		}
+
+		await Promise.all([refreshIcons(), refreshGitStatus(), refreshReleaseStatus()]);
+	});
 
 	async function generate() {
 		if (!files?.length) return;
@@ -94,25 +152,23 @@
 
 		try {
 			const fd = new FormData();
-			for (const f of Array.from(files)) fd.append('files', f);
+			for (const file of Array.from(files)) fd.append('files', file);
 			fd.append('mode', mode);
 
 			const res = await fetch('/api/icons', { method: 'POST', body: fd });
 			const data = await readJsonSafe(res);
 			result = data;
 
-			if (data?.ok) {
-				icons = data.icons ?? [];
-				files = null;
-				if (fileInput) fileInput.value = '';
-				showToast(summaryText(data.summary), 'success');
-				await refreshGitStatus();
-			} else {
-				showToast(data?.error || 'Ошибка генерации', 'error');
-			}
-		} catch (e) {
-			result = { ok: false, error: e?.message || 'Ошибка запроса' };
-			showToast(e?.message || 'Ошибка запроса', 'error');
+			if (!data?.ok) throw new Error(data?.error || 'Ошибка генерации');
+
+			icons = data.icons ?? [];
+			files = null;
+			if (fileInput) fileInput.value = '';
+			showToast(summaryText(data.summary), 'success');
+			await refreshGitStatus();
+		} catch (error) {
+			result = { ok: false, error: error?.message || 'Ошибка запроса' };
+			showToast(error?.message || 'Ошибка запроса', 'error');
 		} finally {
 			loading = false;
 		}
@@ -126,8 +182,8 @@
 
 			await Promise.all([refreshIcons(), refreshGitStatus()]);
 			showToast(`Удалено: ${name}`, 'info');
-		} catch (e) {
-			showToast(e?.message || 'Ошибка удаления', 'error');
+		} catch (error) {
+			showToast(error?.message || 'Ошибка удаления', 'error');
 		}
 	}
 
@@ -141,8 +197,8 @@
 
 			await Promise.all([refreshIcons(), refreshGitStatus()]);
 			showToast('Библиотека очищена', 'info');
-		} catch (e) {
-			showToast(e?.message || 'Ошибка очистки', 'error');
+		} catch (error) {
+			showToast(error?.message || 'Ошибка очистки', 'error');
 		}
 	}
 
@@ -180,218 +236,357 @@
 				showToast(`Опубликовано: ${data.commitHash}`, 'success');
 				commitMessage = '';
 			} else {
-				showToast(`Commit создан: ${data.commitHash}. Push: проверьте статус`, 'info');
+				showToast(`Commit создан: ${data.commitHash}`, 'info');
 			}
-		} catch (e) {
-			showToast(e?.message || 'Ошибка публикации', 'error');
+		} catch (error) {
+			showToast(error?.message || 'Ошибка публикации', 'error');
 		} finally {
 			publishLoading = false;
 		}
 	}
+
+	async function publishNpmRelease() {
+		releaseLoading = true;
+		releaseResult = null;
+
+		try {
+			const res = await fetch('/api/release', {
+				method: 'POST',
+				headers: { 'content-type': 'application/json' },
+				body: JSON.stringify({ level: releaseLevel, push: releasePush })
+			});
+			const data = await readJsonSafe(res);
+			if (!data.ok) throw new Error(data.error || 'Ошибка релиза GitHub Packages');
+
+			releaseResult = data;
+			releaseStatus = data.status ?? releaseStatus;
+
+			if (data.warnings?.length) {
+				showToast(`Релиз ${data.nextVersion} опубликован с предупреждениями`, 'info');
+			} else {
+				showToast(`Релиз ${data.nextVersion} опубликован в GitHub Packages`, 'success');
+			}
+
+			await refreshGitStatus();
+		} catch (error) {
+			showToast(error?.message || 'Ошибка релиза GitHub Packages', 'error');
+		} finally {
+			releaseLoading = false;
+		}
+	}
+
+	async function saveNpmToken() {
+		if (!npmTokenInput.trim()) {
+			showToast('Введите GitHub token', 'error');
+			return;
+		}
+
+		npmTokenSaving = true;
+		try {
+			const res = await fetch('/api/release', {
+				method: 'POST',
+				headers: { 'content-type': 'application/json' },
+				body: JSON.stringify({ action: 'set-token', token: npmTokenInput.trim() })
+			});
+			const data = await readJsonSafe(res);
+			if (!data.ok) throw new Error(data.error || 'Не удалось сохранить GitHub token');
+
+			releaseStatus = data.status ?? releaseStatus;
+			npmTokenInput = '';
+			showToast('GitHub token сохранен', 'success');
+		} catch (error) {
+			showToast(error?.message || 'Ошибка сохранения GitHub токена', 'error');
+		} finally {
+			npmTokenSaving = false;
+		}
+	}
 </script>
 
-<main class="min-h-screen bg-slate-950 text-slate-100 p-6 md:p-10">
-	<div class="mx-auto max-w-6xl space-y-6">
-		<div class="flex flex-wrap items-center justify-between gap-3">
-			<h1 class="text-3xl font-bold">Icon Studio</h1>
-			<div class="text-sm text-slate-300">
-				Всего иконок: <span class="font-semibold">{icons.length}</span>
-			</div>
-		</div>
-
-		<div class="rounded-2xl border border-slate-800 bg-slate-900 p-5 space-y-4">
-			<div class="text-sm text-slate-300">
-				Загрузите SVG-файлы, экспортированные из Adobe Illustrator, и выберите режим цвета.
+<main class="page">
+	<div class="app-shell">
+		<header class="hero card">
+			<div>
+				<p class="hero-kicker">Personal Icon Pipeline</p>
+				<h1>Icon Studio</h1>
+				<p class="hero-text">Простой процесс: загрузили SVG, сгенерировали иконки, нажали публикацию в Git и релиз в GitHub Packages.</p>
 			</div>
 
-			<input
-				bind:this={fileInput}
-				class="block w-full text-sm file:mr-4 file:rounded-lg file:border-0 file:bg-indigo-600 file:px-4 file:py-2 file:text-white hover:file:bg-indigo-500"
-				type="file"
-				accept=".svg,image/svg+xml"
-				multiple
-				onchange={(e) => (files = e.currentTarget.files)}
-			/>
-
-			<div class="flex flex-wrap gap-6 text-sm">
-				<label class="flex items-center gap-2">
-					<input type="radio" bind:group={mode} value="mono" />
-					Monochrome (`currentColor`)
-				</label>
-
-				<label class="flex items-center gap-2">
-					<input type="radio" bind:group={mode} value="original" />
-					Original colors
-				</label>
-			</div>
-
-			<div class="flex flex-wrap gap-3">
-				<button
-					class="rounded-xl bg-emerald-600 px-4 py-2 font-medium hover:bg-emerald-500 disabled:opacity-50"
-					onclick={generate}
-					disabled={!files?.length || loading}
-				>
-					{loading ? 'Генерирую...' : 'Сгенерировать'}
-				</button>
-
-				<button
-					class="rounded-xl bg-rose-700 px-4 py-2 font-medium hover:bg-rose-600 disabled:opacity-50"
-					onclick={clearAll}
-					disabled={!icons.length || loading}
-				>
-					Очистить всё
+			<div class="hero-actions">
+				<button class="btn btn-secondary" type="button" onclick={toggleTheme}>
+					Тема: {theme === 'dark' ? 'Темная' : 'Светлая'}
 				</button>
 			</div>
-		</div>
+		</header>
 
-		<div class="rounded-2xl border border-slate-800 bg-slate-900 p-5 space-y-4">
-			<div class="flex flex-wrap items-center justify-between gap-3">
-				<h2 class="text-lg font-semibold">Git публикация</h2>
-				<button
-					class="rounded-lg bg-slate-800 px-3 py-1 text-xs hover:bg-slate-700 disabled:opacity-50"
-					onclick={refreshGitStatus}
-					disabled={gitStatusLoading || publishLoading}
-				>
-					{gitStatusLoading ? 'Обновляю...' : 'Обновить статус'}
-				</button>
+		<section class="status-row">
+			<div class="status-chip"><span>Иконок</span><strong>{icons.length}</strong></div>
+			<div class="status-chip"><span>Файлов выбрано</span><strong>{fileCount}</strong></div>
+			<div class="status-chip"><span>Ветка</span><strong>{gitStatus?.branch || '...'}</strong></div>
+			<div class="status-chip"><span>GitHub Packages</span><strong>{releaseStatus?.npmUser || 'нет авторизации'}</strong></div>
+		</section>
+
+		<section class="card section-card">
+			<div class="section-head">
+				<h2>1. Загрузка и генерация</h2>
+				<p>Загрузите SVG из Illustrator и выберите режим цвета.</p>
 			</div>
 
-			{#if gitStatus}
-				<div class="grid gap-2 text-sm md:grid-cols-2">
-					<div>Ветка: <span class="font-semibold">{gitStatus.branch}</span></div>
-					<div>
-						Upstream:
-						<span class="font-semibold">{gitStatus.upstream || 'не настроен'}</span>
-					</div>
-					<div>
-						Изменений в иконках:
-						<span class="font-semibold">{gitStatus.iconChangesCount}</span>
-					</div>
-					<div>
-						Ahead/Behind:
-						<span class="font-semibold">{gitStatus.ahead}/{gitStatus.behind}</span>
-					</div>
+			<div class="panel">
+				<input
+					bind:this={fileInput}
+					class="input-file"
+					type="file"
+					accept=".svg,image/svg+xml"
+					multiple
+					onchange={(event) => (files = event.currentTarget.files)}
+				/>
+
+				<div class="control-row">
+					<label class="option-pill">
+						<input type="radio" bind:group={mode} value="mono" />
+						Monochrome (currentColor)
+					</label>
+					<label class="option-pill">
+						<input type="radio" bind:group={mode} value="original" />
+						Original colors
+					</label>
 				</div>
 
-				{#if gitStatus.iconChangesCount > 0}
-					<div class="rounded-xl border border-slate-800 bg-slate-950 p-3 text-xs text-slate-300 max-h-32 overflow-auto">
+				<div class="control-row">
+					<button class="btn btn-primary" type="button" onclick={generate} disabled={!files?.length || loading}>
+						{loading ? 'Генерирую...' : 'Сгенерировать'}
+					</button>
+					<button class="btn btn-danger" type="button" onclick={clearAll} disabled={!icons.length || loading}>
+						Очистить библиотеку
+					</button>
+				</div>
+			</div>
+
+			{#if summary}
+				<p class="inline-note inline-note-success">{summaryText(summary)}</p>
+			{/if}
+		</section>
+
+		<section class="grid-two">
+			<article class="card section-card">
+				<div class="section-head with-action">
+					<div>
+						<h2>2. Публикация в Git</h2>
+						<p>Коммит и push только изменений библиотеки иконок.</p>
+					</div>
+					<button
+						class="btn btn-secondary"
+						type="button"
+						onclick={refreshGitStatus}
+						disabled={gitStatusLoading || publishLoading}
+					>
+						{gitStatusLoading ? 'Обновляю...' : 'Обновить'}
+					</button>
+				</div>
+
+				<div class="meta-grid">
+					<div><span>Upstream</span><strong>{gitStatus?.upstream || 'не настроен'}</strong></div>
+					<div><span>Изменений в иконках</span><strong>{gitStatus?.iconChangesCount ?? 0}</strong></div>
+					<div><span>Ahead</span><strong>{gitStatus?.ahead ?? 0}</strong></div>
+					<div><span>Behind</span><strong>{gitStatus?.behind ?? 0}</strong></div>
+				</div>
+
+				{#if gitStatus?.iconChangesCount > 0}
+					<div class="scroll-list">
 						{#each gitStatus.iconChanges as file}
 							<div>{file}</div>
 						{/each}
 					</div>
 				{/if}
-			{:else}
-				<p class="text-sm text-slate-400">Статус Git еще не загружен.</p>
-			{/if}
 
-			<div class="space-y-3">
-				<input
-					class="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-sm outline-none focus:border-indigo-500"
-					placeholder="Commit message (опционально)"
-					bind:value={commitMessage}
-				/>
+				<div class="stack">
+					<input
+						class="input"
+						placeholder="Commit message (опционально)"
+						bind:value={commitMessage}
+					/>
 
-				<label class="flex items-center gap-2 text-sm">
-					<input type="checkbox" bind:checked={pushAfterCommit} />
-					Сразу сделать push после commit
-				</label>
+					<label class="inline-check">
+						<input type="checkbox" bind:checked={pushAfterCommit} />
+						Сразу делать push
+					</label>
 
-				<button
-					class="rounded-xl bg-indigo-600 px-4 py-2 font-medium hover:bg-indigo-500 disabled:opacity-50"
-					onclick={publishToGit}
-					disabled={publishLoading || gitStatusLoading}
-				>
-					{publishLoading ? 'Публикую...' : 'Опубликовать в Git'}
-				</button>
-			</div>
-
-			{#if publishResult}
-				<div class="rounded-xl border border-slate-800 bg-slate-950 p-3 text-xs text-slate-300 space-y-2">
-					{#if publishResult.skipped}
-						<div>{publishResult.message}</div>
-					{:else}
-						<div>Commit: <span class="font-semibold">{publishResult.commitHash}</span></div>
-						<div>{publishResult.commitMessage}</div>
-						{#if publishResult.pushMessage}
-							<div>{publishResult.pushMessage}</div>
-						{/if}
-					{/if}
+					<button
+						class="btn btn-accent"
+						type="button"
+						onclick={publishToGit}
+						disabled={publishLoading || gitStatusLoading}
+					>
+						{publishLoading ? 'Публикую...' : 'Опубликовать в Git'}
+					</button>
 				</div>
-			{/if}
-		</div>
 
-		<div class="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-			<div class="mb-4 flex items-center justify-between gap-3">
-				<h2 class="text-lg font-semibold">Библиотека</h2>
-				<div class="text-xs text-slate-400">Найдено: {filteredIcons.length}</div>
+				{#if publishResult}
+					<div class="result-box">
+						{#if publishResult.skipped}
+							<div>{publishResult.message}</div>
+						{:else}
+							<div>Commit: <strong>{publishResult.commitHash}</strong></div>
+							<div>{publishResult.commitMessage}</div>
+							{#if publishResult.pushMessage}
+								<div>{publishResult.pushMessage}</div>
+							{/if}
+						{/if}
+					</div>
+				{/if}
+			</article>
+
+			<article class="card section-card">
+				<div class="section-head with-action">
+					<div>
+						<h2>3. Релиз в GitHub Packages</h2>
+						<p>Выбор версии и публикация пакета кнопкой.</p>
+					</div>
+					<button
+						class="btn btn-secondary"
+						type="button"
+						onclick={refreshReleaseStatus}
+						disabled={releaseStatusLoading || releaseLoading}
+					>
+						{releaseStatusLoading ? 'Обновляю...' : 'Обновить'}
+					</button>
+				</div>
+
+				<div class="meta-grid">
+					<div><span>Пакет</span><strong>{releaseStatus?.packageName || '-'}</strong></div>
+					<div><span>Локальная версия</span><strong>{releaseStatus?.currentVersion || '-'}</strong></div>
+					<div><span>Последняя версия</span><strong>{releaseStatus?.latestPublishedVersion || '-'}</strong></div>
+					<div><span>GitHub user</span><strong>{releaseStatus?.npmUser || 'не авторизован'}</strong></div>
+				</div>
+
+				{#if releaseStatus?.localVersionBehindPublished}
+					<div class="token-box">
+						<p>
+							Локальная версия ниже опубликованной ({releaseStatus.currentVersion} меньше чем {releaseStatus.latestPublishedVersion}).
+							Релиз будет считаться от {releaseStatus.effectiveBaseVersion}.
+						</p>
+					</div>
+				{/if}
+
+				{#if releaseStatus && !releaseStatus.npmReady}
+					<div class="token-box">
+						<p>Вставьте GitHub token (scope: read:packages, write:packages) для публикации релизов.</p>
+						<div class="token-row">
+							<input
+								class="input"
+								placeholder="GitHub token (ghp_... или github_pat_...)"
+								bind:value={npmTokenInput}
+							/>
+							<button class="btn btn-warning" type="button" onclick={saveNpmToken} disabled={npmTokenSaving}>
+								{npmTokenSaving ? 'Сохраняю...' : 'Сохранить токен'}
+							</button>
+						</div>
+					</div>
+				{/if}
+
+				<div class="panel">
+					<div class="control-row">
+						<label class="option-pill">
+							<input type="radio" bind:group={releaseLevel} value="patch" />
+							patch
+						</label>
+						<label class="option-pill">
+							<input type="radio" bind:group={releaseLevel} value="minor" />
+							minor
+						</label>
+						<label class="option-pill">
+							<input type="radio" bind:group={releaseLevel} value="major" />
+							major
+						</label>
+					</div>
+
+					<p class="inline-note">Следующая версия: <strong>{releaseNextVersion}</strong></p>
+
+					<label class="inline-check">
+						<input type="checkbox" bind:checked={releasePush} />
+						Push commit и tag после публикации
+					</label>
+
+					<button
+						class="btn btn-release"
+						type="button"
+						onclick={publishNpmRelease}
+						disabled={releaseLoading || releaseStatusLoading || !releaseStatus?.npmReady}
+					>
+						{releaseLoading ? 'Публикую в GitHub Packages...' : 'Опубликовать релиз в GitHub Packages'}
+					</button>
+				</div>
+
+				{#if releaseResult}
+					<div class="result-box">
+						<div>
+							Релиз: <strong>{releaseResult.currentVersion} -> {releaseResult.nextVersion}</strong>
+						</div>
+						{#if releaseResult.baseVersion && releaseResult.baseVersion !== releaseResult.currentVersion}
+							<div>База версии для bump: {releaseResult.baseVersion}</div>
+						{/if}
+						{#if releaseResult.tagName}
+							<div>Tag: {releaseResult.tagName}</div>
+						{/if}
+						{#if releaseResult.commitHash}
+							<div>Commit: {releaseResult.commitHash}</div>
+						{/if}
+						{#if releaseResult.warnings?.length}
+							{#each releaseResult.warnings as warning}
+								<div class="warn-text">{warning}</div>
+							{/each}
+						{/if}
+					</div>
+				{/if}
+			</article>
+		</section>
+
+		<section class="card section-card">
+			<div class="section-head with-action">
+				<div>
+					<h2>4. Библиотека иконок</h2>
+					<p>Поиск, предпросмотр, копирование импорта и удаление.</p>
+				</div>
+				<div class="library-count">Найдено: {filteredIcons.length}</div>
 			</div>
 
-			<input
-				class="mb-4 w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-sm outline-none focus:border-indigo-500"
-				placeholder="Поиск иконки по имени..."
-				bind:value={query}
-			/>
+			<input class="input" placeholder="Поиск по имени иконки..." bind:value={query} />
 
 			{#if !filteredIcons.length}
-				<p class="text-slate-400 text-sm">Ничего не найдено (или библиотека пока пустая).</p>
+				<p class="empty-note">Иконки не найдены. Загрузите SVG, чтобы собрать библиотеку.</p>
 			{:else}
-				<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+				<div class="icons-grid">
 					{#each filteredIcons as icon}
-						<div class="rounded-xl border border-slate-800 p-3 bg-slate-950">
-							<div class="h-16 rounded-lg bg-slate-800 text-indigo-300 flex items-center justify-center [&_svg]:w-10 [&_svg]:h-10">
-								{@html icon.svg}
-							</div>
+						<article class="icon-card">
+							<div class="icon-preview">{@html icon.svg}</div>
+							<div class="icon-name">{icon.name}</div>
+							<div class="icon-import">{`import { ${icon.name} } from '@offevgeni/icons';`}</div>
 
-							<div class="mt-2 text-xs truncate font-medium">{icon.name}</div>
-							<div class="mt-1 text-[10px] text-slate-400 truncate">
-								{`import { ${icon.name} } from '@offevgeni/icons';`}
-							</div>
-
-							<div class="mt-2 flex gap-2">
-								<button
-									class="w-full rounded-lg bg-indigo-700 py-1 text-xs hover:bg-indigo-600"
-									onclick={() => copyImport(icon.name)}
-								>
-									{copied === icon.name ? 'Скопировано ✓' : 'Копировать импорт'}
+							<div class="icon-actions">
+								<button class="btn btn-secondary" type="button" onclick={() => copyImport(icon.name)}>
+									{copied === icon.name ? 'Скопировано' : 'Копировать'}
 								</button>
-
-								<button
-									class="w-full rounded-lg bg-slate-800 py-1 text-xs hover:bg-slate-700"
-									onclick={() => removeIcon(icon.name)}
-								>
+								<button class="btn btn-danger" type="button" onclick={() => removeIcon(icon.name)}>
 									Удалить
 								</button>
 							</div>
-						</div>
+						</article>
 					{/each}
 				</div>
 			{/if}
-		</div>
+		</section>
 
 		{#if result}
-			<div class="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-				<h2 class="mb-3 text-lg font-semibold">Последняя генерация</h2>
-				{#if result.summary}
-					<div class="mb-3 text-sm text-slate-300">{summaryText(result.summary)}</div>
-				{/if}
-				<pre class="text-xs text-slate-200 overflow-auto">{JSON.stringify(result, null, 2)}</pre>
-			</div>
+			<details class="card section-card debug-block">
+				<summary>Технический ответ API</summary>
+				<pre>{JSON.stringify(result, null, 2)}</pre>
+			</details>
 		{/if}
 	</div>
 
 	{#if toast.show}
-		<div class="fixed right-4 top-4 z-50">
-			<div
-				class={`rounded-xl px-4 py-2 text-sm shadow-lg border ${
-					toast.type === 'error'
-						? 'bg-rose-900/90 border-rose-700 text-rose-100'
-						: toast.type === 'info'
-							? 'bg-sky-900/90 border-sky-700 text-sky-100'
-							: 'bg-emerald-900/90 border-emerald-700 text-emerald-100'
-				}`}
-			>
-				{toast.text}
-			</div>
+		<div class="toast-wrap">
+			<div class={`toast toast-${toast.type}`}>{toast.text}</div>
 		</div>
 	{/if}
 </main>
