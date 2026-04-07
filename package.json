@@ -1,34 +1,38 @@
 {
-  "name": "@offevgeni/icons",
-  "version": "2.0.0",
-  "type": "module",
-  "svelte": "./src/index.js",
-  "main": "./src/index.js",
-  "exports": {
-    ".": {
-      "svelte": "./src/index.js",
-      "default": "./src/index.js"
-    }
-  },
-  "files": [
-    "src"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/offevgeni/icons.git"
-  },
-  "scripts": {
-    "build": "node scripts/build.js",
-    "dev": "node scripts/dev.js",
-    "prepublishOnly": "npm run build"
-  },
-  "peerDependencies": {
-    "svelte": "^5.0.0"
-  },
-  "devDependencies": {
-    "svgo": "^3.2.0"
-  },
-  "dependencies": {
-    "svg-path-bbox": "^2.1.0"
-  }
+	"name": "@offevgeni/icons",
+	"private": false,
+	"version": "0.0.1",
+	"type": "module",
+	"files": [
+		"src/lib/icons",
+		"src/lib/index.js",
+		"README.md"
+	],
+	"svelte": "./src/lib/index.js",
+	"exports": {
+		".": "./src/lib/index.js",
+		"./icons": "./src/lib/icons/index.js"
+	},
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"prepare": "svelte-kit sync || echo ''"
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-auto": "^7.0.0",
+		"@sveltejs/kit": "^2.50.2",
+		"@sveltejs/vite-plugin-svelte": "^6.2.4",
+		"@tailwindcss/vite": "^4.1.18",
+		"svelte": "^5.54.0",
+		"tailwindcss": "^4.1.18",
+		"vite": "^7.3.1"
+	},
+	"dependencies": {
+		"change-case": "^5.4.4",
+		"svgo": "^4.0.1"
+	},
+	"peerDependencies": {
+		"svelte": "^5.0.0"
+	}
 }
