@@ -1,0 +1,17 @@
+<script>
+	export let size = 24;
+	export let title = undefined;
+</script>
+
+<svg
+	{...$$restProps}
+	xmlns="http://www.w3.org/2000/svg"
+	width={size}
+	height={size}
+	viewBox="0 0 31.92 28.79"
+	role={title ? 'img' : 'presentation'}
+	aria-hidden={title ? undefined : 'true'}
+>
+	{#if title}<title>{title}</title>{/if}
+	{@html "<path d=\"M15.96 28.79c0-2.13-2.68-6.08-5.69-8.28-3.33-2.43-6.79-4.19-8.29-7.41C-.26 8.3 2.05 2.68 6 1.48 8.26.79 14.08.24 15.46 7.45c.5 2.61.5 6.02.5 6.02s0-3.41.5-6.02c1.38-7.21 7.2-6.66 9.46-5.97 3.95 1.2 6.26 6.82 4.02 11.63-1.5 3.22-4.96 4.98-8.29 7.41-3.01 2.2-5.7 6.15-5.7 8.28Z\" data-name=\"Layer 1\" style=\"fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:2.2px\"/>"}
+</svg>
