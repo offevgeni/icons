@@ -1,7 +1,11 @@
+export { default as ArrowBack } from './ArrowBack.svelte';
 export { default as ArrowLeftRight } from './ArrowLeftRight.svelte';
+export { default as Check } from './Check.svelte';
 export { default as ChevronLeft } from './ChevronLeft.svelte';
 export { default as ChevronRight } from './ChevronRight.svelte';
+export { default as CreditCard } from './CreditCard.svelte';
 export { default as Exit } from './Exit.svelte';
+export { default as Expand } from './Expand.svelte';
 export { default as Heart } from './Heart.svelte';
 export { default as HeartFill } from './HeartFill.svelte';
 export { default as Home } from './Home.svelte';
@@ -9,4 +13,5 @@ export { default as Info } from './Info.svelte';
 export { default as Plus } from './Plus.svelte';
 export { default as Search } from './Search.svelte';
 export { default as Share } from './Share.svelte';
+export { default as Shield } from './Shield.svelte';
 export { default as User } from './User.svelte';
