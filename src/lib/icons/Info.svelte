@@ -1,0 +1,18 @@
+<script>
+	export let size = 24;
+	export let title = undefined;
+</script>
+
+<svg
+	{...$$restProps}
+	xmlns="http://www.w3.org/2000/svg"
+	width={size}
+	height={size}
+	viewBox="0 0 24 24"
+	fill="currentColor"
+	role={title ? 'img' : 'presentation'}
+	aria-hidden={title ? undefined : 'true'}
+>
+	{#if title}<title>{title}</title>{/if}
+	{@html "<defs></defs><path id=\"Info-__help\" class=\"Info-__cls-1\" d=\"M20.25,12c0,4.56-3.69,8.25-8.25,8.25S3.75,16.56,3.75,12,7.44,3.75,12,3.75s8.25,3.69,8.25,8.25ZM12,22.32c5.7,0,10.32-4.62,10.32-10.32S17.7,1.68,12,1.68,1.68,6.3,1.68,12s4.62,10.32,10.32,10.32ZM10.45,8.39c0,.85.69,1.55,1.55,1.55s1.55-.69,1.55-1.55-.69-1.55-1.55-1.55-1.55.69-1.55,1.55ZM13.03,12v5.16h-2.06v-5.16h2.06Z\"/>"}
+</svg>
