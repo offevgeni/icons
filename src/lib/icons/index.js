@@ -3,6 +3,7 @@ export { default as ChevronLeft } from './ChevronLeft.svelte';
 export { default as ChevronRight } from './ChevronRight.svelte';
 export { default as Exit } from './Exit.svelte';
 export { default as Heart } from './Heart.svelte';
+export { default as HeartFill } from './HeartFill.svelte';
 export { default as Home } from './Home.svelte';
 export { default as Info } from './Info.svelte';
 export { default as Plus } from './Plus.svelte';
